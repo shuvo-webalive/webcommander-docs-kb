@@ -33,6 +33,12 @@
       "title": "Working with store settings through the API",
       "subtitle": "Read and change a store's details, stock and pricing rules, customer portal, search, SEO and shipping settings",
       "summary": "Common store settings tasks, all fifty-four endpoints across nine areas, and what to watch for."
+    },
+    {
+      "file": "06-shipping.html",
+      "title": "Working with shipping methods and classes through the API",
+      "subtitle": "List, create, rename and delete shipping methods and classes, and choose the default for each",
+      "summary": "Common shipping tasks, all eighteen endpoints, and what to watch for."
     }
   ]
 }
