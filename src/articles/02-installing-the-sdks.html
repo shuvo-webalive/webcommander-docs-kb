@@ -10,7 +10,7 @@
 <h2 style="{{style:h2}}">How installation works</h2>
 
 <p style="{{style:step-row}}"><span style="{{style:step}}">1</span><strong>Clone the SDK's repository.</strong> Use the <code style="{{style:code}}">development</code> branch; it is the main branch.</p>
-<p style="{{style:step-row}}"><span style="{{style:step}}">2</span><strong>Run one command in the clone</strong> to make it ready, for example <code style="{{style:code}}">npm install</code> for JavaScript.</p>
+<p style="{{style:step-row}}"><span style="{{style:step}}">2</span><strong>Run one command in the clone</strong> to install its dependencies or build it, for example <code style="{{style:code}}">npm install</code> for JavaScript. The table below lists the command for each language.</p>
 <p style="{{style:step-row}}"><span style="{{style:step}}">3</span><strong>Point your project at the clone.</strong> Keep the clone next to your project, because the paths are relative.</p>
 
 <h2 style="{{style:h2}}">What each SDK needs</h2>
@@ -69,7 +69,7 @@
 <h2 style="{{style:h2}}">Troubleshooting</h2>
 
 <h3 style="{{style:h3}}">The SDK files are missing after cloning</h3>
-<p style="{{style:p}}">The clone is on the wrong branch. Clone again with <code style="{{style:code}}">--branch development</code>; the repository's default branch does not carry the SDK.</p>
+<p style="{{style:p}}">The clone is on the wrong branch. Clone again with <code style="{{style:code}}">--branch development</code>; the repository's default branch does not contain the SDK.</p>
 
 <h3 style="{{style:h3}}">Java cannot find the SDK</h3>
 <p style="{{style:p}}">An error such as <code style="{{style:code}}">Could not find artifact com.webcommander:webcommander-sdk</code> means the build step was skipped. Run <code style="{{style:code}}">mvn install -DskipTests</code> in the clone, then build your project again. No extra repository or registry login is needed.</p>
@@ -77,6 +77,6 @@
 <h2 style="{{style:h2}}">Related articles</h2>
 
 <ul style="{{style:ul}}">
-  <li style="{{style:li}}">WebCommander API</li>
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
   <li style="{{style:li}}">Working with customers through the API</li>
 </ul>

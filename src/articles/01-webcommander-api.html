@@ -4,7 +4,7 @@
 
 <h2 style="{{style:h2}}">Who this is for</h2>
 
-<p style="{{style:p}}">The API is for developers building an integration with a WebCommander store, for example syncing customers with a CRM, keeping stock levels in step with a warehouse system, or managing tax and shipping rules from your own tools. You do not need the API to run a store day to day; everything here can also be done in the WebCommander admin.</p>
+<p style="{{style:p}}">The API is for developers building an integration with a WebCommander store, for example syncing customers with a CRM, issuing refunds as store credit from a returns system, or managing tax and shipping rules from your own tools. You do not need the API to run a store day to day; everything here can also be done in the WebCommander admin.</p>
 
 <h2 style="{{style:h2}}">Two ways to use it</h2>
 
@@ -18,7 +18,7 @@
   <tbody>
     <tr>
       <td style="{{style:td}}"><strong>An SDK</strong><br><span style="{{style:muted}}">Python, JavaScript, PHP, Java, .NET, Dart or Go</span></td>
-      <td style="{{style:td}}">Most integrations. The SDK signs in for you, keeps the access token fresh, retries safely and turns failures into clear errors. Every call is the same in all seven languages.</td>
+      <td style="{{style:td}}">Most integrations. The SDK gets and renews the access token for you, retries a call once if the token has expired, and reports every failed call as an error. The methods are the same in all seven languages.</td>
     </tr>
     <tr>
       <td style="{{style:td}}"><strong>The REST API directly</strong><br><span style="{{style:muted}}">Any language, or cURL</span></td>
@@ -63,7 +63,7 @@
     </tr>
     <tr>
       <td style="{{style:td}}"><strong>Domain aliases</strong></td>
-      <td style="{{style:td}}">The extra hostnames a store answers on.</td>
+      <td style="{{style:td}}">Other domain names the store can be reached at.</td>
     </tr>
   </tbody>
 </table>
@@ -72,7 +72,7 @@
 
 <h2 style="{{style:h2}}">Get started</h2>
 
-<p style="{{style:step-row}}"><span style="{{style:step}}">1</span><strong>Get your API credentials.</strong> Your store's client ID, client secret, redirect URI and auth string. Your WebCommander contact can provide them. <a href="{{MINTLIFY}}/authentication" style="{{style:a}}">Authentication</a> explains each one.</p>
+<p style="{{style:step-row}}"><span style="{{style:step}}">1</span><strong>Get your API credentials.</strong> You need your store's client ID, client secret, redirect URI and auth string. Your WebCommander contact can provide them. <a href="{{MINTLIFY}}/authentication" style="{{style:a}}">Authentication</a> explains each one.</p>
 <p style="{{style:step-row}}"><span style="{{style:step}}">2</span><strong>Install the SDK for your language.</strong> See <a href="{{MINTLIFY}}/installation" style="{{style:a}}">Installation</a>.</p>
 <p style="{{style:step-row}}"><span style="{{style:step}}">3</span><strong>Make your first call.</strong> The <a href="{{MINTLIFY}}/api-reference/customers/list-customers" style="{{style:a}}">List customers</a> page shows it in every language.</p>
 

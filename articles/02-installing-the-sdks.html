@@ -1,82 +1,82 @@
-<p style="font-size: 18px; line-height: 1.6; color: #1f2d3d; margin: 0 0 20px;">The WebCommander SDKs are installed from their source repositories rather than from a package registry such as PyPI, npm or NuGet. This article explains what you need and how installation works. The developer documentation has the exact commands for each language.</p>
+<p style="margin: 0 0 16px;">The WebCommander SDKs are installed from their source repositories rather than from a package registry such as PyPI, npm or NuGet. This article explains what you need and how installation works. The developer documentation has the exact commands for each language.</p>
 
-<p style="margin: 8px 0 32px;"><a href="https://newlify.mintlify.app/installation" style="display: inline-block; background-color: #ef7025; color: #ffffff; font-size: 16px; font-weight: 700; text-decoration: none; padding: 12px 22px; border-radius: 6px;">See the installation guide</a></p>
+<p style="margin: 0 0 24px;"><a href="https://newlify.mintlify.app/installation" style="font-weight: 700;">See the installation guide</a></p>
 
-<div style="background-color: #eef6fc; border-left: 4px solid #2f7ebc; border-radius: 4px; padding: 14px 18px; margin: 0 0 24px;">
-  <p style="font-size: 16px; font-weight: 700; color: #1f2d3d; margin: 0 0 6px;">Before you start</p>
-  <p style="font-size: 15px; line-height: 1.6; color: #1f2d3d; margin: 0;">You need read access to the SDK repositories on Bitbucket. If you do not have it, ask your WebCommander contact.</p>
+<div style="background-color: #f0f6fb; border-left: 3px solid #2f7ebc; padding: 12px 16px; margin: 0 0 20px;">
+  <p style="font-weight: 700; margin: 0 0 4px;">Before you start</p>
+  <p style="margin: 0;">You need read access to the SDK repositories on Bitbucket. If you do not have it, ask your WebCommander contact.</p>
 </div>
 
-<h2 style="font-size: 24px; line-height: 1.3; font-weight: 700; color: #1f2d3d; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #dfe3eb;">How installation works</h2>
+<h2 style="margin: 32px 0 12px;">How installation works</h2>
 
-<p style="font-size: 16px; line-height: 1.6; color: #1f2d3d; margin: 0 0 14px;"><span style="display: inline-block; width: 26px; height: 26px; line-height: 26px; text-align: center; border-radius: 50%; background-color: #1f2d3d; color: #ffffff; font-size: 14px; font-weight: 700; margin-right: 10px;">1</span><strong>Clone the SDK's repository.</strong> Use the <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;">development</code> branch; it is the main branch.</p>
-<p style="font-size: 16px; line-height: 1.6; color: #1f2d3d; margin: 0 0 14px;"><span style="display: inline-block; width: 26px; height: 26px; line-height: 26px; text-align: center; border-radius: 50%; background-color: #1f2d3d; color: #ffffff; font-size: 14px; font-weight: 700; margin-right: 10px;">2</span><strong>Run one command in the clone</strong> to make it ready, for example <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;">npm install</code> for JavaScript.</p>
-<p style="font-size: 16px; line-height: 1.6; color: #1f2d3d; margin: 0 0 14px;"><span style="display: inline-block; width: 26px; height: 26px; line-height: 26px; text-align: center; border-radius: 50%; background-color: #1f2d3d; color: #ffffff; font-size: 14px; font-weight: 700; margin-right: 10px;">3</span><strong>Point your project at the clone.</strong> Keep the clone next to your project, because the paths are relative.</p>
+<p style="margin: 0 0 10px;"><span style="display: inline-block; min-width: 1.6em; font-weight: 700;">1</span><strong>Clone the SDK's repository.</strong> Use the <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">development</code> branch; it is the main branch.</p>
+<p style="margin: 0 0 10px;"><span style="display: inline-block; min-width: 1.6em; font-weight: 700;">2</span><strong>Run one command in the clone</strong> to install its dependencies or build it, for example <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">npm install</code> for JavaScript. The table below lists the command for each language.</p>
+<p style="margin: 0 0 10px;"><span style="display: inline-block; min-width: 1.6em; font-weight: 700;">3</span><strong>Point your project at the clone.</strong> Keep the clone next to your project, because the paths are relative.</p>
 
-<h2 style="font-size: 24px; line-height: 1.3; font-weight: 700; color: #1f2d3d; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #dfe3eb;">What each SDK needs</h2>
+<h2 style="margin: 32px 0 12px;">What each SDK needs</h2>
 
-<table style="width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.5; color: #1f2d3d; margin: 0 0 24px; border: 1px solid #dfe3eb;">
+<table style="width: 100%; border-collapse: collapse; margin: 0 0 20px; border: 1px solid #dfe3eb;">
   <thead>
     <tr>
-      <th style="text-align: left; font-weight: 700; padding: 10px 14px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Language</th>
-      <th style="text-align: left; font-weight: 700; padding: 10px 14px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">You need</th>
-      <th style="text-align: left; font-weight: 700; padding: 10px 14px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Command in the clone</th>
+      <th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Language</th>
+      <th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">You need</th>
+      <th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Command in the clone</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Python</strong></td>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">uv 0.8.4 or newer (it provides Python 3.10 to 3.13)</td>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;">uv sync</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Python</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">uv 0.8.4 or newer (it provides Python 3.10 to 3.13)</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">uv sync</code></td>
     </tr>
     <tr>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>JavaScript</strong></td>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Node.js 18 or newer</td>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;">npm install</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>JavaScript</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Node.js 18 or newer</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">npm install</code></td>
     </tr>
     <tr>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>PHP</strong></td>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">PHP 8.2 or newer and Composer 2</td>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;">composer install</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>PHP</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">PHP 8.2 or newer and Composer 2</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">composer install</code></td>
     </tr>
     <tr>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Java</strong></td>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">JDK 17 or newer and Maven 3.9 or newer</td>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;">mvn install -DskipTests</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Java</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">JDK 17 or newer and Maven 3.9 or newer</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">mvn install -DskipTests</code></td>
     </tr>
     <tr>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>.NET</strong></td>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">.NET SDK 8.0.100 or newer</td>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;">dotnet pack</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>.NET</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">.NET SDK 8.0.100 or newer</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">dotnet pack</code></td>
     </tr>
     <tr>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Dart</strong></td>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Dart 3.5 or newer (included with Flutter)</td>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;">dart pub get</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Dart</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Dart 3.5 or newer (included with Flutter)</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">dart pub get</code></td>
     </tr>
     <tr>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Go</strong></td>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Go 1.24 or newer</td>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;">go build ./...</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Go</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Go 1.24 or newer</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">go build ./...</code></td>
     </tr>
   </tbody>
 </table>
 
-<h2 style="font-size: 24px; line-height: 1.3; font-weight: 700; color: #1f2d3d; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #dfe3eb;">Keeping the SDK up to date</h2>
+<h2 style="margin: 32px 0 12px;">Keeping the SDK up to date</h2>
 
-<p style="font-size: 16px; line-height: 1.65; color: #1f2d3d; margin: 0 0 16px;">Run <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;">git pull</code> in the clone. Python, JavaScript, PHP, Dart and Go pick up the change straight away. Java and .NET use a built copy, so run the command in the clone again after you pull.</p>
+<p style="margin: 0 0 16px;">Run <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">git pull</code> in the clone. Python, JavaScript, PHP, Dart and Go pick up the change straight away. Java and .NET use a built copy, so run the command in the clone again after you pull.</p>
 
-<h2 style="font-size: 24px; line-height: 1.3; font-weight: 700; color: #1f2d3d; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #dfe3eb;">Troubleshooting</h2>
+<h2 style="margin: 32px 0 12px;">Troubleshooting</h2>
 
-<h3 style="font-size: 18px; line-height: 1.4; font-weight: 700; color: #1f2d3d; margin: 28px 0 8px;">The SDK files are missing after cloning</h3>
-<p style="font-size: 16px; line-height: 1.65; color: #1f2d3d; margin: 0 0 16px;">The clone is on the wrong branch. Clone again with <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;">--branch development</code>; the repository's default branch does not carry the SDK.</p>
+<h3 style="margin: 24px 0 8px;">The SDK files are missing after cloning</h3>
+<p style="margin: 0 0 16px;">The clone is on the wrong branch. Clone again with <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">--branch development</code>; the repository's default branch does not contain the SDK.</p>
 
-<h3 style="font-size: 18px; line-height: 1.4; font-weight: 700; color: #1f2d3d; margin: 28px 0 8px;">Java cannot find the SDK</h3>
-<p style="font-size: 16px; line-height: 1.65; color: #1f2d3d; margin: 0 0 16px;">An error such as <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;">Could not find artifact com.webcommander:webcommander-sdk</code> means the build step was skipped. Run <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;">mvn install -DskipTests</code> in the clone, then build your project again. No extra repository or registry login is needed.</p>
+<h3 style="margin: 24px 0 8px;">Java cannot find the SDK</h3>
+<p style="margin: 0 0 16px;">An error such as <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">Could not find artifact com.webcommander:webcommander-sdk</code> means the build step was skipped. Run <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">mvn install -DskipTests</code> in the clone, then build your project again. No extra repository or registry login is needed.</p>
 
-<h2 style="font-size: 24px; line-height: 1.3; font-weight: 700; color: #1f2d3d; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #dfe3eb;">Related articles</h2>
+<h2 style="margin: 32px 0 12px;">Related articles</h2>
 
-<ul style="font-size: 16px; line-height: 1.65; color: #1f2d3d; margin: 0 0 16px; padding-left: 24px;">
-  <li style="margin: 0 0 8px;">WebCommander API</li>
-  <li style="margin: 0 0 8px;">Working with customers through the API</li>
+<ul style="margin: 0 0 16px; padding-left: 24px;">
+  <li style="margin: 0 0 6px;">Getting started with the WebCommander API</li>
+  <li style="margin: 0 0 6px;">Working with customers through the API</li>
 </ul>
