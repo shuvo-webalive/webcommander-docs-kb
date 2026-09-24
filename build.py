@@ -96,7 +96,7 @@ def navigation_pages(docs_json):
 
 
 def load_module(docs_dir, name):
-    path = docs_dir / "tools" / (name + ".py")
+    path = docs_dir / "tools" / "modules" / (name + ".py")
     spec = importlib.util.spec_from_file_location("reference_" + name, path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -118,7 +118,7 @@ def endpoint_table(module):
             '<br><span style="font-size: 14px; color: %s;">%s</span></td>'
             '<td style="{{style:td}} white-space: nowrap;">%s</td>'
             '<td style="{{style:td}}"><code style="{{style:code}}">%s</code></td></tr>'
-            % (module.TAG.lower(), endpoint["slug"], endpoint["title"], MUTED,
+            % (module.SLUG, endpoint["slug"], endpoint["title"], MUTED,
                re.sub(r"`([^`]+)`", r"\1", endpoint["summary"]), badge(endpoint["method"]),
                endpoint["path"].replace(module.BASE, "…" + module.BASE[module.BASE.rfind("/"):])))
     return ('<table style="{{style:table}}"><thead><tr>'
