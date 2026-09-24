@@ -27,6 +27,12 @@
       "title": "Working with page settings through the API",
       "subtitle": "Choose what category, product, search result, cart and checkout pages show, and manage search result promotions",
       "summary": "Common page settings tasks, all thirty-one endpoints, and what to watch for."
+    },
+    {
+      "file": "05-store-settings.html",
+      "title": "Working with store settings through the API",
+      "subtitle": "Read and change a store's details, stock and pricing rules, customer portal, search, SEO and shipping settings",
+      "summary": "Common store settings tasks, all fifty-four endpoints across nine areas, and what to watch for."
     }
   ]
 }
