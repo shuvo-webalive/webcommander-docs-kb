@@ -60,6 +60,7 @@ BADGES = {
     "POST": ("#e8f0fe", "#1c5fd0"),
     "PUT": ("#fdf1e3", "#a35200"),
     "DELETE": ("#fde9e7", "#b42318"),
+    "PATCH": ("#f1edfe", "#6941c6"),
     "HEAD": ("#eef0f3", "#44546a"),
 }
 

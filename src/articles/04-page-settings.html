@@ -1,0 +1,106 @@
+<p style="{{style:lead}}">The Page settings API lets your software read and change what a store's category pages, product pages, search result page, shopping cart and checkout page show, and create, change and delete the product promotions on the search result page. All thirty-one endpoints are available in all seven WebCommander SDKs.</p>
+
+<p style="{{style:p}}">Each page has its own reference: <a href="{{MINTLIFY}}/category-page" style="{{style:a}}">Category page</a>, <a href="{{MINTLIFY}}/product-page" style="{{style:a}}">Product page</a>, <a href="{{MINTLIFY}}/search-result-page" style="{{style:a}}">Search result page</a>, <a href="{{MINTLIFY}}/shopping-cart" style="{{style:a}}">Shopping cart</a> and <a href="{{MINTLIFY}}/checkout-page" style="{{style:a}}">Checkout page</a>. A page's settings are split into sections, and you can read or change the whole page at once or one section at a time.</p>
+
+<p style="{{style:button-row}}"><a href="{{MINTLIFY}}/category-page" style="{{style:button}}">Open the Category page reference</a></p>
+
+<h2 style="{{style:h2}}">Common tasks</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">You want to</th>
+      <th style="{{style:th}}">Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}">Show the category description on category pages</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/category-page/update-a-settings-section" style="{{style:a}}">Update a settings section</a> on the category page, with <code style="{{style:code}}">category_information</code> as the <code style="{{style:code}}">section</code> and <code style="{{style:code}}">show_description: true</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Change which buttons and details product pages show</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/product-page/get-a-product-page-section" style="{{style:a}}">Get a product page section</a> to see the current values, then <a href="{{MINTLIFY}}/api-reference/product-page/update-a-product-page-section" style="{{style:a}}">Update a product page section</a> with <code style="{{style:code}}">configuration</code> as the <code style="{{style:code}}">section</code> and only the fields that change</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Promote products at the top of search results</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/search-result-page/create-a-product-promotion" style="{{style:a}}">Create a product promotion</a> with a <code style="{{style:code}}">name</code>, <code style="{{style:code}}">rule: "all_search_result"</code>, <code style="{{style:code}}">position: "top"</code> and the products' ids in <code style="{{style:code}}">product_ids</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Pause a promotion without deleting it</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/search-result-page/turn-a-product-promotion-on-or-off" style="{{style:a}}">Turn a product promotion on or off</a> with <code style="{{style:code}}">is_active: false</code>, passing the promotion's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">promotion_id</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Turn on the slide-out flying cart</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/shopping-cart/update-a-shopping-cart-section" style="{{style:a}}">Update a shopping cart section</a> with <code style="{{style:code}}">flying_cart</code> as the <code style="{{style:code}}">section</code> and <code style="{{style:code}}">enabled: true</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Let customers check out without an account</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/checkout-page/update-a-settings-section" style="{{style:a}}">Update a settings section</a> on the checkout page, with <code style="{{style:code}}">customer_checkout</code> as the <code style="{{style:code}}">section</code> and <code style="{{style:code}}">enabled: true</code> inside <code style="{{style:code}}">checkout_as_guest</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="{{style:h2}}">All endpoints</h2>
+
+<h3 style="{{style:h3}}">Category page</h3>
+
+<p style="{{style:p}}">Use these endpoints to choose how category pages show the category and its subcategories (the <code style="{{style:code}}">category_information</code> section) and its products (the <code style="{{style:code}}">product_information</code> section). For more detail, see the <a href="{{MINTLIFY}}/category-page" style="{{style:a}}">Category page overview</a>.</p>
+
+{{endpoints:category_page}}
+
+<h3 style="{{style:h3}}">Product page</h3>
+
+<p style="{{style:p}}">Use these endpoints to choose what product pages show, from action buttons and variations to images, up-sells, related products, reviews and quick view, in seven sections such as <code style="{{style:code}}">configuration</code> and <code style="{{style:code}}">quick_view</code>. For more detail, see the <a href="{{MINTLIFY}}/product-page" style="{{style:a}}">Product page overview</a>.</p>
+
+{{endpoints:product_page}}
+
+<h3 style="{{style:h3}}">Search result page</h3>
+
+<p style="{{style:p}}">Use these endpoints to choose how the search result page shows products (the <code style="{{style:code}}">product_information</code> section), and to list, create, change, turn on or off and delete the product promotions shown on it. For more detail, see the <a href="{{MINTLIFY}}/search-result-page" style="{{style:a}}">Search result page overview</a>.</p>
+
+{{endpoints:search_result_page}}
+
+<h3 style="{{style:h3}}">Shopping cart</h3>
+
+<p style="{{style:p}}">Use these endpoints to choose what the cart page (the <code style="{{style:code}}">cart_page</code> section) and the slide-out flying cart (the <code style="{{style:code}}">flying_cart</code> section) offer shoppers. For more detail, see the <a href="{{MINTLIFY}}/shopping-cart" style="{{style:a}}">Shopping cart overview</a>.</p>
+
+{{endpoints:shopping_cart}}
+
+<h3 style="{{style:h3}}">Checkout page</h3>
+
+<p style="{{style:p}}">Use these endpoints to read the checkout page's billing and shipping address forms (the <code style="{{style:code}}">billing_address</code> and <code style="{{style:code}}">shipping_address</code> sections), and to change its sign-in, delivery, order summary and other settings (the <code style="{{style:code}}">customer_checkout</code>, <code style="{{style:code}}">delivery_options</code>, <code style="{{style:code}}">order_summary</code> and <code style="{{style:code}}">others</code> sections). For more detail, see the <a href="{{MINTLIFY}}/checkout-page" style="{{style:a}}">Checkout page overview</a>.</p>
+
+{{endpoints:checkout_page}}
+
+<h2 style="{{style:h2}}">Good to know</h2>
+
+<div style="{{style:callout-warning}}">
+  <p style="{{style:callout-title}}">Wrap every write in the right key</p>
+  <p style="{{style:callout-body}}">On a whole page's path, such as <code style="{{style:code}}">/category_page</code>, wrap the fields in the page's key and then the section name: <code style="{{style:code}}">{"category_page": {"category_information": {...}}}</code>. On a section's path, such as <code style="{{style:code}}">/category_page/category_information</code>, wrap them in the section's own name: <code style="{{style:code}}">{"category_information": {...}}</code>. On the category page, shopping cart and checkout page, a section write wrapped in the page's key, or not wrapped at all, is rejected with <code style="{{style:code}}">400 invalid_request</code>. Promotion bodies are wrapped in <code style="{{style:code}}">product_promotion</code>.</p>
+</div>
+
+<div style="{{style:callout-warning}}">
+  <p style="{{style:callout-title}}">After a rejected call, the next call can go wrong too</p>
+  <p style="{{style:callout-body}}">On the checkout page, the call after a <code style="{{style:code}}">400</code> on the same client gets the previous call's response instead of its own, and a write in it is not saved. On the shopping cart, the write after a rejected write on the same client returns the same rejection again, even when it is correct. In both cases, the call after that works normally. On the checkout page, make your next call from a new client after a <code style="{{style:code}}">400</code>.</p>
+</div>
+
+<div style="{{style:callout-info}}">
+  <p style="{{style:callout-title}}">Ask for a description of every field</p>
+  <p style="{{style:callout-body}}">Add <code style="{{style:code}}">field_metadata=true</code> to any settings read to also get a description of every field. The settings are still returned with it. On the product page it shows which fields depend on another in <code style="{{style:code}}">depends_on</code>. On the checkout page's <code style="{{style:code}}">customer_checkout</code> and <code style="{{style:code}}">delivery_options</code> sections, it lists the rules a write must follow in <code style="{{style:code}}">_rules</code>.</p>
+</div>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}"><strong>Send only the fields you change.</strong> <code style="{{style:code}}">PATCH</code> is the only way to change settings, and fields you leave out keep their stored values. On the product page, sending a section back exactly as you read it can be rejected with <code style="{{style:code}}">400</code> and the code <code style="{{style:code}}">constraint_violation</code>, because a field cannot be set to <code style="{{style:code}}">true</code> while a field it depends on is off.</li>
+  <li style="{{style:li}}"><strong>Product page and search result page sections come back inside the page's key.</strong> Reading the product page's <code style="{{style:code}}">quick_view</code> section returns <code style="{{style:code}}">{"product_page": {"quick_view": {...}}}</code>, not <code style="{{style:code}}">{"quick_view": {...}}</code>. The category page, shopping cart and checkout page return a section under its own name.</li>
+  <li style="{{style:li}}"><strong>Some checkout settings are read-only or cannot all be off.</strong> The <code style="{{style:code}}">billing_address</code> and <code style="{{style:code}}">shipping_address</code> sections are read-only. In <code style="{{style:code}}">customer_checkout</code>, at least one of <code style="{{style:code}}">allow_sign_in</code>, <code style="{{style:code}}">allow_sign_up</code> and <code style="{{style:code}}">checkout_as_guest</code> must stay on, and in <code style="{{style:code}}">delivery_options</code>, at least one of the four delivery options must stay on. A write that breaks this is rejected with <code style="{{style:code}}">400</code> and the code <code style="{{style:code}}">constraint_violation</code>.</li>
+  <li style="{{style:li}}"><strong>On the search result page, only <code style="{{style:code}}">product_information</code> can be changed.</strong> A write to <code style="{{style:code}}">seo</code> or <code style="{{style:code}}">reinitialise</code> is rejected with <code style="{{style:code}}">400</code>. The promotions are not in the settings: use <a href="{{MINTLIFY}}/api-reference/search-result-page/list-product-promotions" style="{{style:a}}">List product promotions</a>. It ignores <code style="{{style:code}}">limit</code>, so send <code style="{{style:code}}">offset</code> to skip promotions. The store holds a limited number of promotions, which the listing gives as <code style="{{style:code}}">max_items</code> when you add <code style="{{style:code}}">field_metadata=true</code>, so delete promotions you no longer need.</li>
+  <li style="{{style:li}}"><strong>Writes are rate limited.</strong> Writes to a page and to all its sections share one limit. Once it is used up, the next write is rejected with <code style="{{style:code}}">429</code> and a <code style="{{style:code}}">Retry-After</code> header, and writes to the page and its sections are rejected until that time has passed, so wait before you write again. On the category page, product page, shopping cart and checkout page, the limit is ten writes in a short time, and on the checkout page it also blocks writes to the product page settings. Promotion writes have their own limit. The product page and checkout page also limit reads: the twenty-first read in about one and a half seconds on the product page, or in about one second on the checkout page, is rejected with <code style="{{style:code}}">429</code>.</li>
+</ul>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+</ul>
