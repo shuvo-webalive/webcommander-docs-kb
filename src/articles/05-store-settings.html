@@ -1,0 +1,146 @@
+<p style="{{style:lead}}">The store settings endpoints let your software read and change how a store is set up: its details, logo and email settings, stock and pricing rules, customer portal, price display, product listings, search, SEO, shipping defaults and animation effects. All fifty-four endpoints are available in every WebCommander SDK.</p>
+
+<p style="{{style:p}}">The settings are split into nine areas, and each has its own reference: <a href="{{MINTLIFY}}/site-settings" style="{{style:a}}">Site settings</a>, <a href="{{MINTLIFY}}/ecommerce-settings" style="{{style:a}}">Ecommerce settings</a>, <a href="{{MINTLIFY}}/customer-portal" style="{{style:a}}">Customer portal</a>, <a href="{{MINTLIFY}}/price-display-settings" style="{{style:a}}">Price display settings</a>, <a href="{{MINTLIFY}}/product-listing" style="{{style:a}}">Product listing</a>, <a href="{{MINTLIFY}}/search-settings" style="{{style:a}}">Search settings</a>, <a href="{{MINTLIFY}}/seo-configuration" style="{{style:a}}">SEO configuration</a>, <a href="{{MINTLIFY}}/shipping-settings" style="{{style:a}}">Shipping settings</a> and <a href="{{MINTLIFY}}/animation-effects" style="{{style:a}}">Animation effects</a>.</p>
+
+<p style="{{style:button-row}}"><a href="{{MINTLIFY}}/site-settings" style="{{style:button}}">Open the Site settings reference</a></p>
+
+<h2 style="{{style:h2}}">Common tasks</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">You want to</th>
+      <th style="{{style:th}}">Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}">Change the store's business name, address, contact email or ABN</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/site-settings/update-a-settings-section" style="{{style:a}}">Update a settings section</a> in Site settings, with <code style="{{style:code}}">section</code> set to <code style="{{style:code}}">store_details</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Set a minimum purchase amount or payment terms</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/ecommerce-settings/update-a-settings-section" style="{{style:a}}">Update a settings section</a> in Ecommerce settings, with <code style="{{style:code}}">section</code> set to <code style="{{style:code}}">pricing</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Open or close customer registration, or turn customer login on or off</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/customer-portal/update-a-customer-portal-section" style="{{style:a}}">Update a customer portal section</a>, with <code style="{{style:code}}">section</code> set to <code style="{{style:code}}">registration</code> or <code style="{{style:code}}">login</code>, and <code style="{{style:code}}">enabled</code> set to <code style="{{style:code}}">true</code> or <code style="{{style:code}}">false</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Show each line item's price with tax included</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/price-display-settings/update-a-settings-section" style="{{style:a}}">Update a settings section</a> in Price display settings, with <code style="{{style:code}}">section</code> set to <code style="{{style:code}}">order_item</code>, turning on <code style="{{style:code}}">price_including_tax</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Change how many products a listing page shows, or how it is sorted</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/product-listing/update-product-listing-settings" style="{{style:a}}">Update product listing settings</a></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Make a search for one word also find another, such as phone and mobile</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/search-settings/update-a-search-settings-section" style="{{style:a}}">Update a search settings section</a>, with <code style="{{style:code}}">section</code> set to <code style="{{style:code}}">synonyms</code>, then <a href="{{MINTLIFY}}/api-reference/search-settings/get-the-reindex-status" style="{{style:a}}">Get the reindex status</a> to see when the reindex has finished</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Send visitors from an old URL to a new one</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/seo-configuration/create-a-redirect" style="{{style:a}}">Create a redirect</a>. It returns the redirect's <code style="{{style:code}}">id</code>, which the other redirect calls take as <code style="{{style:code}}">redirect_id</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Add a site verification file or <code style="{{style:code}}">ads.txt</code></td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/seo-configuration/upload-a-document-root-file" style="{{style:a}}">Upload a document root file</a></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Choose the store's default shipping profile</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/shipping-settings/update-shipping-settings" style="{{style:a}}">Update shipping settings</a>, with the shipping profile's <code style="{{style:code}}">id</code> in <code style="{{style:code}}">default_shipping_profile</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">See which values a setting accepts before you change it</td>
+      <td style="{{style:td}}">Add <code style="{{style:code}}">field_metadata=true</code> when you read an area or one of its sections, such as with <a href="{{MINTLIFY}}/api-reference/ecommerce-settings/get-ecommerce-settings" style="{{style:a}}">Get ecommerce settings</a>. The response then also describes each field</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="{{style:h2}}">All endpoints</h2>
+
+<h3 style="{{style:h3}}">Site settings</h3>
+
+<p style="{{style:p}}">Read and change your store's details, logo, favicon, brand colours, date and time formats, units of measure, CAPTCHA, and domain and email settings. See the <a href="{{MINTLIFY}}/site-settings" style="{{style:a}}">Site settings reference</a>.</p>
+
+{{endpoints:site_settings}}
+
+<h3 style="{{style:h3}}">Ecommerce settings</h3>
+
+<p style="{{style:p}}">Read and change where the continue shopping link leads, how the store handles stock, minimum purchase amounts and payment terms, product restriction, the status each admin order list opens on, and whether the store uses more than one stock location. See the <a href="{{MINTLIFY}}/ecommerce-settings" style="{{style:a}}">Ecommerce settings reference</a>.</p>
+
+{{endpoints:ecommerce_settings}}
+
+<h3 style="{{style:h3}}">Customer portal</h3>
+
+<p style="{{style:p}}">Turn the customer portal on or off, change its registration, login and single sign-on settings, and read its profile page and registration form. See the <a href="{{MINTLIFY}}/customer-portal" style="{{style:a}}">Customer portal reference</a>.</p>
+
+{{endpoints:customer_portal}}
+
+<h3 style="{{style:h3}}">Price display settings</h3>
+
+<p style="{{style:p}}">Read and change how prices, tax, discounts and order totals show in the shopping cart, at checkout and on the order success page. See the <a href="{{MINTLIFY}}/price-display-settings" style="{{style:a}}">Price display settings reference</a>.</p>
+
+{{endpoints:price_display_settings}}
+
+<h3 style="{{style:h3}}">Product listing</h3>
+
+<p style="{{style:p}}">Read and change what your store's product listings show for each product, and how they page and sort. See the <a href="{{MINTLIFY}}/product-listing" style="{{style:a}}">Product listing reference</a>.</p>
+
+{{endpoints:product_listing}}
+
+<h3 style="{{style:h3}}">Search settings</h3>
+
+<p style="{{style:p}}">Read and change the content your store's search covers, the product fields it matches and its synonym groups, and check the status of a search reindex. See the <a href="{{MINTLIFY}}/search-settings" style="{{style:a}}">Search settings reference</a>.</p>
+
+{{endpoints:search_settings}}
+
+<h3 style="{{style:h3}}">SEO configuration</h3>
+
+<p style="{{style:p}}">Read and change your store's SEO title and description templates, the custom code added to every page and the URL settings, and manage redirects and document root files, such as a site verification file or <code style="{{style:code}}">ads.txt</code>. See the <a href="{{MINTLIFY}}/seo-configuration" style="{{style:a}}">SEO configuration reference</a>.</p>
+
+{{endpoints:seo_configuration}}
+
+<h3 style="{{style:h3}}">Shipping settings</h3>
+
+<p style="{{style:p}}">Read and change your store's default shipping, delivery and shipping tax profiles, whether the default tax applies to shipping and delivery, and its shipping class settings. See the <a href="{{MINTLIFY}}/shipping-settings" style="{{style:a}}">Shipping settings reference</a>.</p>
+
+{{endpoints:shipping_settings}}
+
+<h3 style="{{style:h3}}">Animation effects</h3>
+
+<p style="{{style:p}}">Read and change the loader your store shows while a page loads, its widget and page transitions, image lazy loading and the checkout page skeleton. See the <a href="{{MINTLIFY}}/animation-effects" style="{{style:a}}">Animation effects reference</a>.</p>
+
+{{endpoints:animation_effects}}
+
+<h2 style="{{style:h2}}">Good to know</h2>
+
+<div style="{{style:callout-warning}}">
+  <p style="{{style:callout-title}}">A replace call resets the fields you leave out</p>
+  <p style="{{style:callout-body}}">Search settings and SEO configuration have replace calls as well as update calls. A replace call resets every field you leave out of a section you send: replacing the SEO <code style="{{style:code}}">url_settings</code> section with only <code style="{{style:code}}">regenerate_url_on_item_update</code> turns a stored <code style="{{style:code}}">true</code> in <code style="{{style:code}}">auto_redirect_on_url_change</code> back to <code style="{{style:code}}">false</code>. <a href="{{MINTLIFY}}/api-reference/search-settings/replace-search-settings" style="{{style:a}}">Replace search settings</a> also resets any section you leave out, including <code style="{{style:code}}">synonyms</code>, and a change to <code style="{{style:code}}">synonyms</code> starts a search reindex that cannot be undone. To change a few fields, use an update call: it changes only the fields you send.</p>
+</div>
+
+<div style="{{style:callout-warning}}">
+  <p style="{{style:callout-title}}">After a 400 error, create a new client</p>
+  <p style="{{style:callout-body}}">A write rejected with <code style="{{style:code}}">400</code> can affect the next call made with the same SDK client. In Customer portal and Animation effects, the next write can be rejected even when it is valid. In Ecommerce settings, after a section update is rejected, the next read can return <code style="{{style:code}}">200</code> with a different section from the one you asked for. After a <code style="{{style:code}}">400</code>, create a new client before you make another call.</p>
+</div>
+
+<div style="{{style:callout-info}}">
+  <p style="{{style:callout-title}}">Put each field inside its section</p>
+  <p style="{{style:callout-body}}">Most areas group their fields into sections, such as <code style="{{style:code}}">pricing</code> or <code style="{{style:code}}">brand_kit</code>. When you update a whole area, wrap the sections in the area's name, for example <code style="{{style:code}}">{"ecommerce_settings": {"pricing": {"enable_payment_terms": true}}}</code>. When you update a single section, wrap the fields in the section's own name instead. Product listing has no calls for a single section, and Shipping settings has no sections, so make every change there with Update product listing settings or Update shipping settings. In Update site settings, a field sent outside its section is ignored and the call still returns <code style="{{style:code}}">200</code>, so check the response to confirm the change.</p>
+</div>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}"><strong>Site settings calls are slow.</strong> A read of all site settings takes about fifteen seconds, and a write takes thirteen to fifteen seconds. Allow for that in your client's timeout.</li>
+  <li style="{{style:li}}"><strong>Secret site settings read back as <code style="{{style:code}}">***</code>.</strong> They are the SMTP password, the SendGrid API key, the CAPTCHA private keys and the site lock code. Send a new value to change one, and leave it out to keep it. Send only the fields you change, not a copy of a read.</li>
+  <li style="{{style:li}}"><strong>Some areas limit how fast you can write.</strong> Customer portal rejects the eleventh write within about 3.25 seconds with <code style="{{style:code}}">429</code>, and Animation effects rejects the eleventh within about 0.8 seconds. SEO configuration limits writes in each ten-second window. Wait for the time in the <code style="{{style:code}}">Retry-After</code> header before you write again: a retry sent sooner counts as another write.</li>
+  <li style="{{style:li}}"><strong>In Price display settings, <code style="{{style:code}}">scopes</code> follow <code style="{{style:code}}">enabled</code> unless <code style="{{style:code}}">customize</code> is <code style="{{style:code}}">true</code>.</strong> While a setting's <code style="{{style:code}}">customize</code> is <code style="{{style:code}}">false</code>, turning <code style="{{style:code}}">enabled</code> on sets every entry in its <code style="{{style:code}}">scopes</code> to <code style="{{style:code}}">true</code>, whatever <code style="{{style:code}}">scopes</code> you send. To choose the shopping cart, checkout and order success page one by one, send <code style="{{style:code}}">customize: true</code> with your <code style="{{style:code}}">scopes</code>.</li>
+  <li style="{{style:li}}"><strong>Turning off shipping classes also turns off <code style="{{style:code}}">enable_flat_view_class</code>.</strong> When you set <code style="{{style:code}}">enable_shipping_class</code> to <code style="{{style:code}}">false</code>, <code style="{{style:code}}">enable_flat_view_class</code> becomes <code style="{{style:code}}">false</code> too. While shipping classes are off, a write of <code style="{{style:code}}">enable_flat_view_class: true</code> returns <code style="{{style:code}}">200</code> but the value stays <code style="{{style:code}}">false</code>. Turning shipping classes back on does not restore it, so send <code style="{{style:code}}">enable_flat_view_class: true</code> as well, and check the value in the response.</li>
+</ul>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+</ul>
