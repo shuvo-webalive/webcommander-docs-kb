@@ -1,0 +1,81 @@
+<p style="{{style:lead}}">The Inventory locations and Order flags APIs let your software work with a store's inventory locations and order flags. You can list, create, replace and delete locations, activate or deactivate them, choose the default location and see the products each one holds. You can also list, create, read, replace and delete the store's order flags. All seventeen endpoints are available in all seven WebCommander SDKs.</p>
+
+<p style="{{style:button-row}}"><a href="{{MINTLIFY}}/inventory-locations" style="{{style:button}}">Open the Inventory locations reference</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{MINTLIFY}}/order-flags" style="{{style:button}}">Open the Order flags reference</a></p>
+
+<h2 style="{{style:h2}}">Common tasks</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">You want to</th>
+      <th style="{{style:th}}">Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}">Add a new location, such as a warehouse</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/inventory-locations/create-an-inventory-location" style="{{style:a}}">Create an inventory location</a> with a <code style="{{style:code}}">name</code> and <code style="{{style:code}}">"is_active": true</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">See which products a location holds, and how many of each</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/inventory-locations/list-stock-at-an-inventory-location" style="{{style:a}}">List stock at an inventory location</a>, page by page</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Change which location is the default</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/inventory-locations/set-the-default-inventory-location" style="{{style:a}}">Set the default inventory location</a>. The location you name also becomes active</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Activate or deactivate a location without changing anything else about it</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/inventory-locations/activate-or-deactivate-an-inventory-location" style="{{style:a}}">Activate or deactivate an inventory location</a></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Add an order flag, such as "Awaiting Stock"</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/order-flags/create-an-order-flag" style="{{style:a}}">Create an order flag</a> with a <code style="{{style:code}}">name</code> and a <code style="{{style:code}}">color</code> written as a hex code, such as <code style="{{style:code}}">#5A7BD4</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Change an order flag's colour or description</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/order-flags/retrieve-an-order-flag" style="{{style:a}}">Retrieve an order flag</a>, then <a href="{{MINTLIFY}}/api-reference/order-flags/replace-an-order-flag" style="{{style:a}}">Replace an order flag</a> with every field you want to keep</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="{{style:h2}}">All endpoints</h2>
+
+<h3 style="{{style:h3}}">Inventory locations</h3>
+
+<p style="{{style:p}}">These endpoints list, create, replace and delete the store's inventory locations, activate or deactivate them, show the products each one holds, and choose the default location. The <a href="{{MINTLIFY}}/inventory-locations" style="{{style:a}}">Inventory locations overview</a> explains each one.</p>
+
+{{endpoints:inventory_locations}}
+
+<h3 style="{{style:h3}}">Order flags</h3>
+
+<p style="{{style:p}}">These endpoints list, create, read, replace and delete the store's order flags. Each flag has a name, a colour and an optional description. The <a href="{{MINTLIFY}}/order-flags" style="{{style:a}}">Order flags overview</a> explains each one.</p>
+
+{{endpoints:order_flags}}
+
+<h2 style="{{style:h2}}">Good to know</h2>
+
+<div style="{{style:callout-warning}}">
+  <p style="{{style:callout-title}}">A replace resets every field you leave out</p>
+  <p style="{{style:callout-body}}">Replacing a location or an order flag does not merge your changes with what is already there. On a location, a field you leave out is reset: <code style="{{style:code}}">address</code> becomes <code style="{{style:code}}">""</code>, and <code style="{{style:code}}">is_active</code> and <code style="{{style:code}}">is_default</code> become <code style="{{style:code}}">false</code>. If you replace the default location without <code style="{{style:code}}">is_default</code>, the store has no default location until you set one again with <a href="{{MINTLIFY}}/api-reference/inventory-locations/set-the-default-inventory-location" style="{{style:a}}">Set the default inventory location</a>. On an order flag, <code style="{{style:code}}">name</code> and <code style="{{style:code}}">color</code> are required every time, and a <code style="{{style:code}}">description</code> you leave out becomes <code style="{{style:code}}">null</code>. Always send every field you want to keep.</p>
+</div>
+
+<div style="{{style:callout-info}}">
+  <p style="{{style:callout-title}}">Order flag fields go inside order_flag, location fields do not</p>
+  <p style="{{style:callout-body}}">When you create or replace an order flag, put its fields inside <code style="{{style:code}}">order_flag</code>, for example <code style="{{style:code}}">{"order_flag": {"name": "Awaiting Stock", "color": "#5A7BD4"}}</code>. Without <code style="{{style:code}}">order_flag</code>, the call is rejected with <code style="{{style:code}}">400</code> and the message <code style="{{style:code}}">order_flag missing</code>. Inventory locations are the opposite: send <code style="{{style:code}}">name</code>, <code style="{{style:code}}">address</code>, <code style="{{style:code}}">is_active</code> and <code style="{{style:code}}">is_default</code> at the top level of the body. A create with the fields inside <code style="{{style:code}}">inventory_location</code> is rejected with <code style="{{style:code}}">400</code> and the message <code style="{{style:code}}">name is required</code>.</p>
+</div>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}"><strong>New locations start inactive.</strong> A new location has <code style="{{style:code}}">is_active</code> set to <code style="{{style:code}}">false</code> unless you send <code style="{{style:code}}">true</code>.</li>
+  <li style="{{style:li}}"><strong>At most one location is the default, and you cannot delete the default location.</strong> Setting a new default, or creating a location with <code style="{{style:code}}">"is_default": true</code>, means the location that was the default stops being the default. To delete the default location, first make another location the default, or the delete is rejected with <code style="{{style:code}}">409</code>.</li>
+  <li style="{{style:li}}"><strong>Lists return up to 20 items at a time.</strong> This applies to locations, to the products at a location and to order flags, and a larger <code style="{{style:code}}">limit</code> does not change it. To get more, send the next <code style="{{style:code}}">page</code> or a higher <code style="{{style:code}}">offset</code> while <code style="{{style:code}}">pagination.has_next</code> is <code style="{{style:code}}">true</code>.</li>
+  <li style="{{style:li}}"><strong>A <code style="{{style:code}}">200</code> does not prove a location change was saved, and no call changes stock.</strong> If you use a method the location paths do not support, such as <code style="{{style:code}}">PATCH</code> on a location or any write to a location's stock, the store returns <code style="{{style:code}}">200</code> with <code style="{{style:code}}">"isSuccess": false</code> and saves nothing. To change a location, use <a href="{{MINTLIFY}}/api-reference/inventory-locations/replace-an-inventory-location" style="{{style:a}}">Replace an inventory location</a>, or <a href="{{MINTLIFY}}/api-reference/inventory-locations/activate-or-deactivate-an-inventory-location" style="{{style:a}}">Activate or deactivate an inventory location</a> to change only <code style="{{style:code}}">is_active</code>. The stock listing is read-only.</li>
+  <li style="{{style:li}}"><strong>A check does not tell you whether a location or order flag exists.</strong> <a href="{{MINTLIFY}}/api-reference/inventory-locations/check-an-inventory-location" style="{{style:a}}">Check an inventory location</a> and <a href="{{MINTLIFY}}/api-reference/order-flags/check-an-order-flag" style="{{style:a}}">Check an order flag</a> return <code style="{{style:code}}">200</code> even when nothing has the id you send. To find out whether it exists, use <a href="{{MINTLIFY}}/api-reference/inventory-locations/retrieve-an-inventory-location" style="{{style:a}}">Retrieve an inventory location</a> with the location's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">inventory_location_id</code>, or <a href="{{MINTLIFY}}/api-reference/order-flags/retrieve-an-order-flag" style="{{style:a}}">Retrieve an order flag</a> with the flag's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">order_flag_id</code>. Both return <code style="{{style:code}}">404</code> when nothing has that id.</li>
+</ul>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+</ul>
