@@ -21,6 +21,12 @@
       "title": "Working with customers through the API",
       "subtitle": "Find, create and update customers, and manage their addresses, passwords and store credit",
       "summary": "Common customer tasks, all fifteen endpoints, and what to watch for."
+    },
+    {
+      "file": "04-page-settings.html",
+      "title": "Working with page settings through the API",
+      "subtitle": "Choose what category, product, search result, cart and checkout pages show, and manage search result promotions",
+      "summary": "Common page settings tasks, all thirty-one endpoints, and what to watch for."
     }
   ]
 }
