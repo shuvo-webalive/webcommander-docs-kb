@@ -31,28 +31,28 @@ ACCENT = "#ef7025"
 MONO = "Consolas, Menlo, Monaco, monospace"
 
 STYLES = {
-    "lead": "font-size: 18px; line-height: 1.6; color: %s; margin: 0 0 20px;" % INK,
-    "p": "font-size: 16px; line-height: 1.65; color: %s; margin: 0 0 16px;" % INK,
-    "h2": "font-size: 24px; line-height: 1.3; font-weight: 700; color: %s; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid %s;" % (INK, LINE),
-    "h3": "font-size: 18px; line-height: 1.4; font-weight: 700; color: %s; margin: 28px 0 8px;" % INK,
-    "ul": "font-size: 16px; line-height: 1.65; color: %s; margin: 0 0 16px; padding-left: 24px;" % INK,
-    "ol": "font-size: 16px; line-height: 1.65; color: %s; margin: 0 0 16px; padding-left: 24px;" % INK,
-    "li": "margin: 0 0 8px;",
-    "a": "color: %s; font-weight: 600; text-decoration: underline;" % ACCENT,
-    "code": "font-family: %s; font-size: 14px; color: %s; background-color: %s; border: 1px solid %s; border-radius: 4px; padding: 1px 5px;" % (MONO, INK, SOFT, LINE),
-    "pre": "font-family: %s; font-size: 14px; line-height: 1.55; color: #f5f8fa; background-color: #1f2d3d; border-radius: 8px; padding: 16px 18px; margin: 0 0 20px; white-space: pre-wrap; word-break: break-word;" % MONO,
-    "table": "width: 100%%; border-collapse: collapse; font-size: 15px; line-height: 1.5; color: %s; margin: 0 0 24px; border: 1px solid %s;" % (INK, LINE),
-    "th": "text-align: left; font-weight: 700; padding: 10px 14px; background-color: %s; border-bottom: 1px solid %s;" % (SOFT, LINE),
-    "td": "padding: 10px 14px; border-bottom: 1px solid %s; vertical-align: top;" % LINE,
-    "button": "display: inline-block; background-color: %s; color: #ffffff; font-size: 16px; font-weight: 700; text-decoration: none; padding: 12px 22px; border-radius: 6px;" % ACCENT,
-    "button-row": "margin: 8px 0 32px;",
-    "callout-info": "background-color: #eef6fc; border-left: 4px solid #2f7ebc; border-radius: 4px; padding: 14px 18px; margin: 0 0 24px;",
-    "callout-warning": "background-color: #fff8ec; border-left: 4px solid #d98200; border-radius: 4px; padding: 14px 18px; margin: 0 0 24px;",
-    "callout-title": "font-size: 16px; font-weight: 700; color: %s; margin: 0 0 6px;" % INK,
-    "callout-body": "font-size: 15px; line-height: 1.6; color: %s; margin: 0;" % INK,
-    "step": "display: inline-block; width: 26px; height: 26px; line-height: 26px; text-align: center; border-radius: 50%%; background-color: %s; color: #ffffff; font-size: 14px; font-weight: 700; margin-right: 10px;" % INK,
-    "step-row": "font-size: 16px; line-height: 1.6; color: %s; margin: 0 0 14px;" % INK,
-    "muted": "font-size: 14px; line-height: 1.6; color: %s; margin: 0 0 16px;" % MUTED,
+    "lead": "margin: 0 0 16px;",
+    "p": "margin: 0 0 16px;",
+    "h2": "margin: 32px 0 12px;",
+    "h3": "margin: 24px 0 8px;",
+    "ul": "margin: 0 0 16px; padding-left: 24px;",
+    "ol": "margin: 0 0 16px; padding-left: 24px;",
+    "li": "margin: 0 0 6px;",
+    "a": "",
+    "code": "font-family: %s; font-size: 0.9em; background-color: %s; border: 1px solid %s; border-radius: 3px; padding: 1px 4px;" % (MONO, SOFT, LINE),
+    "pre": "font-family: %s; font-size: 0.9em; line-height: 1.5; background-color: %s; border: 1px solid %s; border-radius: 4px; padding: 12px 14px; margin: 0 0 16px; white-space: pre-wrap; word-break: break-word;" % (MONO, SOFT, LINE),
+    "table": "width: 100%%; border-collapse: collapse; margin: 0 0 20px; border: 1px solid %s;" % LINE,
+    "th": "text-align: left; font-weight: 700; padding: 8px 12px; background-color: %s; border-bottom: 1px solid %s;" % (SOFT, LINE),
+    "td": "padding: 8px 12px; border-bottom: 1px solid %s; vertical-align: top;" % LINE,
+    "button": "font-weight: 700;",
+    "button-row": "margin: 0 0 24px;",
+    "callout-info": "background-color: #f0f6fb; border-left: 3px solid #2f7ebc; padding: 12px 16px; margin: 0 0 20px;",
+    "callout-warning": "background-color: #fdf8ee; border-left: 3px solid #c98a00; padding: 12px 16px; margin: 0 0 20px;",
+    "callout-title": "font-weight: 700; margin: 0 0 4px;",
+    "callout-body": "margin: 0;",
+    "step": "display: inline-block; min-width: 1.6em; font-weight: 700;",
+    "step-row": "margin: 0 0 10px;",
+    "muted": "font-size: 0.9em; margin: 0 0 16px;",
 }
 
 BADGES = {
@@ -131,6 +131,7 @@ def render(source, docs_dir, base):
     links = sorted(set(re.findall(re.escape(TOKEN) + r"/([A-Za-z0-9_/-]+)", source)))
     unknown_styles = sorted(set(re.findall(r"\{\{style:([a-z0-9-]+)\}\}", source)) - set(STYLES))
     html = re.sub(r"\{\{style:([a-z0-9-]+)\}\}", lambda m: STYLES.get(m.group(1), m.group(0)), source)
+    html = html.replace(' style=""', "")
     return html.replace(TOKEN, base), links, unknown_styles
 
 
@@ -140,10 +141,11 @@ def main():
     docs_dir = (ROOT / config["docs_dir"]).resolve()
     pages = navigation_pages(json.loads((docs_dir / "docs.json").read_text(encoding="utf-8")))
     manifest = json.loads((SOURCE / "articles.json").read_text(encoding="utf-8"))
+    category = manifest["category"]
 
     problems = []
     built = []
-    for entry in manifest:
+    for entry in manifest["articles"]:
         source = (SOURCE / "articles" / entry["file"]).read_text(encoding="utf-8")
         html, links, unknown_styles = render(source, docs_dir, base)
         for page in links:
@@ -167,7 +169,7 @@ def main():
         (OUTPUT / article["file"]).write_text(article["html"], encoding="utf-8")
 
     data = json.dumps(
-        {"base": base, "placeholder": base == PLACEHOLDER, "articles": built},
+        {"base": base, "placeholder": base == PLACEHOLDER, "category": category, "articles": built},
         ensure_ascii=False,
     ).replace("</", "<\\/")
     template = (SOURCE / "index.template.html").read_text(encoding="utf-8")

@@ -1,89 +1,89 @@
-<p style="font-size: 18px; line-height: 1.6; color: #1f2d3d; margin: 0 0 20px;">The WebCommander API lets your own software read and change a store's data: customers, settings, tax, shipping, inventory and more. This article explains what the API is, which tools you can use with it, and where to find the full developer documentation.</p>
+<p style="margin: 0 0 16px;">The WebCommander API lets your own software read and change a store's data: customers, settings, tax, shipping, inventory and more. This article explains what the API is, which tools you can use with it, and where to find the full developer documentation.</p>
 
-<p style="margin: 8px 0 32px;"><a href="https://newlify.mintlify.app/introduction" style="display: inline-block; background-color: #ef7025; color: #ffffff; font-size: 16px; font-weight: 700; text-decoration: none; padding: 12px 22px; border-radius: 6px;">Open the developer documentation</a></p>
+<p style="margin: 0 0 24px;"><a href="https://newlify.mintlify.app/introduction" style="font-weight: 700;">Open the developer documentation</a></p>
 
-<h2 style="font-size: 24px; line-height: 1.3; font-weight: 700; color: #1f2d3d; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #dfe3eb;">Who this is for</h2>
+<h2 style="margin: 32px 0 12px;">Who this is for</h2>
 
-<p style="font-size: 16px; line-height: 1.65; color: #1f2d3d; margin: 0 0 16px;">The API is for developers building an integration with a WebCommander store, for example syncing customers with a CRM, keeping stock levels in step with a warehouse system, or managing tax and shipping rules from your own tools. You do not need the API to run a store day to day; everything here can also be done in the WebCommander admin.</p>
+<p style="margin: 0 0 16px;">The API is for developers building an integration with a WebCommander store, for example syncing customers with a CRM, issuing refunds as store credit from a returns system, or managing tax and shipping rules from your own tools. You do not need the API to run a store day to day; everything here can also be done in the WebCommander admin.</p>
 
-<h2 style="font-size: 24px; line-height: 1.3; font-weight: 700; color: #1f2d3d; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #dfe3eb;">Two ways to use it</h2>
+<h2 style="margin: 32px 0 12px;">Two ways to use it</h2>
 
-<table style="width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.5; color: #1f2d3d; margin: 0 0 24px; border: 1px solid #dfe3eb;">
+<table style="width: 100%; border-collapse: collapse; margin: 0 0 20px; border: 1px solid #dfe3eb;">
   <thead>
     <tr>
-      <th style="text-align: left; font-weight: 700; padding: 10px 14px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Option</th>
-      <th style="text-align: left; font-weight: 700; padding: 10px 14px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Best for</th>
+      <th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Option</th>
+      <th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Best for</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>An SDK</strong><br><span style="font-size: 14px; line-height: 1.6; color: #516f90; margin: 0 0 16px;">Python, JavaScript, PHP, Java, .NET, Dart or Go</span></td>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Most integrations. The SDK signs in for you, keeps the access token fresh, retries safely and turns failures into clear errors. Every call is the same in all seven languages.</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>An SDK</strong><br><span style="font-size: 0.9em; margin: 0 0 16px;">Python, JavaScript, PHP, Java, .NET, Dart or Go</span></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Most integrations. The SDK gets and renews the access token for you, retries a call once if the token has expired, and reports every failed call as an error. The methods are the same in all seven languages.</td>
     </tr>
     <tr>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>The REST API directly</strong><br><span style="font-size: 14px; line-height: 1.6; color: #516f90; margin: 0 0 16px;">Any language, or cURL</span></td>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">A language without an SDK, or a quick one-off call. You request an access token yourself and send it with each request.</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>The REST API directly</strong><br><span style="font-size: 0.9em; margin: 0 0 16px;">Any language, or cURL</span></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">A language without an SDK, or a quick one-off call. You request an access token yourself and send it with each request.</td>
     </tr>
   </tbody>
 </table>
 
-<h2 style="font-size: 24px; line-height: 1.3; font-weight: 700; color: #1f2d3d; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #dfe3eb;">What you can work with</h2>
+<h2 style="margin: 32px 0 12px;">What you can work with</h2>
 
-<table style="width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.5; color: #1f2d3d; margin: 0 0 24px; border: 1px solid #dfe3eb;">
+<table style="width: 100%; border-collapse: collapse; margin: 0 0 20px; border: 1px solid #dfe3eb;">
   <thead>
     <tr>
-      <th style="text-align: left; font-weight: 700; padding: 10px 14px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Area</th>
-      <th style="text-align: left; font-weight: 700; padding: 10px 14px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">What you can do</th>
+      <th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Area</th>
+      <th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">What you can do</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><a href="https://newlify.mintlify.app/customers" style="color: #ef7025; font-weight: 600; text-decoration: underline;">Customers</a></td>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">List, find, create, update and delete customers; export and import them; manage addresses, passwords and store credit.</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><a href="https://newlify.mintlify.app/customers">Customers</a></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">List, find, create, update and delete customers; export and import them; manage addresses, passwords and store credit.</td>
     </tr>
     <tr>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Page settings</strong></td>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">The category, product, search result, shopping cart and checkout page settings.</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Page settings</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">The category, product, search result, shopping cart and checkout page settings.</td>
     </tr>
     <tr>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Store settings</strong></td>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Site, e-commerce, customer portal, price display, product listing, search, SEO, shipping and animation settings.</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Store settings</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Site, e-commerce, customer portal, price display, product listing, search, SEO, shipping and animation settings.</td>
     </tr>
     <tr>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Tax</strong></td>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Tax codes, rules, zones, profiles, custom profiles, country taxes and the store's tax settings.</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Tax</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Tax codes, rules, zones, profiles, custom profiles, country taxes and the store's tax settings.</td>
     </tr>
     <tr>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Shipping</strong></td>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Shipping methods and shipping classes.</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Shipping</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Shipping methods and shipping classes.</td>
     </tr>
     <tr>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Inventory and orders</strong></td>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Inventory locations and order flags.</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Inventory and orders</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Inventory locations and order flags.</td>
     </tr>
     <tr>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Domain aliases</strong></td>
-      <td style="padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">The extra hostnames a store answers on.</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Domain aliases</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Other domain names the store can be reached at.</td>
     </tr>
   </tbody>
 </table>
 
-<p style="font-size: 14px; line-height: 1.6; color: #516f90; margin: 0 0 16px;">Areas with a link have full reference documentation. The others are available in every SDK and their reference pages are being added.</p>
+<p style="font-size: 0.9em; margin: 0 0 16px;">Areas with a link have full reference documentation. The others are available in every SDK and their reference pages are being added.</p>
 
-<h2 style="font-size: 24px; line-height: 1.3; font-weight: 700; color: #1f2d3d; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #dfe3eb;">Get started</h2>
+<h2 style="margin: 32px 0 12px;">Get started</h2>
 
-<p style="font-size: 16px; line-height: 1.6; color: #1f2d3d; margin: 0 0 14px;"><span style="display: inline-block; width: 26px; height: 26px; line-height: 26px; text-align: center; border-radius: 50%; background-color: #1f2d3d; color: #ffffff; font-size: 14px; font-weight: 700; margin-right: 10px;">1</span><strong>Get your API credentials.</strong> Your store's client ID, client secret, redirect URI and auth string. Your WebCommander contact can provide them. <a href="https://newlify.mintlify.app/authentication" style="color: #ef7025; font-weight: 600; text-decoration: underline;">Authentication</a> explains each one.</p>
-<p style="font-size: 16px; line-height: 1.6; color: #1f2d3d; margin: 0 0 14px;"><span style="display: inline-block; width: 26px; height: 26px; line-height: 26px; text-align: center; border-radius: 50%; background-color: #1f2d3d; color: #ffffff; font-size: 14px; font-weight: 700; margin-right: 10px;">2</span><strong>Install the SDK for your language.</strong> See <a href="https://newlify.mintlify.app/installation" style="color: #ef7025; font-weight: 600; text-decoration: underline;">Installation</a>.</p>
-<p style="font-size: 16px; line-height: 1.6; color: #1f2d3d; margin: 0 0 14px;"><span style="display: inline-block; width: 26px; height: 26px; line-height: 26px; text-align: center; border-radius: 50%; background-color: #1f2d3d; color: #ffffff; font-size: 14px; font-weight: 700; margin-right: 10px;">3</span><strong>Make your first call.</strong> The <a href="https://newlify.mintlify.app/api-reference/customers/list-customers" style="color: #ef7025; font-weight: 600; text-decoration: underline;">List customers</a> page shows it in every language.</p>
+<p style="margin: 0 0 10px;"><span style="display: inline-block; min-width: 1.6em; font-weight: 700;">1</span><strong>Get your API credentials.</strong> You need your store's client ID, client secret, redirect URI and auth string. Your WebCommander contact can provide them. <a href="https://newlify.mintlify.app/authentication">Authentication</a> explains each one.</p>
+<p style="margin: 0 0 10px;"><span style="display: inline-block; min-width: 1.6em; font-weight: 700;">2</span><strong>Install the SDK for your language.</strong> See <a href="https://newlify.mintlify.app/installation">Installation</a>.</p>
+<p style="margin: 0 0 10px;"><span style="display: inline-block; min-width: 1.6em; font-weight: 700;">3</span><strong>Make your first call.</strong> The <a href="https://newlify.mintlify.app/api-reference/customers/list-customers">List customers</a> page shows it in every language.</p>
 
-<div style="background-color: #fff8ec; border-left: 4px solid #d98200; border-radius: 4px; padding: 14px 18px; margin: 0 0 24px;">
-  <p style="font-size: 16px; font-weight: 700; color: #1f2d3d; margin: 0 0 6px;">Keep your credentials private</p>
-  <p style="font-size: 15px; line-height: 1.6; color: #1f2d3d; margin: 0;">The client secret and auth string give admin access to the store's data through the API. Keep them in environment variables or a secrets manager, never in source code or a shared document.</p>
+<div style="background-color: #fdf8ee; border-left: 3px solid #c98a00; padding: 12px 16px; margin: 0 0 20px;">
+  <p style="font-weight: 700; margin: 0 0 4px;">Keep your credentials private</p>
+  <p style="margin: 0;">The client secret and auth string give admin access to the store's data through the API. Keep them in environment variables or a secrets manager, never in source code or a shared document.</p>
 </div>
 
-<h2 style="font-size: 24px; line-height: 1.3; font-weight: 700; color: #1f2d3d; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #dfe3eb;">Related articles</h2>
+<h2 style="margin: 32px 0 12px;">Related articles</h2>
 
-<ul style="font-size: 16px; line-height: 1.65; color: #1f2d3d; margin: 0 0 16px; padding-left: 24px;">
-  <li style="margin: 0 0 8px;">Installing the WebCommander SDKs</li>
-  <li style="margin: 0 0 8px;">Working with customers through the API</li>
+<ul style="margin: 0 0 16px; padding-left: 24px;">
+  <li style="margin: 0 0 6px;">Installing the WebCommander SDKs</li>
+  <li style="margin: 0 0 6px;">Working with customers through the API</li>
 </ul>

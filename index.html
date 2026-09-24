@@ -31,7 +31,6 @@
     font-size: 16px;
     line-height: 1.5;
   }
-  a { color: var(--accent-ink); }
   :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
   .top {
@@ -40,7 +39,7 @@
     justify-content: space-between;
     gap: 24px;
     flex-wrap: wrap;
-    padding: 20px 32px;
+    padding: 18px 32px;
     background: var(--panel);
     border-bottom: 1px solid var(--line);
   }
@@ -66,17 +65,9 @@
   }
   .notice strong { color: var(--accent-ink); }
 
-  .desk {
-    display: grid;
-    grid-template-columns: 300px minmax(0, 1fr);
-    min-height: calc(100vh - 70px);
-  }
+  .desk { display: grid; grid-template-columns: 300px minmax(0, 1fr); min-height: calc(100vh - 64px); }
 
-  .list {
-    border-right: 1px solid var(--line);
-    padding: 24px 16px;
-  }
-  .list h2 { margin: 0 12px 12px; font-size: 14px; font-weight: 600; color: var(--muted); }
+  .list { border-right: 1px solid var(--line); padding: 24px 16px; }
   .search {
     width: 100%;
     margin: 0 0 16px;
@@ -88,49 +79,7 @@
     font: inherit;
     font-size: 15px;
   }
-  .empty { margin: 8px 12px; color: var(--muted); font-size: 14px; }
-  .actions { display: flex; gap: 10px; flex-wrap: wrap; }
-  .secondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 14px 18px;
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    background: var(--panel);
-    color: var(--ink);
-    font: inherit;
-    font-weight: 600;
-    cursor: pointer;
-  }
-  .secondary:hover { border-color: var(--muted); }
-  .secondary svg { width: 18px; height: 18px; }
-  .secondary.done { border-color: var(--done); color: var(--done); }
-  .view { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
-  .view button {
-    padding: 4px 12px;
-    border: 0;
-    background: transparent;
-    color: var(--muted);
-    font: inherit;
-    font-size: 13px;
-    cursor: pointer;
-  }
-  .view button[aria-pressed="true"] { background: var(--ink); color: #fff; }
-  .code {
-    display: none;
-    margin: 0;
-    padding: 20px 24px;
-    max-height: 720px;
-    overflow: auto;
-    background: #1f2d3d;
-    color: #e6edf3;
-    font: 13px/1.55 Consolas, Menlo, monospace;
-    white-space: pre-wrap;
-    word-break: break-all;
-  }
-  .frame.source .code { display: block; }
-  .frame.source iframe { display: none; }
+  .list h2 { margin: 16px 12px 8px; font-size: 13px; font-weight: 600; color: var(--muted); }
   .list ul { list-style: none; margin: 0; padding: 0; }
   .list button {
     display: grid;
@@ -139,7 +88,7 @@
     gap: 8px;
     width: 100%;
     margin: 0 0 4px;
-    padding: 12px;
+    padding: 11px 12px;
     border: 1px solid transparent;
     border-radius: 8px;
     background: transparent;
@@ -151,59 +100,64 @@
   .list button:hover { background: #e8ecf1; }
   .list button[aria-current="true"] { background: var(--panel); border-color: var(--line); }
   .list .name { font-weight: 600; line-height: 1.35; }
-  .list .category { display: block; font-size: 13px; color: var(--muted); font-weight: 400; margin-top: 2px; }
+  .list .kind { display: block; font-size: 13px; color: var(--muted); font-weight: 400; margin-top: 2px; }
   .list .tick { width: 18px; height: 18px; color: var(--done); visibility: hidden; margin-top: 2px; }
   .list button.copied .tick { visibility: visible; }
+  .empty { margin: 8px 12px; color: var(--muted); font-size: 14px; }
 
-  .work { padding: 32px 40px 64px; max-width: 1040px; }
-  .head {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 24px;
-    flex-wrap: wrap;
+  .work { padding: 28px 40px 64px; max-width: 1180px; }
+  .head h2 { margin: 0 0 18px; font-size: 30px; line-height: 1.15; font-weight: 700; letter-spacing: -0.02em; }
+
+  .fields { display: grid; gap: 10px; margin: 0 0 24px; }
+  .field {
+    display: grid;
+    grid-template-columns: 110px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 12px 10px 16px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
   }
-  .head h2 { margin: 0 0 6px; font-size: 32px; line-height: 1.15; font-weight: 700; letter-spacing: -0.02em; }
-  .head .summary { margin: 0; color: var(--muted); max-width: 60ch; }
-
-  .facts { display: flex; gap: 32px; margin: 20px 0 0; padding: 0; }
-  .facts div { margin: 0; }
-  .facts dt { font-size: 13px; color: var(--muted); }
-  .facts dd { margin: 0; font-weight: 600; }
+  .field dt { font-size: 13px; font-weight: 600; color: var(--muted); }
+  .field dd { margin: 0; font-weight: 500; overflow-wrap: anywhere; }
+  .field .meta { color: var(--muted); font-weight: 400; font-size: 14px; }
 
   .copy {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    padding: 14px 22px;
-    border: 0;
-    border-radius: 10px;
-    background: var(--accent);
-    color: #fff;
+    gap: 8px;
+    padding: 9px 14px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+    color: var(--ink);
     font: inherit;
-    font-weight: 700;
-    font-size: 16px;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
     white-space: nowrap;
-    transition: background-color 160ms ease;
+    transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
   }
-  .copy:hover { background: var(--accent-ink); }
-  .copy svg { width: 20px; height: 20px; }
-  .copy.done { background: var(--done); }
+  .copy:hover { border-color: var(--muted); }
+  .copy svg { width: 16px; height: 16px; }
+  .copy.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .copy.primary:hover { background: var(--accent-ink); border-color: var(--accent-ink); }
+  .copy.done { background: var(--done); border-color: var(--done); color: #fff; }
 
   .steps {
     counter-reset: step;
     list-style: none;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
-    margin: 28px 0 32px;
+    gap: 12px;
+    margin: 0 0 28px;
     padding: 0;
   }
   .steps li {
     counter-increment: step;
     position: relative;
-    padding: 14px 16px 14px 52px;
+    padding: 12px 14px 12px 48px;
     background: var(--panel);
     border: 1px solid var(--line);
     border-radius: 8px;
@@ -213,31 +167,24 @@
   .steps li::before {
     content: counter(step);
     position: absolute;
-    left: 14px;
-    top: 13px;
-    width: 26px;
-    height: 26px;
+    left: 12px;
+    top: 11px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     background: var(--ink);
     color: #fff;
     font-weight: 700;
-    font-size: 13px;
+    font-size: 12px;
     display: grid;
     place-items: center;
   }
-  .steps.flash li { border-color: var(--done); background: var(--done-soft); }
+  .status { min-height: 22px; margin: -18px 0 12px; font-weight: 600; color: var(--done); font-size: 14px; }
 
-  .status { min-height: 24px; margin: -12px 0 12px; font-weight: 600; color: var(--done); }
-  .steps { margin-bottom: 24px; }
-
-  .frame {
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    overflow: hidden;
-  }
+  .frame { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
   .frame .bar {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     gap: 16px;
     padding: 10px 16px;
@@ -245,20 +192,34 @@
     font-size: 13px;
     color: var(--muted);
   }
-  .frame iframe { display: block; width: 100%; min-height: 480px; border: 0; }
+  .view { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .view button { padding: 4px 12px; border: 0; background: transparent; color: var(--muted); font: inherit; font-size: 13px; cursor: pointer; }
+  .view button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+  .frame iframe { display: block; width: 100%; min-height: 600px; border: 0; }
+  .code {
+    display: none;
+    margin: 0;
+    padding: 20px 24px;
+    max-height: 760px;
+    overflow: auto;
+    background: #1f2d3d;
+    color: #e6edf3;
+    font: 13px/1.55 Consolas, Menlo, monospace;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  .frame.source .code { display: block; }
+  .frame.source iframe { display: none; }
+  textarea.clip { position: absolute; left: -9999px; top: 0; }
 
-  textarea.source { position: absolute; left: -9999px; top: 0; }
-
-  @media (max-width: 860px) {
+  @media (max-width: 900px) {
     .desk { grid-template-columns: 1fr; }
     .list { border-right: 0; border-bottom: 1px solid var(--line); }
     .work { padding: 24px 20px 48px; }
     .steps { grid-template-columns: 1fr; }
-    .head h2 { font-size: 26px; }
+    .field { grid-template-columns: 1fr; }
   }
-  @media (prefers-reduced-motion: reduce) {
-    .copy { transition: none; }
-  }
+  @media (prefers-reduced-motion: reduce) { .copy { transition: none; } }
 </style>
 </head>
 <body>
@@ -274,159 +235,218 @@
 <main class="desk">
   <nav class="list" aria-label="Articles">
     <input class="search" id="search" type="search" placeholder="Search articles" aria-label="Search articles">
+    <h2>Category</h2>
+    <ul id="category-list"></ul>
     <h2 id="count"></h2>
     <ul id="articles"></ul>
     <p class="empty" id="empty" hidden>No article matches. Try a shorter word.</p>
   </nav>
 
   <section class="work" aria-live="polite">
-    <div class="head">
-      <div>
-        <h2 id="title"></h2>
-        <p class="summary" id="summary"></p>
-        <dl class="facts">
-          <div><dt>Category</dt><dd id="category"></dd></div>
-          <div><dt>Source file</dt><dd id="file"></dd></div>
-          <div><dt>Size</dt><dd id="size"></dd></div>
-        </dl>
-      </div>
-      <div class="actions">
-      <button class="secondary" id="copy-title" type="button">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
-        <span id="copy-title-label">Copy title</span>
-      </button>
-      <button class="copy" id="copy" type="button">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-        <span id="copy-label">Copy HTML</span>
-      </button>
-      </div>
-    </div>
-
-    <ol class="steps" id="steps">
-      <li>In HubSpot, open the article and set its title to the one above.</li>
-      <li>In the body toolbar, open <strong>Source code</strong>.</li>
-      <li>Paste, save, then preview before you publish.</li>
-    </ol>
+    <div class="head"><h2 id="title"></h2></div>
+    <dl class="fields" id="fields"></dl>
+    <ol class="steps" id="steps"></ol>
     <p class="status" id="status" role="status"></p>
 
-    <div class="frame">
+    <div class="frame" id="frame">
       <div class="bar">
         <div class="view" role="group" aria-label="View">
-          <button type="button" id="view-preview" aria-pressed="true">Preview</button>
+          <button type="button" id="view-preview" aria-pressed="true">Knowledge base preview</button>
           <button type="button" id="view-source" aria-pressed="false">HTML</button>
         </div>
-        <span>How the article reads in the knowledge base</span>
+        <span>How it will look in the HubSpot knowledge base</span>
       </div>
-      <iframe id="preview" title="Article preview" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+      <iframe id="preview" title="Knowledge base preview" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
       <pre class="code" id="code"></pre>
     </div>
-    <textarea class="source" id="source" aria-hidden="true" tabindex="-1"></textarea>
+    <textarea class="clip" id="clip" aria-hidden="true" tabindex="-1"></textarea>
   </section>
 </main>
 
-<script id="data" type="application/json">{"base": "https://newlify.mintlify.app", "placeholder": false, "articles": [{"file": "01-webcommander-api.html", "title": "WebCommander API", "category": "Developers", "summary": "What the API is, which tools you can use with it, and where the full documentation is.", "html": "<p style=\"font-size: 18px; line-height: 1.6; color: #1f2d3d; margin: 0 0 20px;\">The WebCommander API lets your own software read and change a store's data: customers, settings, tax, shipping, inventory and more. This article explains what the API is, which tools you can use with it, and where to find the full developer documentation.<\/p>\n\n<p style=\"margin: 8px 0 32px;\"><a href=\"https://newlify.mintlify.app/introduction\" style=\"display: inline-block; background-color: #ef7025; color: #ffffff; font-size: 16px; font-weight: 700; text-decoration: none; padding: 12px 22px; border-radius: 6px;\">Open the developer documentation<\/a><\/p>\n\n<h2 style=\"font-size: 24px; line-height: 1.3; font-weight: 700; color: #1f2d3d; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #dfe3eb;\">Who this is for<\/h2>\n\n<p style=\"font-size: 16px; line-height: 1.65; color: #1f2d3d; margin: 0 0 16px;\">The API is for developers building an integration with a WebCommander store, for example syncing customers with a CRM, keeping stock levels in step with a warehouse system, or managing tax and shipping rules from your own tools. You do not need the API to run a store day to day; everything here can also be done in the WebCommander admin.<\/p>\n\n<h2 style=\"font-size: 24px; line-height: 1.3; font-weight: 700; color: #1f2d3d; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #dfe3eb;\">Two ways to use it<\/h2>\n\n<table style=\"width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.5; color: #1f2d3d; margin: 0 0 24px; border: 1px solid #dfe3eb;\">\n  <thead>\n    <tr>\n      <th style=\"text-align: left; font-weight: 700; padding: 10px 14px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;\">Option<\/th>\n      <th style=\"text-align: left; font-weight: 700; padding: 10px 14px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;\">Best for<\/th>\n    <\/tr>\n  <\/thead>\n  <tbody>\n    <tr>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>An SDK<\/strong><br><span style=\"font-size: 14px; line-height: 1.6; color: #516f90; margin: 0 0 16px;\">Python, JavaScript, PHP, Java, .NET, Dart or Go<\/span><\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Most integrations. The SDK signs in for you, keeps the access token fresh, retries safely and turns failures into clear errors. Every call is the same in all seven languages.<\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>The REST API directly<\/strong><br><span style=\"font-size: 14px; line-height: 1.6; color: #516f90; margin: 0 0 16px;\">Any language, or cURL<\/span><\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">A language without an SDK, or a quick one-off call. You request an access token yourself and send it with each request.<\/td>\n    <\/tr>\n  <\/tbody>\n<\/table>\n\n<h2 style=\"font-size: 24px; line-height: 1.3; font-weight: 700; color: #1f2d3d; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #dfe3eb;\">What you can work with<\/h2>\n\n<table style=\"width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.5; color: #1f2d3d; margin: 0 0 24px; border: 1px solid #dfe3eb;\">\n  <thead>\n    <tr>\n      <th style=\"text-align: left; font-weight: 700; padding: 10px 14px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;\">Area<\/th>\n      <th style=\"text-align: left; font-weight: 700; padding: 10px 14px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;\">What you can do<\/th>\n    <\/tr>\n  <\/thead>\n  <tbody>\n    <tr>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/customers\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">Customers<\/a><\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">List, find, create, update and delete customers; export and import them; manage addresses, passwords and store credit.<\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>Page settings<\/strong><\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">The category, product, search result, shopping cart and checkout page settings.<\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>Store settings<\/strong><\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Site, e-commerce, customer portal, price display, product listing, search, SEO, shipping and animation settings.<\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>Tax<\/strong><\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Tax codes, rules, zones, profiles, custom profiles, country taxes and the store's tax settings.<\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>Shipping<\/strong><\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Shipping methods and shipping classes.<\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>Inventory and orders<\/strong><\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Inventory locations and order flags.<\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>Domain aliases<\/strong><\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">The extra hostnames a store answers on.<\/td>\n    <\/tr>\n  <\/tbody>\n<\/table>\n\n<p style=\"font-size: 14px; line-height: 1.6; color: #516f90; margin: 0 0 16px;\">Areas with a link have full reference documentation. The others are available in every SDK and their reference pages are being added.<\/p>\n\n<h2 style=\"font-size: 24px; line-height: 1.3; font-weight: 700; color: #1f2d3d; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #dfe3eb;\">Get started<\/h2>\n\n<p style=\"font-size: 16px; line-height: 1.6; color: #1f2d3d; margin: 0 0 14px;\"><span style=\"display: inline-block; width: 26px; height: 26px; line-height: 26px; text-align: center; border-radius: 50%; background-color: #1f2d3d; color: #ffffff; font-size: 14px; font-weight: 700; margin-right: 10px;\">1<\/span><strong>Get your API credentials.<\/strong> Your store's client ID, client secret, redirect URI and auth string. Your WebCommander contact can provide them. <a href=\"https://newlify.mintlify.app/authentication\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">Authentication<\/a> explains each one.<\/p>\n<p style=\"font-size: 16px; line-height: 1.6; color: #1f2d3d; margin: 0 0 14px;\"><span style=\"display: inline-block; width: 26px; height: 26px; line-height: 26px; text-align: center; border-radius: 50%; background-color: #1f2d3d; color: #ffffff; font-size: 14px; font-weight: 700; margin-right: 10px;\">2<\/span><strong>Install the SDK for your language.<\/strong> See <a href=\"https://newlify.mintlify.app/installation\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">Installation<\/a>.<\/p>\n<p style=\"font-size: 16px; line-height: 1.6; color: #1f2d3d; margin: 0 0 14px;\"><span style=\"display: inline-block; width: 26px; height: 26px; line-height: 26px; text-align: center; border-radius: 50%; background-color: #1f2d3d; color: #ffffff; font-size: 14px; font-weight: 700; margin-right: 10px;\">3<\/span><strong>Make your first call.<\/strong> The <a href=\"https://newlify.mintlify.app/api-reference/customers/list-customers\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">List customers<\/a> page shows it in every language.<\/p>\n\n<div style=\"background-color: #fff8ec; border-left: 4px solid #d98200; border-radius: 4px; padding: 14px 18px; margin: 0 0 24px;\">\n  <p style=\"font-size: 16px; font-weight: 700; color: #1f2d3d; margin: 0 0 6px;\">Keep your credentials private<\/p>\n  <p style=\"font-size: 15px; line-height: 1.6; color: #1f2d3d; margin: 0;\">The client secret and auth string give admin access to the store's data through the API. Keep them in environment variables or a secrets manager, never in source code or a shared document.<\/p>\n<\/div>\n\n<h2 style=\"font-size: 24px; line-height: 1.3; font-weight: 700; color: #1f2d3d; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #dfe3eb;\">Related articles<\/h2>\n\n<ul style=\"font-size: 16px; line-height: 1.65; color: #1f2d3d; margin: 0 0 16px; padding-left: 24px;\">\n  <li style=\"margin: 0 0 8px;\">Installing the WebCommander SDKs<\/li>\n  <li style=\"margin: 0 0 8px;\">Working with customers through the API<\/li>\n<\/ul>\n", "size": 9086}, {"file": "02-installing-the-sdks.html", "title": "Installing the WebCommander SDKs", "category": "Developers", "summary": "What each SDK needs, how installation works, and fixes for common problems.", "html": "<p style=\"font-size: 18px; line-height: 1.6; color: #1f2d3d; margin: 0 0 20px;\">The WebCommander SDKs are installed from their source repositories rather than from a package registry such as PyPI, npm or NuGet. This article explains what you need and how installation works. The developer documentation has the exact commands for each language.<\/p>\n\n<p style=\"margin: 8px 0 32px;\"><a href=\"https://newlify.mintlify.app/installation\" style=\"display: inline-block; background-color: #ef7025; color: #ffffff; font-size: 16px; font-weight: 700; text-decoration: none; padding: 12px 22px; border-radius: 6px;\">See the installation guide<\/a><\/p>\n\n<div style=\"background-color: #eef6fc; border-left: 4px solid #2f7ebc; border-radius: 4px; padding: 14px 18px; margin: 0 0 24px;\">\n  <p style=\"font-size: 16px; font-weight: 700; color: #1f2d3d; margin: 0 0 6px;\">Before you start<\/p>\n  <p style=\"font-size: 15px; line-height: 1.6; color: #1f2d3d; margin: 0;\">You need read access to the SDK repositories on Bitbucket. If you do not have it, ask your WebCommander contact.<\/p>\n<\/div>\n\n<h2 style=\"font-size: 24px; line-height: 1.3; font-weight: 700; color: #1f2d3d; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #dfe3eb;\">How installation works<\/h2>\n\n<p style=\"font-size: 16px; line-height: 1.6; color: #1f2d3d; margin: 0 0 14px;\"><span style=\"display: inline-block; width: 26px; height: 26px; line-height: 26px; text-align: center; border-radius: 50%; background-color: #1f2d3d; color: #ffffff; font-size: 14px; font-weight: 700; margin-right: 10px;\">1<\/span><strong>Clone the SDK's repository.<\/strong> Use the <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">development<\/code> branch; it is the main branch.<\/p>\n<p style=\"font-size: 16px; line-height: 1.6; color: #1f2d3d; margin: 0 0 14px;\"><span style=\"display: inline-block; width: 26px; height: 26px; line-height: 26px; text-align: center; border-radius: 50%; background-color: #1f2d3d; color: #ffffff; font-size: 14px; font-weight: 700; margin-right: 10px;\">2<\/span><strong>Run one command in the clone<\/strong> to make it ready, for example <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">npm install<\/code> for JavaScript.<\/p>\n<p style=\"font-size: 16px; line-height: 1.6; color: #1f2d3d; margin: 0 0 14px;\"><span style=\"display: inline-block; width: 26px; height: 26px; line-height: 26px; text-align: center; border-radius: 50%; background-color: #1f2d3d; color: #ffffff; font-size: 14px; font-weight: 700; margin-right: 10px;\">3<\/span><strong>Point your project at the clone.<\/strong> Keep the clone next to your project, because the paths are relative.<\/p>\n\n<h2 style=\"font-size: 24px; line-height: 1.3; font-weight: 700; color: #1f2d3d; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #dfe3eb;\">What each SDK needs<\/h2>\n\n<table style=\"width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.5; color: #1f2d3d; margin: 0 0 24px; border: 1px solid #dfe3eb;\">\n  <thead>\n    <tr>\n      <th style=\"text-align: left; font-weight: 700; padding: 10px 14px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;\">Language<\/th>\n      <th style=\"text-align: left; font-weight: 700; padding: 10px 14px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;\">You need<\/th>\n      <th style=\"text-align: left; font-weight: 700; padding: 10px 14px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;\">Command in the clone<\/th>\n    <\/tr>\n  <\/thead>\n  <tbody>\n    <tr>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>Python<\/strong><\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">uv 0.8.4 or newer (it provides Python 3.10 to 3.13)<\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">uv sync<\/code><\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>JavaScript<\/strong><\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Node.js 18 or newer<\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">npm install<\/code><\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>PHP<\/strong><\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">PHP 8.2 or newer and Composer 2<\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">composer install<\/code><\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>Java<\/strong><\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">JDK 17 or newer and Maven 3.9 or newer<\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">mvn install -DskipTests<\/code><\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>.NET<\/strong><\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">.NET SDK 8.0.100 or newer<\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">dotnet pack<\/code><\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>Dart<\/strong><\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Dart 3.5 or newer (included with Flutter)<\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">dart pub get<\/code><\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>Go<\/strong><\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Go 1.24 or newer<\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">go build ./...<\/code><\/td>\n    <\/tr>\n  <\/tbody>\n<\/table>\n\n<h2 style=\"font-size: 24px; line-height: 1.3; font-weight: 700; color: #1f2d3d; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #dfe3eb;\">Keeping the SDK up to date<\/h2>\n\n<p style=\"font-size: 16px; line-height: 1.65; color: #1f2d3d; margin: 0 0 16px;\">Run <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">git pull<\/code> in the clone. Python, JavaScript, PHP, Dart and Go pick up the change straight away. Java and .NET use a built copy, so run the command in the clone again after you pull.<\/p>\n\n<h2 style=\"font-size: 24px; line-height: 1.3; font-weight: 700; color: #1f2d3d; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #dfe3eb;\">Troubleshooting<\/h2>\n\n<h3 style=\"font-size: 18px; line-height: 1.4; font-weight: 700; color: #1f2d3d; margin: 28px 0 8px;\">The SDK files are missing after cloning<\/h3>\n<p style=\"font-size: 16px; line-height: 1.65; color: #1f2d3d; margin: 0 0 16px;\">The clone is on the wrong branch. Clone again with <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">--branch development<\/code>; the repository's default branch does not carry the SDK.<\/p>\n\n<h3 style=\"font-size: 18px; line-height: 1.4; font-weight: 700; color: #1f2d3d; margin: 28px 0 8px;\">Java cannot find the SDK<\/h3>\n<p style=\"font-size: 16px; line-height: 1.65; color: #1f2d3d; margin: 0 0 16px;\">An error such as <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">Could not find artifact com.webcommander:webcommander-sdk<\/code> means the build step was skipped. Run <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">mvn install -DskipTests<\/code> in the clone, then build your project again. No extra repository or registry login is needed.<\/p>\n\n<h2 style=\"font-size: 24px; line-height: 1.3; font-weight: 700; color: #1f2d3d; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #dfe3eb;\">Related articles<\/h2>\n\n<ul style=\"font-size: 16px; line-height: 1.65; color: #1f2d3d; margin: 0 0 16px; padding-left: 24px;\">\n  <li style=\"margin: 0 0 8px;\">WebCommander API<\/li>\n  <li style=\"margin: 0 0 8px;\">Working with customers through the API<\/li>\n<\/ul>\n", "size": 10463}, {"file": "03-customers.html", "title": "Working with customers through the API", "category": "Developers", "summary": "Common customer tasks, all fifteen endpoints, and what to watch for.", "html": "<p style=\"font-size: 18px; line-height: 1.6; color: #1f2d3d; margin: 0 0 20px;\">The Customers API lets your software manage a store's customers: find them, create and update them, move them in and out of the store in bulk, and manage their addresses, passwords and store credit. All fifteen endpoints are available in every WebCommander SDK.<\/p>\n\n<p style=\"margin: 8px 0 32px;\"><a href=\"https://newlify.mintlify.app/customers\" style=\"display: inline-block; background-color: #ef7025; color: #ffffff; font-size: 16px; font-weight: 700; text-decoration: none; padding: 12px 22px; border-radius: 6px;\">Open the Customers reference<\/a><\/p>\n\n<h2 style=\"font-size: 24px; line-height: 1.3; font-weight: 700; color: #1f2d3d; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #dfe3eb;\">Common tasks<\/h2>\n\n<table style=\"width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.5; color: #1f2d3d; margin: 0 0 24px; border: 1px solid #dfe3eb;\">\n  <thead>\n    <tr>\n      <th style=\"text-align: left; font-weight: 700; padding: 10px 14px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;\">You want to<\/th>\n      <th style=\"text-align: left; font-weight: 700; padding: 10px 14px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;\">Use<\/th>\n    <\/tr>\n  <\/thead>\n  <tbody>\n    <tr>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Sync customers with another system<\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/list-customers\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">List customers<\/a>, page by page, then <a href=\"https://newlify.mintlify.app/api-reference/customers/update-a-customer\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">Update a customer<\/a> for changes<\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Sign up a customer from your own form<\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/check-an-email-address\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">Check an email address<\/a>, then <a href=\"https://newlify.mintlify.app/api-reference/customers/create-a-customer\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">Create a customer<\/a> with <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">status: \"active\"<\/code><\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Move many customers at once<\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/export-customers\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">Export customers<\/a> and <a href=\"https://newlify.mintlify.app/api-reference/customers/import-customers\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">Import customers<\/a><\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Give a refund as store credit<\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/adjust-store-credit\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">Adjust store credit<\/a><\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Help a customer who cannot sign in<\/td>\n      <td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/reset-a-password\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">Reset a password<\/a><\/td>\n    <\/tr>\n  <\/tbody>\n<\/table>\n\n<h2 style=\"font-size: 24px; line-height: 1.3; font-weight: 700; color: #1f2d3d; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #dfe3eb;\">All endpoints<\/h2>\n\n<table style=\"width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.5; color: #1f2d3d; margin: 0 0 24px; border: 1px solid #dfe3eb;\"><thead><tr><th style=\"text-align: left; font-weight: 700; padding: 10px 14px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;\">Endpoint<\/th><th style=\"text-align: left; font-weight: 700; padding: 10px 14px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;\">Method<\/th><th style=\"text-align: left; font-weight: 700; padding: 10px 14px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;\">Path<\/th><\/tr><\/thead><tbody><tr><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/list-customers\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">List customers<\/a><br><span style=\"font-size: 14px; color: #516f90;\">A page of customers, with a pagination block for the next page.<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e5f5f0; color: #0b7a5f;\">GET<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">…/customers<\/code><\/td><\/tr><tr><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/retrieve-a-customer\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">Retrieve a customer<\/a><br><span style=\"font-size: 14px; color: #516f90;\">One customer by customer_id.<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e5f5f0; color: #0b7a5f;\">GET<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">…/customers/{customer_id}<\/code><\/td><\/tr><tr><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/count-customers\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">Count customers<\/a><br><span style=\"font-size: 14px; color: #516f90;\">The number of customers, optionally filtered.<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e5f5f0; color: #0b7a5f;\">GET<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">…/customers/count<\/code><\/td><\/tr><tr><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/check-an-email-address\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">Check an email address<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Whether an email address already belongs to a customer.<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e5f5f0; color: #0b7a5f;\">GET<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">…/customers/check-email<\/code><\/td><\/tr><tr><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/export-customers\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">Export customers<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Every customer as an XLSX spreadsheet.<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e5f5f0; color: #0b7a5f;\">GET<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">…/customers/export<\/code><\/td><\/tr><tr><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/create-a-customer\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">Create a customer<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Add a customer and get back its new customer_id.<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e8f0fe; color: #1c5fd0;\">POST<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">…/customers<\/code><\/td><\/tr><tr><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/update-a-customer\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">Update a customer<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Change only the fields you send; the rest stay as they are.<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #fdf1e3; color: #a35200;\">PUT<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">…/customers/{customer_id}<\/code><\/td><\/tr><tr><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/delete-a-customer\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">Delete a customer<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Remove a customer permanently.<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #fde9e7; color: #b42318;\">DELETE<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">…/customers/{customer_id}<\/code><\/td><\/tr><tr><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/add-addresses\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">Add addresses<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Add shipping, billing or primary addresses to a customer.<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e8f0fe; color: #1c5fd0;\">POST<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">…/customers/{customer_id}/addresses<\/code><\/td><\/tr><tr><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/reset-a-password\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">Reset a password<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Set a new password without the old one.<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e8f0fe; color: #1c5fd0;\">POST<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">…/customers/{customer_id}/reset-password<\/code><\/td><\/tr><tr><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/change-a-password\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">Change a password<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Change a password by giving the old one.<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e8f0fe; color: #1c5fd0;\">POST<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">…/customers/{customer_id}/change-password<\/code><\/td><\/tr><tr><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/bulk-reset-passwords\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">Bulk reset passwords<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Email a password reset to several customers.<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e8f0fe; color: #1c5fd0;\">POST<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">…/customers/bulk-reset-password<\/code><\/td><\/tr><tr><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/import-customers\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">Import customers<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Create or update customers from a CSV or spreadsheet file.<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e8f0fe; color: #1c5fd0;\">POST<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">…/customers/import<\/code><\/td><\/tr><tr><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/list-store-credit-adjustments\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">List store credit adjustments<\/a><br><span style=\"font-size: 14px; color: #516f90;\">A customer's store credit movements, newest first.<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e5f5f0; color: #0b7a5f;\">GET<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">…/customers/{customer_id}/store-credit/adjustments<\/code><\/td><\/tr><tr><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/adjust-store-credit\" style=\"color: #ef7025; font-weight: 600; text-decoration: underline;\">Adjust store credit<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Add to or deduct from a customer's store credit.<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e8f0fe; color: #1c5fd0;\">POST<\/span><\/td><td style=\"padding: 10px 14px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">…/customers/{customer_id}/store-credit/adjustments<\/code><\/td><\/tr><\/tbody><\/table>\n\n<h2 style=\"font-size: 24px; line-height: 1.3; font-weight: 700; color: #1f2d3d; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #dfe3eb;\">Good to know<\/h2>\n\n<div style=\"background-color: #fff8ec; border-left: 4px solid #d98200; border-radius: 4px; padding: 14px 18px; margin: 0 0 24px;\">\n  <p style=\"font-size: 16px; font-weight: 700; color: #1f2d3d; margin: 0 0 6px;\">Use customer_id, not internal_id<\/p>\n  <p style=\"font-size: 15px; line-height: 1.6; color: #1f2d3d; margin: 0;\">Every customer carries two ids. Endpoints take <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">customer_id<\/code>. Sending <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">internal_id<\/code> by mistake can return a different customer instead of an error, so always check the record you get back.<\/p>\n<\/div>\n\n<div style=\"background-color: #eef6fc; border-left: 4px solid #2f7ebc; border-radius: 4px; padding: 14px 18px; margin: 0 0 24px;\">\n  <p style=\"font-size: 16px; font-weight: 700; color: #1f2d3d; margin: 0 0 6px;\">New customers cannot sign in until they are active<\/p>\n  <p style=\"font-size: 15px; line-height: 1.6; color: #1f2d3d; margin: 0;\">A customer created without <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 14px; color: #1f2d3d; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 4px; padding: 1px 5px;\">status: \"active\"<\/code> is created as awaiting verification and has no usable login, even with a password.<\/p>\n<\/div>\n\n<ul style=\"font-size: 16px; line-height: 1.65; color: #1f2d3d; margin: 0 0 16px; padding-left: 24px;\">\n  <li style=\"margin: 0 0 8px;\"><strong>Lists return up to 20 customers at a time.<\/strong> Ask for the next page to see more.<\/li>\n  <li style=\"margin: 0 0 8px;\"><strong>An export always contains every customer.<\/strong> Its options choose which columns appear, not which customers.<\/li>\n  <li style=\"margin: 0 0 8px;\"><strong>A bulk password reset emails the customers.<\/strong> Each customer receives a reset email.<\/li>\n  <li style=\"margin: 0 0 8px;\"><strong>An import can partly succeed.<\/strong> Check the number of failed rows in the result.<\/li>\n<\/ul>\n\n<h2 style=\"font-size: 24px; line-height: 1.3; font-weight: 700; color: #1f2d3d; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #dfe3eb;\">Related articles<\/h2>\n\n<ul style=\"font-size: 16px; line-height: 1.65; color: #1f2d3d; margin: 0 0 16px; padding-left: 24px;\">\n  <li style=\"margin: 0 0 8px;\">WebCommander API<\/li>\n  <li style=\"margin: 0 0 8px;\">Installing the WebCommander SDKs<\/li>\n<\/ul>\n", "size": 24098}]}</script>
+<script id="data" type="application/json">{"base": "https://newlify.mintlify.app", "placeholder": false, "category": {"name": "WebCommander API", "description": "Technical documentation to connect your software to a WebCommander store"}, "articles": [{"file": "01-webcommander-api.html", "title": "Getting started with the WebCommander API", "subtitle": "Connect your software to a WebCommander store with the API or one of seven SDKs", "summary": "What the API is, which tools you can use with it, and where the full documentation is.", "html": "<p style=\"margin: 0 0 16px;\">The WebCommander API lets your own software read and change a store's data: customers, settings, tax, shipping, inventory and more. This article explains what the API is, which tools you can use with it, and where to find the full developer documentation.<\/p>\n\n<p style=\"margin: 0 0 24px;\"><a href=\"https://newlify.mintlify.app/introduction\" style=\"font-weight: 700;\">Open the developer documentation<\/a><\/p>\n\n<h2 style=\"margin: 32px 0 12px;\">Who this is for<\/h2>\n\n<p style=\"margin: 0 0 16px;\">The API is for developers building an integration with a WebCommander store, for example syncing customers with a CRM, issuing refunds as store credit from a returns system, or managing tax and shipping rules from your own tools. You do not need the API to run a store day to day; everything here can also be done in the WebCommander admin.<\/p>\n\n<h2 style=\"margin: 32px 0 12px;\">Two ways to use it<\/h2>\n\n<table style=\"width: 100%; border-collapse: collapse; margin: 0 0 20px; border: 1px solid #dfe3eb;\">\n  <thead>\n    <tr>\n      <th style=\"text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;\">Option<\/th>\n      <th style=\"text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;\">Best for<\/th>\n    <\/tr>\n  <\/thead>\n  <tbody>\n    <tr>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>An SDK<\/strong><br><span style=\"font-size: 0.9em; margin: 0 0 16px;\">Python, JavaScript, PHP, Java, .NET, Dart or Go<\/span><\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Most integrations. The SDK gets and renews the access token for you, retries a call once if the token has expired, and reports every failed call as an error. The methods are the same in all seven languages.<\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>The REST API directly<\/strong><br><span style=\"font-size: 0.9em; margin: 0 0 16px;\">Any language, or cURL<\/span><\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">A language without an SDK, or a quick one-off call. You request an access token yourself and send it with each request.<\/td>\n    <\/tr>\n  <\/tbody>\n<\/table>\n\n<h2 style=\"margin: 32px 0 12px;\">What you can work with<\/h2>\n\n<table style=\"width: 100%; border-collapse: collapse; margin: 0 0 20px; border: 1px solid #dfe3eb;\">\n  <thead>\n    <tr>\n      <th style=\"text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;\">Area<\/th>\n      <th style=\"text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;\">What you can do<\/th>\n    <\/tr>\n  <\/thead>\n  <tbody>\n    <tr>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/customers\">Customers<\/a><\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">List, find, create, update and delete customers; export and import them; manage addresses, passwords and store credit.<\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>Page settings<\/strong><\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">The category, product, search result, shopping cart and checkout page settings.<\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>Store settings<\/strong><\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Site, e-commerce, customer portal, price display, product listing, search, SEO, shipping and animation settings.<\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>Tax<\/strong><\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Tax codes, rules, zones, profiles, custom profiles, country taxes and the store's tax settings.<\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>Shipping<\/strong><\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Shipping methods and shipping classes.<\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>Inventory and orders<\/strong><\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Inventory locations and order flags.<\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>Domain aliases<\/strong><\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Other domain names the store can be reached at.<\/td>\n    <\/tr>\n  <\/tbody>\n<\/table>\n\n<p style=\"font-size: 0.9em; margin: 0 0 16px;\">Areas with a link have full reference documentation. The others are available in every SDK and their reference pages are being added.<\/p>\n\n<h2 style=\"margin: 32px 0 12px;\">Get started<\/h2>\n\n<p style=\"margin: 0 0 10px;\"><span style=\"display: inline-block; min-width: 1.6em; font-weight: 700;\">1<\/span><strong>Get your API credentials.<\/strong> You need your store's client ID, client secret, redirect URI and auth string. Your WebCommander contact can provide them. <a href=\"https://newlify.mintlify.app/authentication\">Authentication<\/a> explains each one.<\/p>\n<p style=\"margin: 0 0 10px;\"><span style=\"display: inline-block; min-width: 1.6em; font-weight: 700;\">2<\/span><strong>Install the SDK for your language.<\/strong> See <a href=\"https://newlify.mintlify.app/installation\">Installation<\/a>.<\/p>\n<p style=\"margin: 0 0 10px;\"><span style=\"display: inline-block; min-width: 1.6em; font-weight: 700;\">3<\/span><strong>Make your first call.<\/strong> The <a href=\"https://newlify.mintlify.app/api-reference/customers/list-customers\">List customers<\/a> page shows it in every language.<\/p>\n\n<div style=\"background-color: #fdf8ee; border-left: 3px solid #c98a00; padding: 12px 16px; margin: 0 0 20px;\">\n  <p style=\"font-weight: 700; margin: 0 0 4px;\">Keep your credentials private<\/p>\n  <p style=\"margin: 0;\">The client secret and auth string give admin access to the store's data through the API. Keep them in environment variables or a secrets manager, never in source code or a shared document.<\/p>\n<\/div>\n\n<h2 style=\"margin: 32px 0 12px;\">Related articles<\/h2>\n\n<ul style=\"margin: 0 0 16px; padding-left: 24px;\">\n  <li style=\"margin: 0 0 6px;\">Installing the WebCommander SDKs<\/li>\n  <li style=\"margin: 0 0 6px;\">Working with customers through the API<\/li>\n<\/ul>\n", "size": 7009}, {"file": "02-installing-the-sdks.html", "title": "Installing the WebCommander SDKs", "subtitle": "What each SDK needs, and how to add it to your project", "summary": "What each SDK needs, how installation works, and fixes for common problems.", "html": "<p style=\"margin: 0 0 16px;\">The WebCommander SDKs are installed from their source repositories rather than from a package registry such as PyPI, npm or NuGet. This article explains what you need and how installation works. The developer documentation has the exact commands for each language.<\/p>\n\n<p style=\"margin: 0 0 24px;\"><a href=\"https://newlify.mintlify.app/installation\" style=\"font-weight: 700;\">See the installation guide<\/a><\/p>\n\n<div style=\"background-color: #f0f6fb; border-left: 3px solid #2f7ebc; padding: 12px 16px; margin: 0 0 20px;\">\n  <p style=\"font-weight: 700; margin: 0 0 4px;\">Before you start<\/p>\n  <p style=\"margin: 0;\">You need read access to the SDK repositories on Bitbucket. If you do not have it, ask your WebCommander contact.<\/p>\n<\/div>\n\n<h2 style=\"margin: 32px 0 12px;\">How installation works<\/h2>\n\n<p style=\"margin: 0 0 10px;\"><span style=\"display: inline-block; min-width: 1.6em; font-weight: 700;\">1<\/span><strong>Clone the SDK's repository.<\/strong> Use the <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">development<\/code> branch; it is the main branch.<\/p>\n<p style=\"margin: 0 0 10px;\"><span style=\"display: inline-block; min-width: 1.6em; font-weight: 700;\">2<\/span><strong>Run one command in the clone<\/strong> to install its dependencies or build it, for example <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">npm install<\/code> for JavaScript. The table below lists the command for each language.<\/p>\n<p style=\"margin: 0 0 10px;\"><span style=\"display: inline-block; min-width: 1.6em; font-weight: 700;\">3<\/span><strong>Point your project at the clone.<\/strong> Keep the clone next to your project, because the paths are relative.<\/p>\n\n<h2 style=\"margin: 32px 0 12px;\">What each SDK needs<\/h2>\n\n<table style=\"width: 100%; border-collapse: collapse; margin: 0 0 20px; border: 1px solid #dfe3eb;\">\n  <thead>\n    <tr>\n      <th style=\"text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;\">Language<\/th>\n      <th style=\"text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;\">You need<\/th>\n      <th style=\"text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;\">Command in the clone<\/th>\n    <\/tr>\n  <\/thead>\n  <tbody>\n    <tr>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>Python<\/strong><\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">uv 0.8.4 or newer (it provides Python 3.10 to 3.13)<\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">uv sync<\/code><\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>JavaScript<\/strong><\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Node.js 18 or newer<\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">npm install<\/code><\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>PHP<\/strong><\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">PHP 8.2 or newer and Composer 2<\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">composer install<\/code><\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>Java<\/strong><\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">JDK 17 or newer and Maven 3.9 or newer<\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">mvn install -DskipTests<\/code><\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>.NET<\/strong><\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">.NET SDK 8.0.100 or newer<\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">dotnet pack<\/code><\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>Dart<\/strong><\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Dart 3.5 or newer (included with Flutter)<\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">dart pub get<\/code><\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><strong>Go<\/strong><\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Go 1.24 or newer<\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">go build ./...<\/code><\/td>\n    <\/tr>\n  <\/tbody>\n<\/table>\n\n<h2 style=\"margin: 32px 0 12px;\">Keeping the SDK up to date<\/h2>\n\n<p style=\"margin: 0 0 16px;\">Run <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">git pull<\/code> in the clone. Python, JavaScript, PHP, Dart and Go pick up the change straight away. Java and .NET use a built copy, so run the command in the clone again after you pull.<\/p>\n\n<h2 style=\"margin: 32px 0 12px;\">Troubleshooting<\/h2>\n\n<h3 style=\"margin: 24px 0 8px;\">The SDK files are missing after cloning<\/h3>\n<p style=\"margin: 0 0 16px;\">The clone is on the wrong branch. Clone again with <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">--branch development<\/code>; the repository's default branch does not contain the SDK.<\/p>\n\n<h3 style=\"margin: 24px 0 8px;\">Java cannot find the SDK<\/h3>\n<p style=\"margin: 0 0 16px;\">An error such as <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">Could not find artifact com.webcommander:webcommander-sdk<\/code> means the build step was skipped. Run <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">mvn install -DskipTests<\/code> in the clone, then build your project again. No extra repository or registry login is needed.<\/p>\n\n<h2 style=\"margin: 32px 0 12px;\">Related articles<\/h2>\n\n<ul style=\"margin: 0 0 16px; padding-left: 24px;\">\n  <li style=\"margin: 0 0 6px;\">Getting started with the WebCommander API<\/li>\n  <li style=\"margin: 0 0 6px;\">Working with customers through the API<\/li>\n<\/ul>\n", "size": 8430}, {"file": "03-customers.html", "title": "Working with customers through the API", "subtitle": "Find, create and update customers, and manage their addresses, passwords and store credit", "summary": "Common customer tasks, all fifteen endpoints, and what to watch for.", "html": "<p style=\"margin: 0 0 16px;\">The Customers API lets your software work with a store's customers: find, create, update and delete them, export them to a spreadsheet, import them from a file, and manage their addresses, passwords and store credit. All fifteen endpoints are available in every WebCommander SDK.<\/p>\n\n<p style=\"margin: 0 0 24px;\"><a href=\"https://newlify.mintlify.app/customers\" style=\"font-weight: 700;\">Open the Customers reference<\/a><\/p>\n\n<h2 style=\"margin: 32px 0 12px;\">Common tasks<\/h2>\n\n<table style=\"width: 100%; border-collapse: collapse; margin: 0 0 20px; border: 1px solid #dfe3eb;\">\n  <thead>\n    <tr>\n      <th style=\"text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;\">You want to<\/th>\n      <th style=\"text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;\">Use<\/th>\n    <\/tr>\n  <\/thead>\n  <tbody>\n    <tr>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Sync customers with another system<\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/list-customers\">List customers<\/a>, page by page, then <a href=\"https://newlify.mintlify.app/api-reference/customers/update-a-customer\">Update a customer<\/a> for changes<\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Sign up a customer from your own form<\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/check-an-email-address\">Check an email address<\/a>, then <a href=\"https://newlify.mintlify.app/api-reference/customers/create-a-customer\">Create a customer<\/a> with <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">status: \"active\"<\/code><\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Download every customer, or create and update many at once<\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/export-customers\">Export customers<\/a> and <a href=\"https://newlify.mintlify.app/api-reference/customers/import-customers\">Import customers<\/a><\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Give a refund as store credit<\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/adjust-store-credit\">Adjust store credit<\/a><\/td>\n    <\/tr>\n    <tr>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\">Set a new password for a customer who has forgotten theirs<\/td>\n      <td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/reset-a-password\">Reset a password<\/a><\/td>\n    <\/tr>\n  <\/tbody>\n<\/table>\n\n<h2 style=\"margin: 32px 0 12px;\">All endpoints<\/h2>\n\n<table style=\"width: 100%; border-collapse: collapse; margin: 0 0 20px; border: 1px solid #dfe3eb;\"><thead><tr><th style=\"text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;\">Endpoint<\/th><th style=\"text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;\">Method<\/th><th style=\"text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;\">Path<\/th><\/tr><\/thead><tbody><tr><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/list-customers\">List customers<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Returns up to 20 customers per call, with the total count and the next page's URL.<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e5f5f0; color: #0b7a5f;\">GET<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">…/customers<\/code><\/td><\/tr><tr><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/retrieve-a-customer\">Retrieve a customer<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Returns one customer, with its addresses and custom properties, by customer_id.<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e5f5f0; color: #0b7a5f;\">GET<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">…/customers/{customer_id}<\/code><\/td><\/tr><tr><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/count-customers\">Count customers<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Returns the number of customers, or the number that match the filters you send.<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e5f5f0; color: #0b7a5f;\">GET<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">…/customers/count<\/code><\/td><\/tr><tr><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/check-an-email-address\">Check an email address<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Checks whether an email address already belongs to a customer, and returns that customer's ids.<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e5f5f0; color: #0b7a5f;\">GET<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">…/customers/check-email<\/code><\/td><\/tr><tr><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/export-customers\">Export customers<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Returns every customer except deleted ones as an XLSX spreadsheet; parameters choose the columns.<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e5f5f0; color: #0b7a5f;\">GET<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">…/customers/export<\/code><\/td><\/tr><tr><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/create-a-customer\">Create a customer<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Creates a customer and returns it, including the customer_id you use in later calls.<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e8f0fe; color: #1c5fd0;\">POST<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">…/customers<\/code><\/td><\/tr><tr><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/update-a-customer\">Update a customer<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Changes only the fields you send and returns the updated customer.<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #fdf1e3; color: #a35200;\">PUT<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">…/customers/{customer_id}<\/code><\/td><\/tr><tr><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/delete-a-customer\">Delete a customer<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Moves a customer to the trash; the API cannot restore it.<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #fde9e7; color: #b42318;\">DELETE<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">…/customers/{customer_id}<\/code><\/td><\/tr><tr><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/add-addresses\">Add addresses<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Adds primary, shipping or billing addresses to a customer and returns the updated customer.<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e8f0fe; color: #1c5fd0;\">POST<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">…/customers/{customer_id}/addresses<\/code><\/td><\/tr><tr><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/reset-a-password\">Reset a password<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Sets a new password for a customer without needing their current one.<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e8f0fe; color: #1c5fd0;\">POST<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">…/customers/{customer_id}/reset-password<\/code><\/td><\/tr><tr><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/change-a-password\">Change a password<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Changes a customer's password after checking their current password.<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e8f0fe; color: #1c5fd0;\">POST<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">…/customers/{customer_id}/change-password<\/code><\/td><\/tr><tr><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/bulk-reset-passwords\">Bulk reset passwords<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Queues a password reset email for each customer id you send in customer_ids.<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e8f0fe; color: #1c5fd0;\">POST<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">…/customers/bulk-reset-password<\/code><\/td><\/tr><tr><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/import-customers\">Import customers<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Creates or updates customers from an uploaded CSV, XLS or XLSX file.<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e8f0fe; color: #1c5fd0;\">POST<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">…/customers/import<\/code><\/td><\/tr><tr><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/list-store-credit-adjustments\">List store credit adjustments<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Returns a customer's store credit adjustments, newest first, up to 20 at a time.<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e5f5f0; color: #0b7a5f;\">GET<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">…/customers/{customer_id}/store-credit/adjustments<\/code><\/td><\/tr><tr><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><a href=\"https://newlify.mintlify.app/api-reference/customers/adjust-store-credit\">Adjust store credit<\/a><br><span style=\"font-size: 14px; color: #516f90;\">Adds to or deducts from a customer's store credit and returns the new balance.<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top; white-space: nowrap;\"><span style=\"display: inline-block; min-width: 58px; text-align: center; font-family: Consolas, Menlo, Monaco, monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; background-color: #e8f0fe; color: #1c5fd0;\">POST<\/span><\/td><td style=\"padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;\"><code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">…/customers/{customer_id}/store-credit/adjustments<\/code><\/td><\/tr><\/tbody><\/table>\n\n<h2 style=\"margin: 32px 0 12px;\">Good to know<\/h2>\n\n<div style=\"background-color: #fdf8ee; border-left: 3px solid #c98a00; padding: 12px 16px; margin: 0 0 20px;\">\n  <p style=\"font-weight: 700; margin: 0 0 4px;\">Use customer_id, not internal_id<\/p>\n  <p style=\"margin: 0;\">Every customer has two ids: <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">customer_id<\/code> and <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">internal_id<\/code>. Endpoints take <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">customer_id<\/code>. If you send an <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">internal_id<\/code> by mistake, you can get a different customer back instead of an error, so check that the customer you get back is the one you asked for.<\/p>\n<\/div>\n\n<div style=\"background-color: #f0f6fb; border-left: 3px solid #2f7ebc; padding: 12px 16px; margin: 0 0 20px;\">\n  <p style=\"font-weight: 700; margin: 0 0 4px;\">New customers cannot sign in until they are active<\/p>\n  <p style=\"margin: 0;\">A customer created without <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">status: \"active\"<\/code> is created as <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">awaiting_verification<\/code> and has no usable login, even with a password. To create a customer who can sign in straight away, send <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">status: \"active\"<\/code> with a <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">password<\/code>.<\/p>\n<\/div>\n\n<ul style=\"margin: 0 0 16px; padding-left: 24px;\">\n  <li style=\"margin: 0 0 6px;\"><strong>Lists return up to 20 customers at a time.<\/strong> To get more, send the next <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">page<\/code> number or a higher <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">offset<\/code>.<\/li>\n  <li style=\"margin: 0 0 6px;\"><strong>An export always contains every customer.<\/strong> Its options choose which columns appear, not which customers. Importing an export rewrites every customer in the store, so build import files from only the customers you want to change.<\/li>\n  <li style=\"margin: 0 0 6px;\"><strong>A bulk password reset queues a reset email for each customer.<\/strong> The call returns before any email is sent. Check <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">queued<\/code> and <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">skipped<\/code> in the result: an id that matches no customer is listed in <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">skipped<\/code> with a reason.<\/li>\n  <li style=\"margin: 0 0 6px;\"><strong>An import can partly succeed.<\/strong> It can return <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">201<\/code> even when some rows failed, so check <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">failed<\/code> and <code style=\"font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;\">errors<\/code> in the result.<\/li>\n<\/ul>\n\n<h2 style=\"margin: 32px 0 12px;\">Related articles<\/h2>\n\n<ul style=\"margin: 0 0 16px; padding-left: 24px;\">\n  <li style=\"margin: 0 0 6px;\">Getting started with the WebCommander API<\/li>\n  <li style=\"margin: 0 0 6px;\">Installing the WebCommander SDKs<\/li>\n<\/ul>\n", "size": 24413}]}</script>
 <script>
   const data = JSON.parse(document.getElementById('data').textContent);
   const copied = new Set(JSON.parse(sessionStorage.getItem('kb-copied') || '[]'));
-  const tick = '<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
-  const list = document.getElementById('articles');
+  const logo = new URL('assets/webcommander-logo.svg', location.href).href;
+  const COPY_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+  const TICK = '<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+
+  const entries = [{ kind: 'category', id: 'category', title: data.category.name, category: data.category }]
+    .concat(data.articles.map(a => Object.assign({ kind: 'article', id: a.file }, a)));
   const buttons = [];
-  let current = 0;
+  let current = 1;
 
   document.getElementById('base').textContent = data.base;
   document.getElementById('placeholder').hidden = !data.placeholder;
+
+  function escapeHtml(value) {
+    return String(value).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  }
+
+  function listButton(entry, index) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.innerHTML = '<span><span class="name"></span><span class="kind"></span></span>' + TICK;
+    button.querySelector('.name').textContent = entry.title;
+    button.querySelector('.kind').textContent = entry.kind === 'category' ? 'Category page' : data.category.name;
+    button.classList.toggle('copied', copied.has(entry.id));
+    button.addEventListener('click', () => show(index));
+    const item = document.createElement('li');
+    item.appendChild(button);
+    buttons[index] = button;
+    return item;
+  }
+
+  entries.forEach((entry, index) => {
+    document.getElementById(entry.kind === 'category' ? 'category-list' : 'articles').appendChild(listButton(entry, index));
+  });
+
   function countLabel(shown) {
     const total = data.articles.length;
     return shown === total ? total + (total === 1 ? ' article' : ' articles') : shown + ' of ' + total + ' articles';
   }
   document.getElementById('count').textContent = countLabel(data.articles.length);
 
-  data.articles.forEach((article, index) => {
-    const item = document.createElement('li');
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.innerHTML = '<span><span class="name"></span><span class="category"></span></span>' + tick;
-    button.querySelector('.name').textContent = article.title;
-    button.querySelector('.category').textContent = article.category;
-    button.classList.toggle('copied', copied.has(article.file));
-    button.addEventListener('click', () => show(index));
-    item.appendChild(button);
-    list.appendChild(item);
-    buttons.push(button);
-  });
+  const KB_CSS = `
+    *{box-sizing:border-box}
+    body{margin:0;font-family:"Open Sans",-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#333;background:#fff}
+    a{color:#c75b17;text-decoration:none}
+    a:hover{text-decoration:underline}
+    .kb-top{display:flex;align-items:center;justify-content:space-between;padding:22px 32px}
+    .kb-brand{display:flex;align-items:flex-end;gap:10px}
+    .kb-brand img{height:34px}
+    .kb-brand span{font-size:15px;color:#555;padding-bottom:2px}
+    .kb-go{background:#ef7025;color:#fff;font-weight:600;font-size:15px;padding:10px 20px;border-radius:999px}
+    .kb-go:hover{text-decoration:none;background:#c75b17}
+    .kb-hero{background:#f2f2f2;padding:56px 32px 60px}
+    .kb-hero-in{max-width:1000px;margin:0 auto}
+    .kb-hero h2{margin:0 0 16px;font-size:34px;line-height:1.2;font-weight:700;color:#222}
+    .kb-search{display:flex;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+    .kb-search input{flex:1;border:0;padding:12px 14px;font:inherit;font-size:15px;color:#333;outline:none}
+    .kb-search span{width:40px;display:grid;place-items:center;background:#e6eaee;color:#333}
+    .kb-wrap{max-width:1000px;margin:0 auto;padding:0 0 32px}
+    .kb-crumbs{padding:16px 0 28px;font-size:15px}
+    .kb-crumbs .sep{color:#555;margin:0 10px}
+    .kb-cols{display:grid;grid-template-columns:240px minmax(0,1fr);gap:0}
+    .kb-side{padding-right:24px;border-right:1px solid #e5e5e5}
+    .kb-side a{display:block;padding:9px 10px;font-size:15px}
+    .kb-side a.on{background:#fdefe6;color:#b8501a}
+    .kb-side .sub a{padding:6px 10px 6px 22px;font-size:14px;color:#555}
+    .kb-side .sub a.on{background:none;color:#b8501a;font-weight:600}
+    .kb-main{padding:0 0 0 32px;min-width:0}
+    .kb-main h1{margin:0 0 6px;font-size:32px;line-height:1.35;font-weight:700;color:#333}
+    .kb-sub{margin:0 0 22px;font-size:15px;font-style:italic;color:#666}
+    .kb-body h2{font-size:22px;line-height:1.35;font-weight:600;color:#333}
+    .kb-body h3{font-size:18px;line-height:1.4;font-weight:600;color:#333}
+    .kb-body ul,.kb-body ol{padding-left:26px}
+    .kb-body table{font-size:15px}
+    .kb-help{display:flex;align-items:center;gap:14px;margin:36px 0 0;padding:18px 0;border-top:1px solid #e5e5e5;border-bottom:1px solid #e5e5e5;font-size:15px}
+    .kb-help span{display:inline-block;padding:5px 22px;background:#e6eaee;border-radius:3px;font-size:13px}
+    .kb-list{list-style:none;margin:18px 0 0;padding:0 0 18px;border-bottom:1px solid #e5e5e5}
+    .kb-list li{margin:0 0 10px}
+    .kb-foot{display:flex;justify-content:space-between;align-items:center;margin-top:36px;padding-top:26px;border-top:1px solid #e5e5e5;font-size:14px;color:#555}
+    .kb-foot nav{display:flex;gap:22px}
+    .kb-foot nav a{color:#555}
+  `;
 
-  function frameDocument(html) {
-    return '<!doctype html><html><head><meta charset="utf-8"><base target="_blank"><style>body{margin:0;padding:32px 40px;font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;color:#33475b;max-width:820px}</style></head><body>' + html + '</body></html>';
+  function kbPage(entry) {
+    const cat = data.category;
+    const sub = data.articles.map(a => '<a href="#"' + (entry.id === a.file ? ' class="on"' : '') + '>' + escapeHtml(a.title) + '</a>').join('');
+    const crumbs = '<a href="#">Help Center</a><span class="sep">&gt;</span><a href="#">' + escapeHtml(cat.name) + '</a>'
+      + (entry.kind === 'article' ? '<span class="sep">&gt;</span><span>' + escapeHtml(entry.title) + '</span>' : '');
+    const main = entry.kind === 'category'
+      ? '<h1>' + escapeHtml(cat.name) + '</h1><p>' + escapeHtml(cat.description) + '</p><ul class="kb-list">'
+        + data.articles.map(a => '<li><a href="#">' + escapeHtml(a.title) + '</a></li>').join('') + '</ul>'
+      : '<h1>' + escapeHtml(entry.title) + '</h1><p class="kb-sub">' + escapeHtml(entry.subtitle) + '</p><div class="kb-body">' + entry.html + '</div>'
+        + '<div class="kb-help">Was this article helpful? <span>Yes</span><span>No</span></div>';
+    return '<!doctype html><html><head><meta charset="utf-8"><base target="_blank">'
+      + '<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">'
+      + '<style>' + KB_CSS + '</style></head><body>'
+      + '<header class="kb-top"><div class="kb-brand"><img src="' + logo + '" alt="WebCommander"><span>Help Center</span></div><a class="kb-go" href="#">Go to WebCommander</a></header>'
+      + '<section class="kb-hero"><div class="kb-hero-in"><h2>How can we help?</h2><div class="kb-search"><input placeholder="Search" disabled><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span></div></div></section>'
+      + '<div class="kb-wrap"><nav class="kb-crumbs">' + crumbs + '</nav><div class="kb-cols">'
+      + '<aside class="kb-side"><a href="#" class="on">' + escapeHtml(cat.name) + '</a><div class="sub">' + sub + '</div></aside>'
+      + '<main class="kb-main">' + main + '</main></div>'
+      + '<footer class="kb-foot"><span>&copy; ' + new Date().getFullYear() + ' WebCommander. All rights reserved.</span><nav><a href="#">Privacy</a><a href="#">Terms</a></nav></footer></div>'
+      + '</body></html>';
+  }
+
+  function field(label, value, meta, copyLabel, copyValue, primary) {
+    return '<div class="field"><dt>' + label + '</dt><dd>' + (value ? escapeHtml(value) : '') + (meta ? ' <span class="meta">' + escapeHtml(meta) + '</span>' : '') + '</dd>'
+      + '<button type="button" class="copy' + (primary ? ' primary' : '') + '" data-copy="' + copyValue + '" data-label="' + copyLabel + '">' + COPY_ICON + '<span>' + copyLabel + '</span></button></div>';
   }
 
   function show(index) {
     current = index;
-    const article = data.articles[index];
+    const entry = entries[index];
     buttons.forEach((button, at) => button.setAttribute('aria-current', at === index ? 'true' : 'false'));
-    document.getElementById('title').textContent = article.title;
-    document.getElementById('summary').textContent = article.summary;
-    document.getElementById('category').textContent = article.category;
-    document.getElementById('file').textContent = article.file;
-    document.getElementById('size').textContent = Math.max(1, Math.round(article.size / 1024)) + ' KB';
-    document.getElementById('code').textContent = article.html;
-    document.getElementById('preview').srcdoc = frameDocument(article.html);
-    document.getElementById('source').value = article.html;
-    resetCopy();
-  }
-
-  function resetCopy() {
-    document.getElementById('copy-title').classList.remove('done');
-    document.getElementById('copy-title-label').textContent = 'Copy title';
-    document.getElementById('copy').classList.remove('done');
-    document.getElementById('copy-label').textContent = 'Copy HTML';
-    document.getElementById('steps').classList.remove('flash');
-    document.getElementById('status').textContent = '';
-  }
-
-  async function copyHtml() {
-    const article = data.articles[current];
-    try {
-      await navigator.clipboard.writeText(article.html);
-    } catch (error) {
-      const source = document.getElementById('source');
-      source.select();
-      document.execCommand('copy');
+    document.getElementById('title').textContent = entry.title;
+    const fields = document.getElementById('fields');
+    const steps = document.getElementById('steps');
+    if (entry.kind === 'category') {
+      fields.innerHTML = field('Name', entry.category.name, '', 'Copy name', 'name', false)
+        + field('Description', entry.category.description, '', 'Copy description', 'description', false);
+      steps.innerHTML = '<li>In HubSpot, open <strong>Knowledge base settings</strong> and go to <strong>Categories</strong>.</li>'
+        + '<li>Create a category and paste the <strong>name</strong> and <strong>description</strong>.</li>'
+        + '<li>Save. Articles filed in this category are listed on its page automatically.</li>';
+      document.getElementById('code').textContent = entry.category.name + '\n\n' + entry.category.description;
+    } else {
+      fields.innerHTML = field('Title', entry.title, '', 'Copy title', 'title', false)
+        + field('Subtitle', entry.subtitle, '', 'Copy subtitle', 'subtitle', false)
+        + field('Category', data.category.name, '', 'Copy category', 'categoryName', false)
+        + field('Body', '', Math.max(1, Math.round(entry.size / 1024)) + ' KB of HTML', 'Copy HTML', 'html', true);
+      steps.innerHTML = '<li>In HubSpot, create an article in <strong>' + escapeHtml(data.category.name) + '</strong>. Paste the <strong>title</strong> and <strong>subtitle</strong>.</li>'
+        + '<li>In the body toolbar, open <strong>Source code</strong>.</li>'
+        + '<li>Paste the <strong>HTML</strong>, save, then preview before you publish.</li>';
+      document.getElementById('code').textContent = entry.html;
     }
-    copied.add(article.file);
-    sessionStorage.setItem('kb-copied', JSON.stringify([...copied]));
-    buttons[current].classList.add('copied');
-    document.getElementById('copy').classList.add('done');
-    document.getElementById('copy-label').textContent = 'Copied';
-    document.getElementById('steps').classList.add('flash');
-    document.getElementById('status').textContent = 'Copied. Paste it into the Source code view in HubSpot.';
+    fields.querySelectorAll('.copy').forEach(button => button.addEventListener('click', () => copyField(button)));
+    document.getElementById('status').textContent = '';
+    document.getElementById('preview').srcdoc = kbPage(entry);
   }
 
-  document.getElementById('copy').addEventListener('click', copyHtml);
-
-  document.getElementById('preview').addEventListener('load', (event) => {
-    const frame = event.target;
-    frame.style.height = frame.contentDocument.documentElement.scrollHeight + 'px';
-  });
-
-  async function writeText(value, fallback) {
+  async function writeText(value) {
     try {
       await navigator.clipboard.writeText(value);
     } catch (error) {
-      fallback.value = value;
-      fallback.select();
+      const clip = document.getElementById('clip');
+      clip.value = value;
+      clip.select();
       document.execCommand('copy');
     }
   }
 
-  document.getElementById('copy-title').addEventListener('click', async () => {
-    await writeText(data.articles[current].title, document.getElementById('source'));
-    document.getElementById('copy-title').classList.add('done');
-    document.getElementById('copy-title-label').textContent = 'Title copied';
-    document.getElementById('source').value = data.articles[current].html;
+  async function copyField(button) {
+    const entry = entries[current];
+    const key = button.dataset.copy;
+    const value = key === 'categoryName' ? data.category.name
+      : entry.kind === 'category' ? entry.category[key] : entry[key];
+    await writeText(value);
+    button.classList.add('done');
+    button.querySelector('span').textContent = 'Copied';
+    if (key === 'html') {
+      copied.add(entry.id);
+      sessionStorage.setItem('kb-copied', JSON.stringify([...copied]));
+      buttons[current].classList.add('copied');
+      document.getElementById('status').textContent = 'Copied. Paste it into the Source code view in HubSpot.';
+    }
+    setTimeout(() => {
+      button.classList.remove('done');
+      button.querySelector('span').textContent = button.dataset.label;
+    }, 2000);
+  }
+
+  document.getElementById('preview').addEventListener('load', (event) => {
+    const frame = event.target;
+    const doc = frame.contentDocument;
+    const fit = () => { frame.style.height = doc.documentElement.scrollHeight + 'px'; };
+    fit();
+    new ResizeObserver(fit).observe(doc.body);
+    if (doc.fonts) doc.fonts.ready.then(fit);
   });
 
   function setView(source) {
-    document.querySelector('.frame').classList.toggle('source', source);
+    document.getElementById('frame').classList.toggle('source', source);
     document.getElementById('view-preview').setAttribute('aria-pressed', String(!source));
     document.getElementById('view-source').setAttribute('aria-pressed', String(source));
   }
@@ -436,16 +456,18 @@
   document.getElementById('search').addEventListener('input', (event) => {
     const words = event.target.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
     let shown = 0;
-    data.articles.forEach((article, index) => {
-      const haystack = (article.title + ' ' + article.summary + ' ' + article.category).toLowerCase();
-      const match = words.every((word) => haystack.includes(word));
+    entries.forEach((entry, index) => {
+      if (entry.kind !== 'article') return;
+      const haystack = (entry.title + ' ' + entry.subtitle + ' ' + entry.summary).toLowerCase();
+      const match = words.every(word => haystack.includes(word));
       buttons[index].parentElement.hidden = !match;
       if (match) shown += 1;
     });
     document.getElementById('count').textContent = countLabel(shown);
     document.getElementById('empty').hidden = shown !== 0;
   });
-  show(0);
+
+  show(current);
 </script>
 </body>
 </html>

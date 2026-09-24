@@ -1,4 +1,4 @@
-<p style="{{style:lead}}">The Customers API lets your software manage a store's customers: find them, create and update them, move them in and out of the store in bulk, and manage their addresses, passwords and store credit. All fifteen endpoints are available in every WebCommander SDK.</p>
+<p style="{{style:lead}}">The Customers API lets your software work with a store's customers: find, create, update and delete them, export them to a spreadsheet, import them from a file, and manage their addresses, passwords and store credit. All fifteen endpoints are available in every WebCommander SDK.</p>
 
 <p style="{{style:button-row}}"><a href="{{MINTLIFY}}/customers" style="{{style:button}}">Open the Customers reference</a></p>
 
@@ -21,7 +21,7 @@
       <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/customers/check-an-email-address" style="{{style:a}}">Check an email address</a>, then <a href="{{MINTLIFY}}/api-reference/customers/create-a-customer" style="{{style:a}}">Create a customer</a> with <code style="{{style:code}}">status: "active"</code></td>
     </tr>
     <tr>
-      <td style="{{style:td}}">Move many customers at once</td>
+      <td style="{{style:td}}">Download every customer, or create and update many at once</td>
       <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/customers/export-customers" style="{{style:a}}">Export customers</a> and <a href="{{MINTLIFY}}/api-reference/customers/import-customers" style="{{style:a}}">Import customers</a></td>
     </tr>
     <tr>
@@ -29,7 +29,7 @@
       <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/customers/adjust-store-credit" style="{{style:a}}">Adjust store credit</a></td>
     </tr>
     <tr>
-      <td style="{{style:td}}">Help a customer who cannot sign in</td>
+      <td style="{{style:td}}">Set a new password for a customer who has forgotten theirs</td>
       <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/customers/reset-a-password" style="{{style:a}}">Reset a password</a></td>
     </tr>
   </tbody>
@@ -43,24 +43,24 @@
 
 <div style="{{style:callout-warning}}">
   <p style="{{style:callout-title}}">Use customer_id, not internal_id</p>
-  <p style="{{style:callout-body}}">Every customer carries two ids. Endpoints take <code style="{{style:code}}">customer_id</code>. Sending <code style="{{style:code}}">internal_id</code> by mistake can return a different customer instead of an error, so always check the record you get back.</p>
+  <p style="{{style:callout-body}}">Every customer has two ids: <code style="{{style:code}}">customer_id</code> and <code style="{{style:code}}">internal_id</code>. Endpoints take <code style="{{style:code}}">customer_id</code>. If you send an <code style="{{style:code}}">internal_id</code> by mistake, you can get a different customer back instead of an error, so check that the customer you get back is the one you asked for.</p>
 </div>
 
 <div style="{{style:callout-info}}">
   <p style="{{style:callout-title}}">New customers cannot sign in until they are active</p>
-  <p style="{{style:callout-body}}">A customer created without <code style="{{style:code}}">status: "active"</code> is created as awaiting verification and has no usable login, even with a password.</p>
+  <p style="{{style:callout-body}}">A customer created without <code style="{{style:code}}">status: "active"</code> is created as <code style="{{style:code}}">awaiting_verification</code> and has no usable login, even with a password. To create a customer who can sign in straight away, send <code style="{{style:code}}">status: "active"</code> with a <code style="{{style:code}}">password</code>.</p>
 </div>
 
 <ul style="{{style:ul}}">
-  <li style="{{style:li}}"><strong>Lists return up to 20 customers at a time.</strong> Ask for the next page to see more.</li>
-  <li style="{{style:li}}"><strong>An export always contains every customer.</strong> Its options choose which columns appear, not which customers.</li>
-  <li style="{{style:li}}"><strong>A bulk password reset emails the customers.</strong> Each customer receives a reset email.</li>
-  <li style="{{style:li}}"><strong>An import can partly succeed.</strong> Check the number of failed rows in the result.</li>
+  <li style="{{style:li}}"><strong>Lists return up to 20 customers at a time.</strong> To get more, send the next <code style="{{style:code}}">page</code> number or a higher <code style="{{style:code}}">offset</code>.</li>
+  <li style="{{style:li}}"><strong>An export always contains every customer.</strong> Its options choose which columns appear, not which customers. Importing an export rewrites every customer in the store, so build import files from only the customers you want to change.</li>
+  <li style="{{style:li}}"><strong>A bulk password reset queues a reset email for each customer.</strong> The call returns before any email is sent. Check <code style="{{style:code}}">queued</code> and <code style="{{style:code}}">skipped</code> in the result: an id that matches no customer is listed in <code style="{{style:code}}">skipped</code> with a reason.</li>
+  <li style="{{style:li}}"><strong>An import can partly succeed.</strong> It can return <code style="{{style:code}}">201</code> even when some rows failed, so check <code style="{{style:code}}">failed</code> and <code style="{{style:code}}">errors</code> in the result.</li>
 </ul>
 
 <h2 style="{{style:h2}}">Related articles</h2>
 
 <ul style="{{style:ul}}">
-  <li style="{{style:li}}">WebCommander API</li>
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
   <li style="{{style:li}}">Installing the WebCommander SDKs</li>
 </ul>
