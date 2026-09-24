@@ -1,0 +1,66 @@
+<p style="{{style:lead}}">The Domain aliases API lets your software manage a store's domain aliases: the extra hostnames, such as <code style="{{style:code}}">shop.example.com</code>, that the store responds to. You can list the aliases, add new ones and delete the ones you no longer need. All four endpoints are available in all seven WebCommander SDKs.</p>
+
+<p style="{{style:button-row}}"><a href="{{MINTLIFY}}/domain-aliases" style="{{style:button}}">Open the Domain aliases reference</a></p>
+
+<h2 style="{{style:h2}}">Common tasks</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">You want to</th>
+      <th style="{{style:th}}">Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}">See the extra hostnames the store responds to</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/domain-aliases/list-domain-aliases" style="{{style:a}}">List domain aliases</a>, page by page</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Add a new hostname for the store</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/domain-aliases/create-a-domain-alias" style="{{style:a}}">Create a domain alias</a> with <code style="{{style:code}}">{"alias": "shop.example.com"}</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Remove a hostname the store no longer uses</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/domain-aliases/list-domain-aliases" style="{{style:a}}">List domain aliases</a> to find the alias's <code style="{{style:code}}">id</code>, then <a href="{{MINTLIFY}}/api-reference/domain-aliases/delete-a-domain-alias" style="{{style:a}}">Delete a domain alias</a> with that <code style="{{style:code}}">id</code> as <code style="{{style:code}}">alias_id</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Change an alias's hostname</td>
+      <td style="{{style:td}}">You cannot update an alias. <a href="{{MINTLIFY}}/api-reference/domain-aliases/delete-a-domain-alias" style="{{style:a}}">Delete a domain alias</a>, then <a href="{{MINTLIFY}}/api-reference/domain-aliases/create-a-domain-alias" style="{{style:a}}">Create a domain alias</a> with the new hostname</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Check that the aliases list is reachable, without downloading it</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/domain-aliases/check-the-domain-aliases-list" style="{{style:a}}">Check the domain aliases list</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="{{style:h2}}">All endpoints</h2>
+
+{{endpoints:aliases}}
+
+<h2 style="{{style:h2}}">Good to know</h2>
+
+<div style="{{style:callout-warning}}">
+  <p style="{{style:callout-title}}">Send the hostname as a plain string</p>
+  <p style="{{style:callout-body}}">The create body is <code style="{{style:code}}">{"alias": "shop.example.com"}</code>. The create response returns the new alias as an object under the same <code style="{{style:code}}">alias</code> key. Do not send that shape back: a body such as <code style="{{style:code}}">{"alias": {"alias": "shop.example.com"}}</code> is rejected with <code style="{{style:code}}">400 invalid_hostname</code>.</p>
+</div>
+
+<div style="{{style:callout-info}}">
+  <p style="{{style:callout-title}}">You cannot read or change one alias on its own</p>
+  <p style="{{style:callout-body}}">You can list, create and delete aliases. Reading or updating a single alias returns <code style="{{style:code}}">405</code>, and an update changes nothing. To find one alias, page through <a href="{{MINTLIFY}}/api-reference/domain-aliases/list-domain-aliases" style="{{style:a}}">List domain aliases</a> and look for its hostname in <code style="{{style:code}}">alias</code>. There is no call that counts aliases. To get the number of aliases, read <code style="{{style:code}}">pagination.total</code> in the list response.</p>
+</div>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}"><strong>The list returns up to 20 aliases at a time.</strong> A larger <code style="{{style:code}}">limit</code> is capped at <code style="{{style:code}}">20</code>. To get more, send the next <code style="{{style:code}}">page</code> number or a higher <code style="{{style:code}}">offset</code> while <code style="{{style:code}}">pagination.has_next</code> is <code style="{{style:code}}">true</code>. You cannot search or sort the list: any parameter other than <code style="{{style:code}}">limit</code>, <code style="{{style:code}}">offset</code>, <code style="{{style:code}}">page</code> and <code style="{{style:code}}">field_metadata</code>, such as <code style="{{style:code}}">q</code> or <code style="{{style:code}}">sort</code>, is rejected with <code style="{{style:code}}">400 unknown_parameter</code>.</li>
+  <li style="{{style:li}}"><strong>Each hostname can be added only once, whatever its letter case.</strong> If another alias already has the hostname, even in a different letter case, the create is rejected with <code style="{{style:code}}">409</code> and the message <code style="{{style:code}}">alias already exists</code>. The store keeps the letter case you send.</li>
+  <li style="{{style:li}}"><strong>The hostname must be well formed.</strong> A hostname with a space in it, a scheme such as <code style="{{style:code}}">https://</code>, an underscore or a leading hyphen is rejected with <code style="{{style:code}}">400 invalid_hostname</code>. So is an <code style="{{style:code}}">alias</code> that is a number or a list. Spaces before or after the hostname are removed.</li>
+  <li style="{{style:li}}"><strong>The site settings show the same hostnames.</strong> They appear under <code style="{{style:code}}">domain_settings.aliases</code> as a read-only list. Creating an alias adds its hostname to that list, and deleting the alias removes it.</li>
+</ul>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+</ul>

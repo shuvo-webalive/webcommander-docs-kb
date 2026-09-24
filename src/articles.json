@@ -51,6 +51,12 @@
       "title": "Working with inventory locations and order flags through the API",
       "subtitle": "Manage inventory locations, choose the default location, see the stock each one holds, and manage the store's order flags",
       "summary": "Common inventory location and order flag tasks, all seventeen endpoints, and what to watch for."
+    },
+    {
+      "file": "09-domain-aliases.html",
+      "title": "Working with domain aliases through the API",
+      "subtitle": "List, add and delete the extra hostnames a store responds to",
+      "summary": "Common domain alias tasks, all four endpoints, and what to watch for."
     }
   ]
 }
