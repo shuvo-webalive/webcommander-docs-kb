@@ -1,0 +1,14 @@
+[
+  {
+    "file": "01-webcommander-api.html",
+    "title": "WebCommander API",
+    "category": "Developers",
+    "summary": "What the WebCommander API and SDKs are, and where the full documentation lives."
+  },
+  {
+    "file": "02-installing-the-sdks.html",
+    "title": "Installing the WebCommander SDKs",
+    "category": "Developers",
+    "summary": "What each SDK needs, and the three steps to add one to a project."
+  }
+]
