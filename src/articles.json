@@ -39,6 +39,12 @@
       "title": "Working with shipping methods and classes through the API",
       "subtitle": "List, create, rename and delete shipping methods and classes, and choose the default for each",
       "summary": "Common shipping tasks, all eighteen endpoints, and what to watch for."
+    },
+    {
+      "file": "07-tax.html",
+      "title": "Working with tax through the API",
+      "subtitle": "Manage tax codes, tax rules, tax zones, tax profiles, custom tax profiles, country taxes and tax settings",
+      "summary": "Common tax tasks, all forty endpoints, and what to watch for."
     }
   ]
 }

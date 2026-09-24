@@ -1,0 +1,119 @@
+<p style="{{style:lead}}">The Tax API lets your software manage a store's tax setup. You can list, create, update and delete tax codes, tax rules, tax zones, tax profiles, custom tax profiles and country taxes, and change the store's tax settings. All forty endpoints are available in all seven WebCommander SDKs.</p>
+
+<p style="{{style:p}}">Tax has seven parts, and each has its own reference: <a href="{{MINTLIFY}}/tax-codes" style="{{style:a}}">Tax codes</a>, <a href="{{MINTLIFY}}/tax-rules" style="{{style:a}}">Tax rules</a>, <a href="{{MINTLIFY}}/tax-zones" style="{{style:a}}">Tax zones</a>, <a href="{{MINTLIFY}}/tax-profiles" style="{{style:a}}">Tax profiles</a>, <a href="{{MINTLIFY}}/custom-tax-profiles" style="{{style:a}}">Custom tax profiles</a>, <a href="{{MINTLIFY}}/country-taxes" style="{{style:a}}">Country taxes</a> and <a href="{{MINTLIFY}}/tax-settings" style="{{style:a}}">Tax settings</a>.</p>
+
+<p style="{{style:button-row}}"><a href="{{MINTLIFY}}/tax-codes" style="{{style:button}}">Open the Tax codes reference</a></p>
+
+<h2 style="{{style:h2}}">Common tasks</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">You want to</th>
+      <th style="{{style:th}}">Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}">Change the store's tax message or default tax code</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/tax-settings/update-tax-settings" style="{{style:a}}">Update tax settings</a>, with only the fields you change, such as <code style="{{style:code}}">tax_message</code>, inside <code style="{{style:code}}">settings</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Add a new tax rate</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/tax-codes/create-a-tax-code" style="{{style:a}}">Create a tax code</a> with a <code style="{{style:code}}">name</code> and a <code style="{{style:code}}">rate</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Change the rate of a tax code</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/tax-codes/retrieve-a-tax-code" style="{{style:a}}">Retrieve a tax code</a>, passing the tax code's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">tax_code_id</code>, then <a href="{{MINTLIFY}}/api-reference/tax-codes/update-a-tax-code" style="{{style:a}}">Update a tax code</a> with the new <code style="{{style:code}}">rate</code> and the tax code's current <code style="{{style:code}}">priority</code> and <code style="{{style:code}}">resolver_type</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Set the tax rate for a country</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/country-taxes/create-a-country-tax" style="{{style:a}}">Create a country tax</a> with the country's code, such as <code style="{{style:code}}">NZ</code>, in <code style="{{style:code}}">country_code</code>. To change the rate later, use <a href="{{MINTLIFY}}/api-reference/country-taxes/update-a-country-tax" style="{{style:a}}">Update a country tax</a> with a new <code style="{{style:code}}">tax_rate</code>, passing the country tax's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">country_tax_id</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Group countries, states and post codes into a tax zone</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/tax-zones/create-a-tax-zone" style="{{style:a}}">Create a tax zone</a> with a <code style="{{style:code}}">name</code>. Send each country in <code style="{{style:code}}">countries</code> as <code style="{{style:code}}">{"id": 12}</code>, where <code style="{{style:code}}">12</code> is the country's <code style="{{style:code}}">id</code> from the <code style="{{style:code}}">countries</code> of a zone in <a href="{{MINTLIFY}}/api-reference/tax-zones/list-tax-zones" style="{{style:a}}">List tax zones</a>. Send each state in <code style="{{style:code}}">states</code> the same way, and the post codes in <code style="{{style:code}}">post_code</code> as a flat list</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Make a tax profile the store's default</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/tax-profiles/update-a-tax-profile" style="{{style:a}}">Update a tax profile</a> with <code style="{{style:code}}">default: true</code>, passing the tax profile's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">tax_profile_id</code>. The tax settings then show that profile's <code style="{{style:code}}">id</code> in <code style="{{style:code}}">default_tax_profile</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="{{style:h2}}">All endpoints</h2>
+
+<h3 style="{{style:h3}}">Tax codes</h3>
+
+<p style="{{style:p}}">Create, update and delete the store's tax codes, each with a name, a label and a rate. See the <a href="{{MINTLIFY}}/tax-codes" style="{{style:a}}">Tax codes overview</a>.</p>
+
+{{endpoints:tax_codes}}
+
+<h3 style="{{style:h3}}">Tax rules</h3>
+
+<p style="{{style:p}}">Create and delete tax rules, change their name and description, and read the tax code and tax zones on each rule. See the <a href="{{MINTLIFY}}/tax-rules" style="{{style:a}}">Tax rules overview</a>.</p>
+
+{{endpoints:tax_rules}}
+
+<h3 style="{{style:h3}}">Tax zones</h3>
+
+<p style="{{style:p}}">Create, update and delete tax zones, each a named set of countries, states and post codes. See the <a href="{{MINTLIFY}}/tax-zones" style="{{style:a}}">Tax zones overview</a>.</p>
+
+{{endpoints:tax_zones}}
+
+<h3 style="{{style:h3}}">Tax profiles</h3>
+
+<p style="{{style:p}}">Create, update and delete tax profiles, and choose which profile is the store's default. See the <a href="{{MINTLIFY}}/tax-profiles" style="{{style:a}}">Tax profiles overview</a>.</p>
+
+{{endpoints:tax_profiles}}
+
+<h3 style="{{style:h3}}">Custom tax profiles</h3>
+
+<p style="{{style:p}}">Create, replace and delete custom tax profiles, which are separate from tax profiles, and read the rate rules each one holds. See the <a href="{{MINTLIFY}}/custom-tax-profiles" style="{{style:a}}">Custom tax profiles overview</a>.</p>
+
+{{endpoints:tax_custom_profiles}}
+
+<h3 style="{{style:h3}}">Country taxes</h3>
+
+<p style="{{style:p}}">Create, update and delete country taxes, each with its own tax rate, and read their state rules. See the <a href="{{MINTLIFY}}/country-taxes" style="{{style:a}}">Country taxes overview</a>.</p>
+
+{{endpoints:tax_country_taxes}}
+
+<h3 style="{{style:h3}}">Tax settings</h3>
+
+<p style="{{style:p}}">Read and change the store's tax settings, such as the default country, the default tax code and the tax message. See the <a href="{{MINTLIFY}}/tax-settings" style="{{style:a}}">Tax settings overview</a>.</p>
+
+{{endpoints:tax_settings}}
+
+<h2 style="{{style:h2}}">Good to know</h2>
+
+<div style="{{style:callout-warning}}">
+  <p style="{{style:callout-title}}">Some updates reset the fields you leave out</p>
+  <p style="{{style:callout-body}}">Updates to tax profiles, tax rules, country taxes and tax settings change only the fields you send. Three others do not. An update to a tax code sets <code style="{{style:code}}">priority</code> to <code style="{{style:code}}">0</code> and <code style="{{style:code}}">resolver_type</code> to <code style="{{style:code}}">flat</code> if you leave them out. Replacing a custom tax profile sets <code style="{{style:code}}">description</code> to <code style="{{style:code}}">null</code> if you leave it out. An update to a tax zone empties <code style="{{style:code}}">countries</code>, <code style="{{style:code}}">states</code> and <code style="{{style:code}}">post_code</code> if you leave them out, and sets <code style="{{style:code}}">use_radius</code> to <code style="{{style:code}}">false</code> if you leave it out. Custom tax profile and tax zone updates also need <code style="{{style:code}}">name</code> every time. For these three, send the current values of every field you want to keep.</p>
+</div>
+
+<div style="{{style:callout-warning}}">
+  <p style="{{style:callout-title}}">A failed request can make the next request fail too</p>
+  <p style="{{style:callout-body}}">When a tax request is rejected, the next request on the same connection can fail in the same way, even if it is correct. After a <code style="{{style:code}}">404</code>, the next request for one record can return <code style="{{style:code}}">404</code> for a record that exists, even in another part of Tax, and a delete returns that <code style="{{style:code}}">404</code> and deletes nothing. After a list is rejected for its <code style="{{style:code}}">limit</code> or <code style="{{style:code}}">offset</code>, the next list returns the same <code style="{{style:code}}">400</code>. The request after that works normally. If a call fails straight after another failed call, send it again, and read the record back to confirm a change or a delete.</p>
+</div>
+
+<div style="{{style:callout-info}}">
+  <p style="{{style:callout-title}}">Put each write inside the right key</p>
+  <p style="{{style:callout-body}}">For every create and update, send the fields inside one key named after the record: <code style="{{style:code}}">tax_code</code>, <code style="{{style:code}}">tax_rule</code>, <code style="{{style:code}}">tax_zone</code>, <code style="{{style:code}}">tax_profile</code>, <code style="{{style:code}}">custom_profile</code> or <code style="{{style:code}}">country_tax</code>, for example <code style="{{style:code}}">{"tax_code": {"name": "LUXURY", "rate": 15.0}}</code>. Tax settings are different: the read returns them under <code style="{{style:code}}">tax_settings</code>, but an update takes them under <code style="{{style:code}}">settings</code>. A body without the right key is rejected with <code style="{{style:code}}">400</code>.</p>
+</div>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}"><strong>Lists return up to 20 records at a time.</strong> A larger <code style="{{style:code}}">limit</code> still returns 20. To get more, raise <code style="{{style:code}}">offset</code> by the number of records each page returned until you reach <code style="{{style:code}}">pagination.total</code>. <code style="{{style:code}}">q</code> does not filter any tax list.</li>
+  <li style="{{style:li}}"><strong>The Check endpoints do not tell you whether a record exists.</strong> They return <code style="{{style:code}}">200</code> even when no record has the id you pass as <code style="{{style:code}}">tax_code_id</code>, <code style="{{style:code}}">tax_rule_id</code>, <code style="{{style:code}}">tax_zone_id</code> or <code style="{{style:code}}">tax_profile_id</code>. Use the matching Retrieve endpoint instead, which returns <code style="{{style:code}}">404</code> when no record has that id.</li>
+  <li style="{{style:li}}"><strong>You cannot set a tax rule's tax code or zones.</strong> A create or update accepts <code style="{{style:code}}">code</code>, <code style="{{style:code}}">zones</code>, <code style="{{style:code}}">decimal_point</code> and <code style="{{style:code}}">rounding_type</code> but does not store them. A rule you create has <code style="{{style:code}}">code: {}</code> and <code style="{{style:code}}">zones: []</code>.</li>
+  <li style="{{style:li}}"><strong>Move the default tax profile rather than deleting it.</strong> At most one tax profile is the default. To change it, send <code style="{{style:code}}">default: true</code> in <a href="{{MINTLIFY}}/api-reference/tax-profiles/update-a-tax-profile" style="{{style:a}}">Update a tax profile</a> for the new default. Sending <code style="{{style:code}}">default: false</code> leaves the flag where it is. If you delete the default profile, <code style="{{style:code}}">default_tax_profile</code> in the tax settings still holds the deleted profile's <code style="{{style:code}}">id</code>, and an update to the tax settings cannot send that value back.</li>
+  <li style="{{style:li}}"><strong>Send a tax zone's post codes as a flat list.</strong> Send <code style="{{style:code}}">["2000", "3000"]</code> in <code style="{{style:code}}">post_code</code>. The zone returns them as <code style="{{style:code}}">[["2000"], ["3000"]]</code>, and sending that nested form back fails with <code style="{{style:code}}">500</code>.</li>
+  <li style="{{style:li}}"><strong>Tax settings save some values without checking them.</strong> <code style="{{style:code}}">default_country</code>, <code style="{{style:code}}">default_tax_code</code> and <code style="{{style:code}}">custom_tax_profile_id</code> (a custom tax profile's <code style="{{style:code}}">id</code>) are saved even when they match nothing, so check them before you send them.</li>
+</ul>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+</ul>
