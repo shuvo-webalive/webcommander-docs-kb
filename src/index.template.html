@@ -77,6 +77,60 @@
     padding: 24px 16px;
   }
   .list h2 { margin: 0 12px 12px; font-size: 14px; font-weight: 600; color: var(--muted); }
+  .search {
+    width: 100%;
+    margin: 0 0 16px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+    color: var(--ink);
+    font: inherit;
+    font-size: 15px;
+  }
+  .empty { margin: 8px 12px; color: var(--muted); font-size: 14px; }
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--panel);
+    color: var(--ink);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .secondary:hover { border-color: var(--muted); }
+  .secondary svg { width: 18px; height: 18px; }
+  .secondary.done { border-color: var(--done); color: var(--done); }
+  .view { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .view button {
+    padding: 4px 12px;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .view button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+  .code {
+    display: none;
+    margin: 0;
+    padding: 20px 24px;
+    max-height: 720px;
+    overflow: auto;
+    background: #1f2d3d;
+    color: #e6edf3;
+    font: 13px/1.55 Consolas, Menlo, monospace;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  .frame.source .code { display: block; }
+  .frame.source iframe { display: none; }
   .list ul { list-style: none; margin: 0; padding: 0; }
   .list button {
     display: grid;
@@ -191,7 +245,7 @@
     font-size: 13px;
     color: var(--muted);
   }
-  .frame iframe { display: block; width: 100%; height: 720px; border: 0; }
+  .frame iframe { display: block; width: 100%; min-height: 480px; border: 0; }
 
   textarea.source { position: absolute; left: -9999px; top: 0; }
 
@@ -219,8 +273,10 @@
 
 <main class="desk">
   <nav class="list" aria-label="Articles">
+    <input class="search" id="search" type="search" placeholder="Search articles" aria-label="Search articles">
     <h2 id="count"></h2>
     <ul id="articles"></ul>
+    <p class="empty" id="empty" hidden>No article matches. Try a shorter word.</p>
   </nav>
 
   <section class="work" aria-live="polite">
@@ -231,12 +287,19 @@
         <dl class="facts">
           <div><dt>Category</dt><dd id="category"></dd></div>
           <div><dt>Source file</dt><dd id="file"></dd></div>
+          <div><dt>Size</dt><dd id="size"></dd></div>
         </dl>
       </div>
+      <div class="actions">
+      <button class="secondary" id="copy-title" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+        <span id="copy-title-label">Copy title</span>
+      </button>
       <button class="copy" id="copy" type="button">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
         <span id="copy-label">Copy HTML</span>
       </button>
+      </div>
     </div>
 
     <ol class="steps" id="steps">
@@ -247,8 +310,15 @@
     <p class="status" id="status" role="status"></p>
 
     <div class="frame">
-      <div class="bar"><span>Preview</span><span>How the article reads in the knowledge base</span></div>
-      <iframe id="preview" title="Article preview" sandbox="allow-popups allow-popups-to-escape-sandbox"></iframe>
+      <div class="bar">
+        <div class="view" role="group" aria-label="View">
+          <button type="button" id="view-preview" aria-pressed="true">Preview</button>
+          <button type="button" id="view-source" aria-pressed="false">HTML</button>
+        </div>
+        <span>How the article reads in the knowledge base</span>
+      </div>
+      <iframe id="preview" title="Article preview" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+      <pre class="code" id="code"></pre>
     </div>
     <textarea class="source" id="source" aria-hidden="true" tabindex="-1"></textarea>
   </section>
@@ -265,7 +335,11 @@
 
   document.getElementById('base').textContent = data.base;
   document.getElementById('placeholder').hidden = !data.placeholder;
-  document.getElementById('count').textContent = data.articles.length + (data.articles.length === 1 ? ' article' : ' articles');
+  function countLabel(shown) {
+    const total = data.articles.length;
+    return shown === total ? total + (total === 1 ? ' article' : ' articles') : shown + ' of ' + total + ' articles';
+  }
+  document.getElementById('count').textContent = countLabel(data.articles.length);
 
   data.articles.forEach((article, index) => {
     const item = document.createElement('li');
@@ -293,12 +367,16 @@
     document.getElementById('summary').textContent = article.summary;
     document.getElementById('category').textContent = article.category;
     document.getElementById('file').textContent = article.file;
+    document.getElementById('size').textContent = Math.max(1, Math.round(article.size / 1024)) + ' KB';
+    document.getElementById('code').textContent = article.html;
     document.getElementById('preview').srcdoc = frameDocument(article.html);
     document.getElementById('source').value = article.html;
     resetCopy();
   }
 
   function resetCopy() {
+    document.getElementById('copy-title').classList.remove('done');
+    document.getElementById('copy-title-label').textContent = 'Copy title';
     document.getElementById('copy').classList.remove('done');
     document.getElementById('copy-label').textContent = 'Copy HTML';
     document.getElementById('steps').classList.remove('flash');
@@ -324,6 +402,49 @@
   }
 
   document.getElementById('copy').addEventListener('click', copyHtml);
+
+  document.getElementById('preview').addEventListener('load', (event) => {
+    const frame = event.target;
+    frame.style.height = frame.contentDocument.documentElement.scrollHeight + 'px';
+  });
+
+  async function writeText(value, fallback) {
+    try {
+      await navigator.clipboard.writeText(value);
+    } catch (error) {
+      fallback.value = value;
+      fallback.select();
+      document.execCommand('copy');
+    }
+  }
+
+  document.getElementById('copy-title').addEventListener('click', async () => {
+    await writeText(data.articles[current].title, document.getElementById('source'));
+    document.getElementById('copy-title').classList.add('done');
+    document.getElementById('copy-title-label').textContent = 'Title copied';
+    document.getElementById('source').value = data.articles[current].html;
+  });
+
+  function setView(source) {
+    document.querySelector('.frame').classList.toggle('source', source);
+    document.getElementById('view-preview').setAttribute('aria-pressed', String(!source));
+    document.getElementById('view-source').setAttribute('aria-pressed', String(source));
+  }
+  document.getElementById('view-preview').addEventListener('click', () => setView(false));
+  document.getElementById('view-source').addEventListener('click', () => setView(true));
+
+  document.getElementById('search').addEventListener('input', (event) => {
+    const words = event.target.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+    let shown = 0;
+    data.articles.forEach((article, index) => {
+      const haystack = (article.title + ' ' + article.summary + ' ' + article.category).toLowerCase();
+      const match = words.every((word) => haystack.includes(word));
+      buttons[index].parentElement.hidden = !match;
+      if (match) shown += 1;
+    });
+    document.getElementById('count').textContent = countLabel(shown);
+    document.getElementById('empty').hidden = shown !== 0;
+  });
   show(0);
 </script>
 </body>

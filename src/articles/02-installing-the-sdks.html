@@ -1,62 +1,82 @@
-<p style="font-size: 16px; line-height: 1.6; margin: 0 0 16px;">The WebCommander SDKs are not published to a package registry such as PyPI, npm or NuGet. Each SDK lives in its own Bitbucket repository, and you need read access to it. Installing one takes three steps:</p>
+<p style="{{style:lead}}">The WebCommander SDKs are installed from their source repositories rather than from a package registry such as PyPI, npm or NuGet. This article explains what you need and how installation works. The developer documentation has the exact commands for each language.</p>
 
-<ol style="font-size: 16px; line-height: 1.6; margin: 0 0 16px; padding-left: 24px;">
-  <li style="margin: 0 0 8px;"><strong>Clone</strong> the repository's <code style="font-family: Consolas, Menlo, monospace; font-size: 14px; background-color: #f6f8fa; padding: 1px 5px; border-radius: 4px;">development</code> branch. It is the main branch; the default branch does not carry the SDK.</li>
-  <li style="margin: 0 0 8px;"><strong>Run one command</strong> in the clone to make it usable.</li>
-  <li style="margin: 0 0 8px;"><strong>Point your project at the clone.</strong> Keep the clone next to your project, because the paths are relative.</li>
-</ol>
+<p style="{{style:button-row}}"><a href="{{MINTLIFY}}/installation" style="{{style:button}}">See the installation guide</a></p>
 
-<p style="margin: 0 0 32px;"><a href="{{MINTLIFY}}/installation" style="display: inline-block; background-color: #ef7025; color: #ffffff; font-weight: 600; text-decoration: none; padding: 10px 18px; border-radius: 6px;">See the step-by-step instructions for your language</a></p>
+<div style="{{style:callout-info}}">
+  <p style="{{style:callout-title}}">Before you start</p>
+  <p style="{{style:callout-body}}">You need read access to the SDK repositories on Bitbucket. If you do not have it, ask your WebCommander contact.</p>
+</div>
 
-<h2 style="font-size: 22px; line-height: 1.3; margin: 0 0 12px;">What each SDK needs</h2>
+<h2 style="{{style:h2}}">How installation works</h2>
 
-<table style="width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.5; margin: 0 0 32px;">
+<p style="{{style:step-row}}"><span style="{{style:step}}">1</span><strong>Clone the SDK's repository.</strong> Use the <code style="{{style:code}}">development</code> branch; it is the main branch.</p>
+<p style="{{style:step-row}}"><span style="{{style:step}}">2</span><strong>Run one command in the clone</strong> to make it ready, for example <code style="{{style:code}}">npm install</code> for JavaScript.</p>
+<p style="{{style:step-row}}"><span style="{{style:step}}">3</span><strong>Point your project at the clone.</strong> Keep the clone next to your project, because the paths are relative.</p>
+
+<h2 style="{{style:h2}}">What each SDK needs</h2>
+
+<table style="{{style:table}}">
   <thead>
     <tr>
-      <th style="text-align: left; padding: 8px 12px; border-bottom: 2px solid #d0d7de; background-color: #f6f8fa;">Language</th>
-      <th style="text-align: left; padding: 8px 12px; border-bottom: 2px solid #d0d7de; background-color: #f6f8fa;">Requires</th>
-      <th style="text-align: left; padding: 8px 12px; border-bottom: 2px solid #d0d7de; background-color: #f6f8fa;">Command in the clone</th>
+      <th style="{{style:th}}">Language</th>
+      <th style="{{style:th}}">You need</th>
+      <th style="{{style:th}}">Command in the clone</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><strong>Python</strong></td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;">uv 0.8.4 or newer (provides Python 3.10 to 3.13)</td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><code style="font-family: Consolas, Menlo, monospace; font-size: 14px; background-color: #f6f8fa; padding: 1px 5px; border-radius: 4px;">uv sync</code></td>
+      <td style="{{style:td}}"><strong>Python</strong></td>
+      <td style="{{style:td}}">uv 0.8.4 or newer (it provides Python 3.10 to 3.13)</td>
+      <td style="{{style:td}}"><code style="{{style:code}}">uv sync</code></td>
     </tr>
     <tr>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><strong>JavaScript</strong></td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;">Node.js 18 or newer</td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><code style="font-family: Consolas, Menlo, monospace; font-size: 14px; background-color: #f6f8fa; padding: 1px 5px; border-radius: 4px;">npm install</code></td>
+      <td style="{{style:td}}"><strong>JavaScript</strong></td>
+      <td style="{{style:td}}">Node.js 18 or newer</td>
+      <td style="{{style:td}}"><code style="{{style:code}}">npm install</code></td>
     </tr>
     <tr>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><strong>PHP</strong></td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;">PHP 8.2 or newer, Composer 2</td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><code style="font-family: Consolas, Menlo, monospace; font-size: 14px; background-color: #f6f8fa; padding: 1px 5px; border-radius: 4px;">composer install</code></td>
+      <td style="{{style:td}}"><strong>PHP</strong></td>
+      <td style="{{style:td}}">PHP 8.2 or newer and Composer 2</td>
+      <td style="{{style:td}}"><code style="{{style:code}}">composer install</code></td>
     </tr>
     <tr>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><strong>Java</strong></td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;">JDK 17 or newer, Maven 3.9 or newer</td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><code style="font-family: Consolas, Menlo, monospace; font-size: 14px; background-color: #f6f8fa; padding: 1px 5px; border-radius: 4px;">mvn install -DskipTests</code></td>
+      <td style="{{style:td}}"><strong>Java</strong></td>
+      <td style="{{style:td}}">JDK 17 or newer and Maven 3.9 or newer</td>
+      <td style="{{style:td}}"><code style="{{style:code}}">mvn install -DskipTests</code></td>
     </tr>
     <tr>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><strong>.NET</strong></td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;">.NET SDK 8.0.100 or newer</td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><code style="font-family: Consolas, Menlo, monospace; font-size: 14px; background-color: #f6f8fa; padding: 1px 5px; border-radius: 4px;">dotnet pack</code></td>
+      <td style="{{style:td}}"><strong>.NET</strong></td>
+      <td style="{{style:td}}">.NET SDK 8.0.100 or newer</td>
+      <td style="{{style:td}}"><code style="{{style:code}}">dotnet pack</code></td>
     </tr>
     <tr>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><strong>Dart</strong></td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;">Dart 3.5 or newer (included in Flutter)</td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><code style="font-family: Consolas, Menlo, monospace; font-size: 14px; background-color: #f6f8fa; padding: 1px 5px; border-radius: 4px;">dart pub get</code></td>
+      <td style="{{style:td}}"><strong>Dart</strong></td>
+      <td style="{{style:td}}">Dart 3.5 or newer (included with Flutter)</td>
+      <td style="{{style:td}}"><code style="{{style:code}}">dart pub get</code></td>
     </tr>
     <tr>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><strong>Go</strong></td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;">Go 1.24 or newer</td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><code style="font-family: Consolas, Menlo, monospace; font-size: 14px; background-color: #f6f8fa; padding: 1px 5px; border-radius: 4px;">go build ./...</code></td>
+      <td style="{{style:td}}"><strong>Go</strong></td>
+      <td style="{{style:td}}">Go 1.24 or newer</td>
+      <td style="{{style:td}}"><code style="{{style:code}}">go build ./...</code></td>
     </tr>
   </tbody>
 </table>
 
-<h2 style="font-size: 22px; line-height: 1.3; margin: 0 0 12px;">Keeping the SDK up to date</h2>
+<h2 style="{{style:h2}}">Keeping the SDK up to date</h2>
 
-<p style="font-size: 16px; line-height: 1.6; margin: 0 0 16px;">Run <code style="font-family: Consolas, Menlo, monospace; font-size: 14px; background-color: #f6f8fa; padding: 1px 5px; border-radius: 4px;">git pull</code> in the clone. Python, JavaScript, PHP, Dart and Go pick up the change straight away. Java and .NET use a built copy, so run the command in the clone again after pulling. The <a href="{{MINTLIFY}}/installation" style="color: #ef7025; font-weight: 600;">installation guide</a> has the details for each language.</p>
+<p style="{{style:p}}">Run <code style="{{style:code}}">git pull</code> in the clone. Python, JavaScript, PHP, Dart and Go pick up the change straight away. Java and .NET use a built copy, so run the command in the clone again after you pull.</p>
+
+<h2 style="{{style:h2}}">Troubleshooting</h2>
+
+<h3 style="{{style:h3}}">The SDK files are missing after cloning</h3>
+<p style="{{style:p}}">The clone is on the wrong branch. Clone again with <code style="{{style:code}}">--branch development</code>; the repository's default branch does not carry the SDK.</p>
+
+<h3 style="{{style:h3}}">Java cannot find the SDK</h3>
+<p style="{{style:p}}">An error such as <code style="{{style:code}}">Could not find artifact com.webcommander:webcommander-sdk</code> means the build step was skipped. Run <code style="{{style:code}}">mvn install -DskipTests</code> in the clone, then build your project again. No extra repository or registry login is needed.</p>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}">WebCommander API</li>
+  <li style="{{style:li}}">Working with customers through the API</li>
+</ul>

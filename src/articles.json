@@ -3,12 +3,18 @@
     "file": "01-webcommander-api.html",
     "title": "WebCommander API",
     "category": "Developers",
-    "summary": "What the WebCommander API and SDKs are, and where the full documentation lives."
+    "summary": "What the API is, which tools you can use with it, and where the full documentation is."
   },
   {
     "file": "02-installing-the-sdks.html",
     "title": "Installing the WebCommander SDKs",
     "category": "Developers",
-    "summary": "What each SDK needs, and the three steps to add one to a project."
+    "summary": "What each SDK needs, how installation works, and fixes for common problems."
+  },
+  {
+    "file": "03-customers.html",
+    "title": "Working with customers through the API",
+    "category": "Developers",
+    "summary": "Common customer tasks, all fifteen endpoints, and what to watch for."
   }
 ]
