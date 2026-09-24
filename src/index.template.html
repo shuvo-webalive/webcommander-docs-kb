@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WebCommander knowledge base articles</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f2f4f7;
+    --ink: #18222e;
+    --muted: #5a6776;
+    --panel: #ffffff;
+    --line: #d5dce4;
+    --accent: #ef7025;
+    --accent-ink: #b8501a;
+    --done: #3f8f99;
+    --done-soft: #e3f1f2;
+    --warn-soft: #fff1e6;
+    --font: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  a { color: var(--accent-ink); }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 20px 32px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+  }
+  .brand { display: flex; align-items: center; gap: 16px; }
+  .brand img { display: block; height: 26px; width: auto; }
+  .top h1 {
+    margin: 0;
+    padding-left: 16px;
+    border-left: 1px solid var(--line);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  .top p { margin: 0; color: var(--muted); font-size: 14px; }
+  .top code { font-size: 13px; color: var(--ink); }
+
+  .notice {
+    margin: 0;
+    padding: 12px 32px;
+    background: var(--warn-soft);
+    border-bottom: 1px solid #f4c9aa;
+    font-size: 14px;
+  }
+  .notice strong { color: var(--accent-ink); }
+
+  .desk {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    min-height: calc(100vh - 70px);
+  }
+
+  .list {
+    border-right: 1px solid var(--line);
+    padding: 24px 16px;
+  }
+  .list h2 { margin: 0 12px 12px; font-size: 14px; font-weight: 600; color: var(--muted); }
+  .list ul { list-style: none; margin: 0; padding: 0; }
+  .list button {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 8px;
+    width: 100%;
+    margin: 0 0 4px;
+    padding: 12px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+  .list button:hover { background: #e8ecf1; }
+  .list button[aria-current="true"] { background: var(--panel); border-color: var(--line); }
+  .list .name { font-weight: 600; line-height: 1.35; }
+  .list .category { display: block; font-size: 13px; color: var(--muted); font-weight: 400; margin-top: 2px; }
+  .list .tick { width: 18px; height: 18px; color: var(--done); visibility: hidden; margin-top: 2px; }
+  .list button.copied .tick { visibility: visible; }
+
+  .work { padding: 32px 40px 64px; max-width: 1040px; }
+  .head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .head h2 { margin: 0 0 6px; font-size: 32px; line-height: 1.15; font-weight: 700; letter-spacing: -0.02em; }
+  .head .summary { margin: 0; color: var(--muted); max-width: 60ch; }
+
+  .facts { display: flex; gap: 32px; margin: 20px 0 0; padding: 0; }
+  .facts div { margin: 0; }
+  .facts dt { font-size: 13px; color: var(--muted); }
+  .facts dd { margin: 0; font-weight: 600; }
+
+  .copy {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--accent);
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 160ms ease;
+  }
+  .copy:hover { background: var(--accent-ink); }
+  .copy svg { width: 20px; height: 20px; }
+  .copy.done { background: var(--done); }
+
+  .steps {
+    counter-reset: step;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin: 28px 0 32px;
+    padding: 0;
+  }
+  .steps li {
+    counter-increment: step;
+    position: relative;
+    padding: 14px 16px 14px 52px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 14px;
+    top: 13px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    display: grid;
+    place-items: center;
+  }
+  .steps.flash li { border-color: var(--done); background: var(--done-soft); }
+
+  .status { min-height: 24px; margin: -12px 0 12px; font-weight: 600; color: var(--done); }
+  .steps { margin-bottom: 24px; }
+
+  .frame {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .frame .bar {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .frame iframe { display: block; width: 100%; height: 720px; border: 0; }
+
+  textarea.source { position: absolute; left: -9999px; top: 0; }
+
+  @media (max-width: 860px) {
+    .desk { grid-template-columns: 1fr; }
+    .list { border-right: 0; border-bottom: 1px solid var(--line); }
+    .work { padding: 24px 20px 48px; }
+    .steps { grid-template-columns: 1fr; }
+    .head h2 { font-size: 26px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .copy { transition: none; }
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <img src="assets/webcommander-logo.svg" alt="WebCommander" width="154" height="26">
+    <h1>Knowledge base articles</h1>
+  </div>
+  <p>Links point to <code id="base"></code></p>
+</header>
+<p class="notice" id="placeholder" hidden><strong>Links point at a placeholder address.</strong> Set <code>mintlify_base</code> in <code>config.json</code> to the live documentation address and rebuild before pasting.</p>
+
+<main class="desk">
+  <nav class="list" aria-label="Articles">
+    <h2 id="count"></h2>
+    <ul id="articles"></ul>
+  </nav>
+
+  <section class="work" aria-live="polite">
+    <div class="head">
+      <div>
+        <h2 id="title"></h2>
+        <p class="summary" id="summary"></p>
+        <dl class="facts">
+          <div><dt>Category</dt><dd id="category"></dd></div>
+          <div><dt>Source file</dt><dd id="file"></dd></div>
+        </dl>
+      </div>
+      <button class="copy" id="copy" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <span id="copy-label">Copy HTML</span>
+      </button>
+    </div>
+
+    <ol class="steps" id="steps">
+      <li>In HubSpot, open the article and set its title to the one above.</li>
+      <li>In the body toolbar, open <strong>Source code</strong>.</li>
+      <li>Paste, save, then preview before you publish.</li>
+    </ol>
+    <p class="status" id="status" role="status"></p>
+
+    <div class="frame">
+      <div class="bar"><span>Preview</span><span>How the article reads in the knowledge base</span></div>
+      <iframe id="preview" title="Article preview" sandbox="allow-popups allow-popups-to-escape-sandbox"></iframe>
+    </div>
+    <textarea class="source" id="source" aria-hidden="true" tabindex="-1"></textarea>
+  </section>
+</main>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+  const data = JSON.parse(document.getElementById('data').textContent);
+  const copied = new Set(JSON.parse(sessionStorage.getItem('kb-copied') || '[]'));
+  const tick = '<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+  const list = document.getElementById('articles');
+  const buttons = [];
+  let current = 0;
+
+  document.getElementById('base').textContent = data.base;
+  document.getElementById('placeholder').hidden = !data.placeholder;
+  document.getElementById('count').textContent = data.articles.length + (data.articles.length === 1 ? ' article' : ' articles');
+
+  data.articles.forEach((article, index) => {
+    const item = document.createElement('li');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.innerHTML = '<span><span class="name"></span><span class="category"></span></span>' + tick;
+    button.querySelector('.name').textContent = article.title;
+    button.querySelector('.category').textContent = article.category;
+    button.classList.toggle('copied', copied.has(article.file));
+    button.addEventListener('click', () => show(index));
+    item.appendChild(button);
+    list.appendChild(item);
+    buttons.push(button);
+  });
+
+  function frameDocument(html) {
+    return '<!doctype html><html><head><meta charset="utf-8"><base target="_blank"><style>body{margin:0;padding:32px 40px;font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;color:#33475b;max-width:820px}</style></head><body>' + html + '</body></html>';
+  }
+
+  function show(index) {
+    current = index;
+    const article = data.articles[index];
+    buttons.forEach((button, at) => button.setAttribute('aria-current', at === index ? 'true' : 'false'));
+    document.getElementById('title').textContent = article.title;
+    document.getElementById('summary').textContent = article.summary;
+    document.getElementById('category').textContent = article.category;
+    document.getElementById('file').textContent = article.file;
+    document.getElementById('preview').srcdoc = frameDocument(article.html);
+    document.getElementById('source').value = article.html;
+    resetCopy();
+  }
+
+  function resetCopy() {
+    document.getElementById('copy').classList.remove('done');
+    document.getElementById('copy-label').textContent = 'Copy HTML';
+    document.getElementById('steps').classList.remove('flash');
+    document.getElementById('status').textContent = '';
+  }
+
+  async function copyHtml() {
+    const article = data.articles[current];
+    try {
+      await navigator.clipboard.writeText(article.html);
+    } catch (error) {
+      const source = document.getElementById('source');
+      source.select();
+      document.execCommand('copy');
+    }
+    copied.add(article.file);
+    sessionStorage.setItem('kb-copied', JSON.stringify([...copied]));
+    buttons[current].classList.add('copied');
+    document.getElementById('copy').classList.add('done');
+    document.getElementById('copy-label').textContent = 'Copied';
+    document.getElementById('steps').classList.add('flash');
+    document.getElementById('status').textContent = 'Copied. Paste it into the Source code view in HubSpot.';
+  }
+
+  document.getElementById('copy').addEventListener('click', copyHtml);
+  show(0);
+</script>
+</body>
+</html>

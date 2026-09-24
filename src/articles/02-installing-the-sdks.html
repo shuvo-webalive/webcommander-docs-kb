@@ -1,0 +1,62 @@
+<p style="font-size: 16px; line-height: 1.6; margin: 0 0 16px;">The WebCommander SDKs are not published to a package registry such as PyPI, npm or NuGet. Each SDK lives in its own Bitbucket repository, and you need read access to it. Installing one takes three steps:</p>
+
+<ol style="font-size: 16px; line-height: 1.6; margin: 0 0 16px; padding-left: 24px;">
+  <li style="margin: 0 0 8px;"><strong>Clone</strong> the repository's <code style="font-family: Consolas, Menlo, monospace; font-size: 14px; background-color: #f6f8fa; padding: 1px 5px; border-radius: 4px;">development</code> branch. It is the main branch; the default branch does not carry the SDK.</li>
+  <li style="margin: 0 0 8px;"><strong>Run one command</strong> in the clone to make it usable.</li>
+  <li style="margin: 0 0 8px;"><strong>Point your project at the clone.</strong> Keep the clone next to your project, because the paths are relative.</li>
+</ol>
+
+<p style="margin: 0 0 32px;"><a href="{{MINTLIFY}}/installation" style="display: inline-block; background-color: #ef7025; color: #ffffff; font-weight: 600; text-decoration: none; padding: 10px 18px; border-radius: 6px;">See the step-by-step instructions for your language</a></p>
+
+<h2 style="font-size: 22px; line-height: 1.3; margin: 0 0 12px;">What each SDK needs</h2>
+
+<table style="width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.5; margin: 0 0 32px;">
+  <thead>
+    <tr>
+      <th style="text-align: left; padding: 8px 12px; border-bottom: 2px solid #d0d7de; background-color: #f6f8fa;">Language</th>
+      <th style="text-align: left; padding: 8px 12px; border-bottom: 2px solid #d0d7de; background-color: #f6f8fa;">Requires</th>
+      <th style="text-align: left; padding: 8px 12px; border-bottom: 2px solid #d0d7de; background-color: #f6f8fa;">Command in the clone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><strong>Python</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;">uv 0.8.4 or newer (provides Python 3.10 to 3.13)</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><code style="font-family: Consolas, Menlo, monospace; font-size: 14px; background-color: #f6f8fa; padding: 1px 5px; border-radius: 4px;">uv sync</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><strong>JavaScript</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;">Node.js 18 or newer</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><code style="font-family: Consolas, Menlo, monospace; font-size: 14px; background-color: #f6f8fa; padding: 1px 5px; border-radius: 4px;">npm install</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><strong>PHP</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;">PHP 8.2 or newer, Composer 2</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><code style="font-family: Consolas, Menlo, monospace; font-size: 14px; background-color: #f6f8fa; padding: 1px 5px; border-radius: 4px;">composer install</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><strong>Java</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;">JDK 17 or newer, Maven 3.9 or newer</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><code style="font-family: Consolas, Menlo, monospace; font-size: 14px; background-color: #f6f8fa; padding: 1px 5px; border-radius: 4px;">mvn install -DskipTests</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><strong>.NET</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;">.NET SDK 8.0.100 or newer</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><code style="font-family: Consolas, Menlo, monospace; font-size: 14px; background-color: #f6f8fa; padding: 1px 5px; border-radius: 4px;">dotnet pack</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><strong>Dart</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;">Dart 3.5 or newer (included in Flutter)</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><code style="font-family: Consolas, Menlo, monospace; font-size: 14px; background-color: #f6f8fa; padding: 1px 5px; border-radius: 4px;">dart pub get</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><strong>Go</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;">Go 1.24 or newer</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;"><code style="font-family: Consolas, Menlo, monospace; font-size: 14px; background-color: #f6f8fa; padding: 1px 5px; border-radius: 4px;">go build ./...</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="font-size: 22px; line-height: 1.3; margin: 0 0 12px;">Keeping the SDK up to date</h2>
+
+<p style="font-size: 16px; line-height: 1.6; margin: 0 0 16px;">Run <code style="font-family: Consolas, Menlo, monospace; font-size: 14px; background-color: #f6f8fa; padding: 1px 5px; border-radius: 4px;">git pull</code> in the clone. Python, JavaScript, PHP, Dart and Go pick up the change straight away. Java and .NET use a built copy, so run the command in the clone again after pulling. The <a href="{{MINTLIFY}}/installation" style="color: #ef7025; font-weight: 600;">installation guide</a> has the details for each language.</p>
