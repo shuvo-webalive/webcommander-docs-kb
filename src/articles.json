@@ -45,6 +45,12 @@
       "title": "Working with tax through the API",
       "subtitle": "Manage tax codes, tax rules, tax zones, tax profiles, custom tax profiles, country taxes and tax settings",
       "summary": "Common tax tasks, all forty endpoints, and what to watch for."
+    },
+    {
+      "file": "08-inventory-and-orders.html",
+      "title": "Working with inventory locations and order flags through the API",
+      "subtitle": "Manage inventory locations, choose the default location, see the stock each one holds, and manage the store's order flags",
+      "summary": "Common inventory location and order flag tasks, all seventeen endpoints, and what to watch for."
     }
   ]
 }
