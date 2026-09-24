@@ -1,62 +1,89 @@
-<p style="font-size: 16px; line-height: 1.6; margin: 0 0 16px;">WebCommander gives you access to a store's admin data through the <strong>v4 REST API</strong>. Seven SDKs wrap that API with the same set of calls in every language: Python, JavaScript, PHP, Java, .NET, Dart and Go.</p>
+<p style="{{style:lead}}">The WebCommander API lets your own software read and change a store's data: customers, settings, tax, shipping, inventory and more. This article explains what the API is, which tools you can use with it, and where to find the full developer documentation.</p>
 
-<p style="font-size: 16px; line-height: 1.6; margin: 0 0 24px;">This article is an overview. The full API and SDK reference, with every request, response and code sample, is in the WebCommander developer documentation.</p>
+<p style="{{style:button-row}}"><a href="{{MINTLIFY}}/introduction" style="{{style:button}}">Open the developer documentation</a></p>
 
-<p style="margin: 0 0 32px;"><a href="{{MINTLIFY}}/introduction" style="display: inline-block; background-color: #ef7025; color: #ffffff; font-weight: 600; text-decoration: none; padding: 10px 18px; border-radius: 6px;">Open the developer documentation</a></p>
+<h2 style="{{style:h2}}">Who this is for</h2>
 
-<h2 style="font-size: 22px; line-height: 1.3; margin: 0 0 12px;">What you can do with the API</h2>
+<p style="{{style:p}}">The API is for developers building an integration with a WebCommander store, for example syncing customers with a CRM, keeping stock levels in step with a warehouse system, or managing tax and shipping rules from your own tools. You do not need the API to run a store day to day; everything here can also be done in the WebCommander admin.</p>
 
-<table style="width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.5; margin: 0 0 32px;">
+<h2 style="{{style:h2}}">Two ways to use it</h2>
+
+<table style="{{style:table}}">
   <thead>
     <tr>
-      <th style="text-align: left; padding: 8px 12px; border-bottom: 2px solid #d0d7de; background-color: #f6f8fa;">Area</th>
-      <th style="text-align: left; padding: 8px 12px; border-bottom: 2px solid #d0d7de; background-color: #f6f8fa;">What you can do</th>
+      <th style="{{style:th}}">Option</th>
+      <th style="{{style:th}}">Best for</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de; vertical-align: top;"><strong>Customers</strong></td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;">List, read, create, update and delete customers, export and import them, manage addresses, passwords and store credit.</td>
+      <td style="{{style:td}}"><strong>An SDK</strong><br><span style="{{style:muted}}">Python, JavaScript, PHP, Java, .NET, Dart or Go</span></td>
+      <td style="{{style:td}}">Most integrations. The SDK signs in for you, keeps the access token fresh, retries safely and turns failures into clear errors. Every call is the same in all seven languages.</td>
     </tr>
     <tr>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de; vertical-align: top;"><strong>Page settings</strong></td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;">Read and update the category, product, search result, shopping cart and checkout page settings.</td>
-    </tr>
-    <tr>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de; vertical-align: top;"><strong>Store settings</strong></td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;">Read and update site, e-commerce, customer portal, price display, product listing, search, SEO, shipping and animation settings.</td>
-    </tr>
-    <tr>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de; vertical-align: top;"><strong>Tax</strong></td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;">Manage tax codes, rules, zones, profiles, custom profiles, country taxes and the store's tax settings.</td>
-    </tr>
-    <tr>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de; vertical-align: top;"><strong>Shipping</strong></td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;">Manage shipping methods and shipping classes.</td>
-    </tr>
-    <tr>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de; vertical-align: top;"><strong>Inventory and orders</strong></td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;">Manage inventory locations and order flags.</td>
-    </tr>
-    <tr>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de; vertical-align: top;"><strong>Domain aliases</strong></td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #d0d7de;">List, add and remove the extra hostnames a store answers on.</td>
+      <td style="{{style:td}}"><strong>The REST API directly</strong><br><span style="{{style:muted}}">Any language, or cURL</span></td>
+      <td style="{{style:td}}">A language without an SDK, or a quick one-off call. You request an access token yourself and send it with each request.</td>
     </tr>
   </tbody>
 </table>
 
-<h2 style="font-size: 22px; line-height: 1.3; margin: 0 0 12px;">What the SDKs handle for you</h2>
+<h2 style="{{style:h2}}">What you can work with</h2>
 
-<ul style="font-size: 16px; line-height: 1.6; margin: 0 0 32px; padding-left: 24px;">
-  <li style="margin: 0 0 8px;"><strong>Authentication.</strong> The client exchanges your store's credentials for an access token, caches it and renews it when it expires.</li>
-  <li style="margin: 0 0 8px;"><strong>One client for everything.</strong> Each area above is a property on the client, and each endpoint is a method on it.</li>
-  <li style="margin: 0 0 8px;"><strong>Clear failures.</strong> An error status is reported as a failure, and so is a response that says <code style="font-family: Consolas, Menlo, monospace; font-size: 14px; background-color: #f6f8fa; padding: 1px 5px; border-radius: 4px;">"isSuccess": false</code>.</li>
-  <li style="margin: 0 0 8px;"><strong>Retries.</strong> A call that never reached the store is retried automatically.</li>
-</ul>
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">Area</th>
+      <th style="{{style:th}}">What you can do</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/customers/overview" style="{{style:a}}">Customers</a></td>
+      <td style="{{style:td}}">List, find, create, update and delete customers; export and import them; manage addresses, passwords and store credit.</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><strong>Page settings</strong></td>
+      <td style="{{style:td}}">The category, product, search result, shopping cart and checkout page settings.</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><strong>Store settings</strong></td>
+      <td style="{{style:td}}">Site, e-commerce, customer portal, price display, product listing, search, SEO, shipping and animation settings.</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><strong>Tax</strong></td>
+      <td style="{{style:td}}">Tax codes, rules, zones, profiles, custom profiles, country taxes and the store's tax settings.</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><strong>Shipping</strong></td>
+      <td style="{{style:td}}">Shipping methods and shipping classes.</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><strong>Inventory and orders</strong></td>
+      <td style="{{style:td}}">Inventory locations and order flags.</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><strong>Domain aliases</strong></td>
+      <td style="{{style:td}}">The extra hostnames a store answers on.</td>
+    </tr>
+  </tbody>
+</table>
 
-<h2 style="font-size: 22px; line-height: 1.3; margin: 0 0 12px;">Get started</h2>
+<p style="{{style:muted}}">Areas with a link have full reference documentation. The others are available in every SDK and their reference pages are being added.</p>
 
-<ul style="font-size: 16px; line-height: 1.6; margin: 0 0 16px; padding-left: 24px;">
-  <li style="margin: 0 0 8px;"><a href="{{MINTLIFY}}/introduction" style="color: #ef7025; font-weight: 600;">Introduction</a>: the API, the seven SDKs and what they cover.</li>
-  <li style="margin: 0 0 8px;"><a href="{{MINTLIFY}}/installation" style="color: #ef7025; font-weight: 600;">Installation</a>: add the SDK for your language to a project.</li>
+<h2 style="{{style:h2}}">Get started</h2>
+
+<p style="{{style:step-row}}"><span style="{{style:step}}">1</span><strong>Get your API credentials.</strong> Your store's client ID, client secret, redirect URI and auth string. Your WebCommander contact can provide them.</p>
+<p style="{{style:step-row}}"><span style="{{style:step}}">2</span><strong>Install the SDK for your language.</strong> See <a href="{{MINTLIFY}}/installation" style="{{style:a}}">Installation</a>.</p>
+<p style="{{style:step-row}}"><span style="{{style:step}}">3</span><strong>Make your first call.</strong> The <a href="{{MINTLIFY}}/api-reference/customers/list-customers" style="{{style:a}}">List customers</a> page shows it in every language.</p>
+
+<div style="{{style:callout-warning}}">
+  <p style="{{style:callout-title}}">Keep your credentials private</p>
+  <p style="{{style:callout-body}}">The client secret and auth string give admin access to the store's data through the API. Keep them in environment variables or a secrets manager, never in source code or a shared document.</p>
+</div>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+  <li style="{{style:li}}">Working with customers through the API</li>
 </ul>
