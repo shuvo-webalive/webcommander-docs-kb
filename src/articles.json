@@ -13,8 +13,8 @@
     {
       "file": "02-installing-the-sdks.html",
       "title": "Installing the WebCommander SDKs",
-      "subtitle": "What each SDK needs, and how to add it to your project",
-      "summary": "What each SDK needs, how installation works, and fixes for common problems."
+      "subtitle": "Install an SDK from its package registry or from GitHub",
+      "summary": "The package and GitHub repository for each SDK, how to install from either, and what each SDK needs."
     },
     {
       "file": "03-customers.html",
