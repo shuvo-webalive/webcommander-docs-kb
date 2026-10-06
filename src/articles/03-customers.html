@@ -1,6 +1,6 @@
 <p style="{{style:lead}}">The Customers API lets your software work with a store's customers: find, create, update and delete them, export them to a spreadsheet, import them from a file, and manage their addresses, passwords and store credit. All fifteen endpoints are available in every WebCommander SDK.</p>
 
-<p style="{{style:button-row}}"><a href="{{MINTLIFY}}/customers" style="{{style:button}}">Open the Customers reference</a></p>
+<p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/customers">Open the Customers reference</a></strong></p>
 
 <h2 style="{{style:h2}}">Common tasks</h2>
 
@@ -41,15 +41,9 @@
 
 <h2 style="{{style:h2}}">Good to know</h2>
 
-<div style="{{style:callout-warning}}">
-  <p style="{{style:callout-title}}">Use customer_id, not internal_id</p>
-  <p style="{{style:callout-body}}">Every customer has two ids: <code style="{{style:code}}">customer_id</code> and <code style="{{style:code}}">internal_id</code>. Endpoints take <code style="{{style:code}}">customer_id</code>. If you send an <code style="{{style:code}}">internal_id</code> by mistake, you can get a different customer back instead of an error, so check that the customer you get back is the one you asked for.</p>
-</div>
+<p style="{{style:p}}"><strong>Use customer_id, not internal_id.</strong> Every customer has two ids: <code style="{{style:code}}">customer_id</code> and <code style="{{style:code}}">internal_id</code>. Endpoints take <code style="{{style:code}}">customer_id</code>. If you send an <code style="{{style:code}}">internal_id</code> by mistake, you can get a different customer back instead of an error, so check that the customer you get back is the one you asked for.</p>
 
-<div style="{{style:callout-info}}">
-  <p style="{{style:callout-title}}">New customers cannot sign in until they are active</p>
-  <p style="{{style:callout-body}}">A customer created without <code style="{{style:code}}">status: "active"</code> is created as <code style="{{style:code}}">awaiting_verification</code> and has no usable login, even with a password. To create a customer who can sign in straight away, send <code style="{{style:code}}">status: "active"</code> with a <code style="{{style:code}}">password</code>.</p>
-</div>
+<p style="{{style:p}}"><strong>New customers cannot sign in until they are active.</strong> A customer created without <code style="{{style:code}}">status: "active"</code> is created as <code style="{{style:code}}">awaiting_verification</code> and has no usable login, even with a password. To create a customer who can sign in straight away, send <code style="{{style:code}}">status: "active"</code> with a <code style="{{style:code}}">password</code>.</p>
 
 <ul style="{{style:ul}}">
   <li style="{{style:li}}"><strong>Lists return up to 20 customers at a time.</strong> To get more, send the next <code style="{{style:code}}">page</code> number or a higher <code style="{{style:code}}">offset</code>.</li>
