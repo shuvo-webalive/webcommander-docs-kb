@@ -1,6 +1,6 @@
 <p style="{{style:lead}}">The WebCommander API lets your own software read and change a store's data: customers, settings, tax, shipping, inventory and more. This article explains what the API is, which tools you can use with it, and where to find the full developer documentation.</p>
 
-<p style="{{style:button-row}}"><a href="{{MINTLIFY}}/introduction" style="{{style:button}}">Open the developer documentation</a></p>
+<p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/introduction">Open the developer documentation</a></strong></p>
 
 <h2 style="{{style:h2}}">Who this is for</h2>
 
@@ -17,11 +17,11 @@
   </thead>
   <tbody>
     <tr>
-      <td style="{{style:td}}"><strong>An SDK</strong><br><span style="{{style:muted}}">Python, JavaScript, PHP, Java, .NET, Dart or Go</span></td>
+      <td style="{{style:td}}"><strong>An SDK</strong><br>Python, JavaScript, PHP, Java, .NET, Dart or Go</td>
       <td style="{{style:td}}">Most integrations. The SDK gets and renews the access token for you, retries a call once if the token has expired, and reports every failed call as an error. The methods are the same in all seven languages.</td>
     </tr>
     <tr>
-      <td style="{{style:td}}"><strong>The REST API directly</strong><br><span style="{{style:muted}}">Any language, or cURL</span></td>
+      <td style="{{style:td}}"><strong>The REST API directly</strong><br>Any language, or cURL</td>
       <td style="{{style:td}}">A language without an SDK, or a quick one-off call. You request an access token yourself and send it with each request.</td>
     </tr>
   </tbody>
@@ -70,14 +70,13 @@
 
 <h2 style="{{style:h2}}">Get started</h2>
 
-<p style="{{style:step-row}}"><span style="{{style:step}}">1</span><strong>Get your API credentials.</strong> You need your store's client ID, client secret, redirect URI and auth string. Your WebCommander contact can provide them. <a href="{{MINTLIFY}}/authentication" style="{{style:a}}">Authentication</a> explains each one.</p>
-<p style="{{style:step-row}}"><span style="{{style:step}}">2</span><strong>Install the SDK for your language.</strong> See <a href="{{MINTLIFY}}/installation" style="{{style:a}}">Installation</a>.</p>
-<p style="{{style:step-row}}"><span style="{{style:step}}">3</span><strong>Make your first call.</strong> The <a href="{{MINTLIFY}}/api-reference/customers/list-customers" style="{{style:a}}">List customers</a> page shows it in every language.</p>
+<ol style="{{style:ol}}">
+  <li style="{{style:li}}"><strong>Get your API credentials.</strong> You need your store's client ID, client secret, redirect URI and auth string. Your WebCommander contact can provide them. <a href="{{MINTLIFY}}/authentication" style="{{style:a}}">Authentication</a> explains each one.</li>
+  <li style="{{style:li}}"><strong>Install the SDK for your language.</strong> See <a href="{{MINTLIFY}}/installation" style="{{style:a}}">Installation</a>.</li>
+  <li style="{{style:li}}"><strong>Make your first call.</strong> The <a href="{{MINTLIFY}}/api-reference/customers/list-customers" style="{{style:a}}">List customers</a> page shows it in every language.</li>
+</ol>
 
-<div style="{{style:callout-warning}}">
-  <p style="{{style:callout-title}}">Keep your credentials private</p>
-  <p style="{{style:callout-body}}">The client secret and auth string give admin access to the store's data through the API. Keep them in environment variables or a secrets manager, never in source code or a shared document.</p>
-</div>
+<p style="{{style:p}}"><strong>Keep your credentials private.</strong> The client secret and auth string give admin access to the store's data through the API. Keep them in environment variables or a secrets manager, never in source code or a shared document.</p>
 
 <h2 style="{{style:h2}}">Related articles</h2>
 

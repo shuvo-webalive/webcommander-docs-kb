@@ -1,6 +1,6 @@
 <p style="{{style:lead}}">The Domain aliases API lets your software manage a store's domain aliases: the extra hostnames, such as <code style="{{style:code}}">shop.example.com</code>, that the store responds to. You can list the aliases, add new ones and delete the ones you no longer need. All four endpoints are available in all seven WebCommander SDKs.</p>
 
-<p style="{{style:button-row}}"><a href="{{MINTLIFY}}/domain-aliases" style="{{style:button}}">Open the Domain aliases reference</a></p>
+<p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/domain-aliases">Open the Domain aliases reference</a></strong></p>
 
 <h2 style="{{style:h2}}">Common tasks</h2>
 
@@ -41,15 +41,9 @@
 
 <h2 style="{{style:h2}}">Good to know</h2>
 
-<div style="{{style:callout-warning}}">
-  <p style="{{style:callout-title}}">Send the hostname as a plain string</p>
-  <p style="{{style:callout-body}}">The create body is <code style="{{style:code}}">{"alias": "shop.example.com"}</code>. The create response returns the new alias as an object under the same <code style="{{style:code}}">alias</code> key. Do not send that shape back: a body such as <code style="{{style:code}}">{"alias": {"alias": "shop.example.com"}}</code> is rejected with <code style="{{style:code}}">400 invalid_hostname</code>.</p>
-</div>
+<p style="{{style:p}}"><strong>Send the hostname as a plain string.</strong> The create body is <code style="{{style:code}}">{"alias": "shop.example.com"}</code>. The create response returns the new alias as an object under the same <code style="{{style:code}}">alias</code> key. Do not send that shape back: a body such as <code style="{{style:code}}">{"alias": {"alias": "shop.example.com"}}</code> is rejected with <code style="{{style:code}}">400 invalid_hostname</code>.</p>
 
-<div style="{{style:callout-info}}">
-  <p style="{{style:callout-title}}">You cannot read or change one alias on its own</p>
-  <p style="{{style:callout-body}}">You can list, create and delete aliases. Reading or updating a single alias returns <code style="{{style:code}}">405</code>, and an update changes nothing. To find one alias, page through <a href="{{MINTLIFY}}/api-reference/domain-aliases/list-domain-aliases" style="{{style:a}}">List domain aliases</a> and look for its hostname in <code style="{{style:code}}">alias</code>. There is no call that counts aliases. To get the number of aliases, read <code style="{{style:code}}">pagination.total</code> in the list response.</p>
-</div>
+<p style="{{style:p}}"><strong>You cannot read or change one alias on its own.</strong> You can list, create and delete aliases. Reading or updating a single alias returns <code style="{{style:code}}">405</code>, and an update changes nothing. To find one alias, page through <a href="{{MINTLIFY}}/api-reference/domain-aliases/list-domain-aliases" style="{{style:a}}">List domain aliases</a> and look for its hostname in <code style="{{style:code}}">alias</code>. There is no call that counts aliases. To get the number of aliases, read <code style="{{style:code}}">pagination.total</code> in the list response.</p>
 
 <ul style="{{style:ul}}">
   <li style="{{style:li}}"><strong>The list returns up to 20 aliases at a time.</strong> A larger <code style="{{style:code}}">limit</code> is capped at <code style="{{style:code}}">20</code>. To get more, send the next <code style="{{style:code}}">page</code> number or a higher <code style="{{style:code}}">offset</code> while <code style="{{style:code}}">pagination.has_next</code> is <code style="{{style:code}}">true</code>. You cannot search or sort the list: any parameter other than <code style="{{style:code}}">limit</code>, <code style="{{style:code}}">offset</code>, <code style="{{style:code}}">page</code> and <code style="{{style:code}}">field_metadata</code>, such as <code style="{{style:code}}">q</code> or <code style="{{style:code}}">sort</code>, is rejected with <code style="{{style:code}}">400 unknown_parameter</code>.</li>

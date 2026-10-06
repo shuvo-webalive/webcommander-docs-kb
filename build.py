@@ -1,7 +1,9 @@
 """Builds the paste-ready knowledge base articles and the copy page from src/.
 
-Articles are HTML with two kinds of token, both resolved here so HubSpot receives plain
-inline-styled markup:
+Articles are plain semantic HTML (headings, paragraphs, lists, tables, links, bold and code),
+because they are pasted as formatted text into HubSpot's normal article editor, which keeps that
+structure but drops layout boxes such as styled div and span elements. Two kinds of token are
+resolved here:
 
 - {{style:<name>}} expands to an inline style from STYLES, so every article shares one look.
 - {{endpoints:<module>}} expands to the module's endpoint table, generated from the same
@@ -23,11 +25,8 @@ OUTPUT = ROOT / "articles"
 PLACEHOLDER = "https://YOUR-MINTLIFY-SITE"
 TOKEN = "{{MINTLIFY}}"
 
-INK = "#1f2d3d"
-MUTED = "#516f90"
 LINE = "#dfe3eb"
 SOFT = "#f5f8fa"
-ACCENT = "#ef7025"
 MONO = "Consolas, Menlo, Monaco, monospace"
 
 STYLES = {
@@ -44,24 +43,6 @@ STYLES = {
     "table": "width: 100%%; border-collapse: collapse; margin: 0 0 20px; border: 1px solid %s;" % LINE,
     "th": "text-align: left; font-weight: 700; padding: 8px 12px; background-color: %s; border-bottom: 1px solid %s;" % (SOFT, LINE),
     "td": "padding: 8px 12px; border-bottom: 1px solid %s; vertical-align: top;" % LINE,
-    "button": "font-weight: 700;",
-    "button-row": "margin: 0 0 24px;",
-    "callout-info": "background-color: #f0f6fb; border-left: 3px solid #2f7ebc; padding: 12px 16px; margin: 0 0 20px;",
-    "callout-warning": "background-color: #fdf8ee; border-left: 3px solid #c98a00; padding: 12px 16px; margin: 0 0 20px;",
-    "callout-title": "font-weight: 700; margin: 0 0 4px;",
-    "callout-body": "margin: 0;",
-    "step": "display: inline-block; min-width: 1.6em; font-weight: 700;",
-    "step-row": "margin: 0 0 10px;",
-    "muted": "font-size: 0.9em; margin: 0 0 16px;",
-}
-
-BADGES = {
-    "GET": ("#e5f5f0", "#0b7a5f"),
-    "POST": ("#e8f0fe", "#1c5fd0"),
-    "PUT": ("#fdf1e3", "#a35200"),
-    "DELETE": ("#fde9e7", "#b42318"),
-    "PATCH": ("#f1edfe", "#6941c6"),
-    "HEAD": ("#eef0f3", "#44546a"),
 }
 
 FORBIDDEN = [
@@ -70,6 +51,7 @@ FORBIDDEN = [
     (re.compile(r"<h1\b", re.I), "an <h1> (HubSpot renders the title as the heading)"),
     (re.compile(r"<style\b|<script\b|<link\b", re.I), "a tag HubSpot strips"),
     (re.compile(r"\sclass=", re.I), "a class attribute (HubSpot keeps inline styles only)"),
+    (re.compile(r"<div\b|<span\b", re.I), "a div or span (lost when pasted as formatted text)"),
     (re.compile(r"\{\{"), "an unresolved template token"),
 ]
 
@@ -104,23 +86,16 @@ def load_module(docs_dir, name):
     return module
 
 
-def badge(method):
-    background, colour = BADGES[method]
-    return ('<span style="display: inline-block; min-width: 58px; text-align: center; font-family: %s; '
-            'font-size: 12px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 4px; '
-            'background-color: %s; color: %s;">%s</span>' % (MONO, background, colour, method))
-
-
 def endpoint_table(module):
     rows = []
     for endpoint in module.ENDPOINTS:
         rows.append(
             '<tr><td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/%s/%s" style="{{style:a}}">%s</a>'
-            '<br><span style="font-size: 14px; color: %s;">%s</span></td>'
-            '<td style="{{style:td}} white-space: nowrap;">%s</td>'
+            '<br>%s</td>'
+            '<td style="{{style:td}} white-space: nowrap;"><strong>%s</strong></td>'
             '<td style="{{style:td}}"><code style="{{style:code}}">%s</code></td></tr>'
-            % (module.SLUG, endpoint["slug"], endpoint["title"], MUTED,
-               re.sub(r"`([^`]+)`", r"\1", endpoint["summary"]), badge(endpoint["method"]),
+            % (module.SLUG, endpoint["slug"], endpoint["title"],
+               re.sub(r"`([^`]+)`", r"\1", endpoint["summary"]), endpoint["method"],
                endpoint["path"].replace(module.BASE, "…" + module.BASE[module.BASE.rfind("/"):])))
     return ('<table style="{{style:table}}"><thead><tr>'
             '<th style="{{style:th}}">Endpoint</th><th style="{{style:th}}">Method</th><th style="{{style:th}}">Path</th>'

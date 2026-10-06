@@ -2,7 +2,7 @@
 
 <p style="{{style:p}}">Each page has its own reference: <a href="{{MINTLIFY}}/category-page" style="{{style:a}}">Category page</a>, <a href="{{MINTLIFY}}/product-page" style="{{style:a}}">Product page</a>, <a href="{{MINTLIFY}}/search-result-page" style="{{style:a}}">Search result page</a>, <a href="{{MINTLIFY}}/shopping-cart" style="{{style:a}}">Shopping cart</a> and <a href="{{MINTLIFY}}/checkout-page" style="{{style:a}}">Checkout page</a>. A page's settings are split into sections, and you can read or change the whole page at once or one section at a time.</p>
 
-<p style="{{style:button-row}}"><a href="{{MINTLIFY}}/category-page" style="{{style:button}}">Open the Category page reference</a></p>
+<p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/category-page">Open the Category page reference</a></strong></p>
 
 <h2 style="{{style:h2}}">Common tasks</h2>
 
@@ -75,20 +75,11 @@
 
 <h2 style="{{style:h2}}">Good to know</h2>
 
-<div style="{{style:callout-warning}}">
-  <p style="{{style:callout-title}}">Wrap every write in the right key</p>
-  <p style="{{style:callout-body}}">On a whole page's path, such as <code style="{{style:code}}">/category_page</code>, wrap the fields in the page's key and then the section name: <code style="{{style:code}}">{"category_page": {"category_information": {...}}}</code>. On a section's path, such as <code style="{{style:code}}">/category_page/category_information</code>, wrap them in the section's own name: <code style="{{style:code}}">{"category_information": {...}}</code>. On the category page, shopping cart and checkout page, a section write wrapped in the page's key, or not wrapped at all, is rejected with <code style="{{style:code}}">400 invalid_request</code>. Promotion bodies are wrapped in <code style="{{style:code}}">product_promotion</code>.</p>
-</div>
+<p style="{{style:p}}"><strong>Wrap every write in the right key.</strong> On a whole page's path, such as <code style="{{style:code}}">/category_page</code>, wrap the fields in the page's key and then the section name: <code style="{{style:code}}">{"category_page": {"category_information": {...}}}</code>. On a section's path, such as <code style="{{style:code}}">/category_page/category_information</code>, wrap them in the section's own name: <code style="{{style:code}}">{"category_information": {...}}</code>. On the category page, shopping cart and checkout page, a section write wrapped in the page's key, or not wrapped at all, is rejected with <code style="{{style:code}}">400 invalid_request</code>. Promotion bodies are wrapped in <code style="{{style:code}}">product_promotion</code>.</p>
 
-<div style="{{style:callout-warning}}">
-  <p style="{{style:callout-title}}">After a rejected call, the next call can go wrong too</p>
-  <p style="{{style:callout-body}}">On the checkout page, the call after a <code style="{{style:code}}">400</code> on the same client gets the previous call's response instead of its own, and a write in it is not saved. On the shopping cart, the write after a rejected write on the same client returns the same rejection again, even when it is correct. In both cases, the call after that works normally. On the checkout page, make your next call from a new client after a <code style="{{style:code}}">400</code>.</p>
-</div>
+<p style="{{style:p}}"><strong>After a rejected call, the next call can go wrong too.</strong> On the checkout page, the call after a <code style="{{style:code}}">400</code> on the same client gets the previous call's response instead of its own, and a write in it is not saved. On the shopping cart, the write after a rejected write on the same client returns the same rejection again, even when it is correct. In both cases, the call after that works normally. On the checkout page, make your next call from a new client after a <code style="{{style:code}}">400</code>.</p>
 
-<div style="{{style:callout-info}}">
-  <p style="{{style:callout-title}}">Ask for a description of every field</p>
-  <p style="{{style:callout-body}}">Add <code style="{{style:code}}">field_metadata=true</code> to any settings read to also get a description of every field. The settings are still returned with it. On the product page it shows which fields depend on another in <code style="{{style:code}}">depends_on</code>. On the checkout page's <code style="{{style:code}}">customer_checkout</code> and <code style="{{style:code}}">delivery_options</code> sections, it lists the rules a write must follow in <code style="{{style:code}}">_rules</code>.</p>
-</div>
+<p style="{{style:p}}"><strong>Ask for a description of every field.</strong> Add <code style="{{style:code}}">field_metadata=true</code> to any settings read to also get a description of every field. The settings are still returned with it. On the product page it shows which fields depend on another in <code style="{{style:code}}">depends_on</code>. On the checkout page's <code style="{{style:code}}">customer_checkout</code> and <code style="{{style:code}}">delivery_options</code> sections, it lists the rules a write must follow in <code style="{{style:code}}">_rules</code>.</p>
 
 <ul style="{{style:ul}}">
   <li style="{{style:li}}"><strong>Send only the fields you change.</strong> <code style="{{style:code}}">PATCH</code> is the only way to change settings, and fields you leave out keep their stored values. On the product page, sending a section back exactly as you read it can be rejected with <code style="{{style:code}}">400</code> and the code <code style="{{style:code}}">constraint_violation</code>, because a field cannot be set to <code style="{{style:code}}">true</code> while a field it depends on is off.</li>

@@ -2,7 +2,7 @@
 
 <p style="{{style:p}}">The settings are split into nine areas, and each has its own reference: <a href="{{MINTLIFY}}/site-settings" style="{{style:a}}">Site settings</a>, <a href="{{MINTLIFY}}/ecommerce-settings" style="{{style:a}}">Ecommerce settings</a>, <a href="{{MINTLIFY}}/customer-portal" style="{{style:a}}">Customer portal</a>, <a href="{{MINTLIFY}}/price-display-settings" style="{{style:a}}">Price display settings</a>, <a href="{{MINTLIFY}}/product-listing" style="{{style:a}}">Product listing</a>, <a href="{{MINTLIFY}}/search-settings" style="{{style:a}}">Search settings</a>, <a href="{{MINTLIFY}}/seo-configuration" style="{{style:a}}">SEO configuration</a>, <a href="{{MINTLIFY}}/shipping-settings" style="{{style:a}}">Shipping settings</a> and <a href="{{MINTLIFY}}/animation-effects" style="{{style:a}}">Animation effects</a>.</p>
 
-<p style="{{style:button-row}}"><a href="{{MINTLIFY}}/site-settings" style="{{style:button}}">Open the Site settings reference</a></p>
+<p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/site-settings">Open the Site settings reference</a></strong></p>
 
 <h2 style="{{style:h2}}">Common tasks</h2>
 
@@ -115,20 +115,11 @@
 
 <h2 style="{{style:h2}}">Good to know</h2>
 
-<div style="{{style:callout-warning}}">
-  <p style="{{style:callout-title}}">A replace call resets the fields you leave out</p>
-  <p style="{{style:callout-body}}">Search settings and SEO configuration have replace calls as well as update calls. A replace call resets every field you leave out of a section you send: replacing the SEO <code style="{{style:code}}">url_settings</code> section with only <code style="{{style:code}}">regenerate_url_on_item_update</code> turns a stored <code style="{{style:code}}">true</code> in <code style="{{style:code}}">auto_redirect_on_url_change</code> back to <code style="{{style:code}}">false</code>. <a href="{{MINTLIFY}}/api-reference/search-settings/replace-search-settings" style="{{style:a}}">Replace search settings</a> also resets any section you leave out, including <code style="{{style:code}}">synonyms</code>, and a change to <code style="{{style:code}}">synonyms</code> starts a search reindex that cannot be undone. To change a few fields, use an update call: it changes only the fields you send.</p>
-</div>
+<p style="{{style:p}}"><strong>A replace call resets the fields you leave out.</strong> Search settings and SEO configuration have replace calls as well as update calls. A replace call resets every field you leave out of a section you send: replacing the SEO <code style="{{style:code}}">url_settings</code> section with only <code style="{{style:code}}">regenerate_url_on_item_update</code> turns a stored <code style="{{style:code}}">true</code> in <code style="{{style:code}}">auto_redirect_on_url_change</code> back to <code style="{{style:code}}">false</code>. <a href="{{MINTLIFY}}/api-reference/search-settings/replace-search-settings" style="{{style:a}}">Replace search settings</a> also resets any section you leave out, including <code style="{{style:code}}">synonyms</code>, and a change to <code style="{{style:code}}">synonyms</code> starts a search reindex that cannot be undone. To change a few fields, use an update call: it changes only the fields you send.</p>
 
-<div style="{{style:callout-warning}}">
-  <p style="{{style:callout-title}}">After a 400 error, create a new client</p>
-  <p style="{{style:callout-body}}">A write rejected with <code style="{{style:code}}">400</code> can affect the next call made with the same SDK client. In Customer portal and Animation effects, the next write can be rejected even when it is valid. In Ecommerce settings, after a section update is rejected, the next read can return <code style="{{style:code}}">200</code> with a different section from the one you asked for. After a <code style="{{style:code}}">400</code>, create a new client before you make another call.</p>
-</div>
+<p style="{{style:p}}"><strong>After a 400 error, create a new client.</strong> A write rejected with <code style="{{style:code}}">400</code> can affect the next call made with the same SDK client. In Customer portal and Animation effects, the next write can be rejected even when it is valid. In Ecommerce settings, after a section update is rejected, the next read can return <code style="{{style:code}}">200</code> with a different section from the one you asked for. After a <code style="{{style:code}}">400</code>, create a new client before you make another call.</p>
 
-<div style="{{style:callout-info}}">
-  <p style="{{style:callout-title}}">Put each field inside its section</p>
-  <p style="{{style:callout-body}}">Most areas group their fields into sections, such as <code style="{{style:code}}">pricing</code> or <code style="{{style:code}}">brand_kit</code>. When you update a whole area, wrap the sections in the area's name, for example <code style="{{style:code}}">{"ecommerce_settings": {"pricing": {"enable_payment_terms": true}}}</code>. When you update a single section, wrap the fields in the section's own name instead. Product listing has no calls for a single section, and Shipping settings has no sections, so make every change there with Update product listing settings or Update shipping settings. In Update site settings, a field sent outside its section is ignored and the call still returns <code style="{{style:code}}">200</code>, so check the response to confirm the change.</p>
-</div>
+<p style="{{style:p}}"><strong>Put each field inside its section.</strong> Most areas group their fields into sections, such as <code style="{{style:code}}">pricing</code> or <code style="{{style:code}}">brand_kit</code>. When you update a whole area, wrap the sections in the area's name, for example <code style="{{style:code}}">{"ecommerce_settings": {"pricing": {"enable_payment_terms": true}}}</code>. When you update a single section, wrap the fields in the section's own name instead. Product listing has no calls for a single section, and Shipping settings has no sections, so make every change there with Update product listing settings or Update shipping settings. In Update site settings, a field sent outside its section is ignored and the call still returns <code style="{{style:code}}">200</code>, so check the response to confirm the change.</p>
 
 <ul style="{{style:ul}}">
   <li style="{{style:li}}"><strong>Site settings calls are slow.</strong> A read of all site settings takes about fifteen seconds, and a write takes thirteen to fifteen seconds. Allow for that in your client's timeout.</li>
