@@ -1,16 +1,111 @@
-<p style="{{style:lead}}">The WebCommander SDKs are installed from their source repositories rather than from a package registry such as PyPI, npm or NuGet. This article explains what you need and how installation works. The developer documentation has the exact commands for each language.</p>
+<p style="{{style:lead}}">Each WebCommander SDK is published to its language's package registry, such as PyPI, npm or NuGet, and its source code is public on GitHub. You can install an SDK either way. This article lists the package and repository for each language and what you need. The developer documentation has the full commands.</p>
 
 <p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/installation">See the installation guide</a></strong></p>
 
-<p style="{{style:p}}"><strong>Before you start.</strong> You need read access to the SDK repositories on Bitbucket. If you do not have it, ask your WebCommander contact.</p>
-
-<h2 style="{{style:h2}}">How installation works</h2>
+<h2 style="{{style:h2}}">Two ways to install</h2>
 
 <ol style="{{style:ol}}">
-  <li style="{{style:li}}"><strong>Clone the SDK's repository.</strong> Use the <code style="{{style:code}}">development</code> branch; it is the main branch.</li>
-  <li style="{{style:li}}"><strong>Run one command in the clone</strong> to install its dependencies or build it, for example <code style="{{style:code}}">npm install</code> for JavaScript. The table below lists the command for each language.</li>
-  <li style="{{style:li}}"><strong>Point your project at the clone.</strong> Keep the clone next to your project, because the paths are relative.</li>
+  <li style="{{style:li}}"><strong>From the package registry.</strong> The usual choice: one command adds the SDK to your project, and your package manager handles updates.</li>
+  <li style="{{style:li}}"><strong>From GitHub.</strong> Installs straight from the public repository, for example to use a change before it is released.</li>
 </ol>
+
+<h2 style="{{style:h2}}">Install from the package registry</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">Language</th>
+      <th style="{{style:th}}">Package</th>
+      <th style="{{style:th}}">Command</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}"><strong>Python</strong></td>
+      <td style="{{style:td}}"><a href="https://pypi.org/project/webcommander/" style="{{style:a}}">webcommander</a> on PyPI</td>
+      <td style="{{style:td}}"><code style="{{style:code}}">pip install webcommander</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><strong>JavaScript</strong></td>
+      <td style="{{style:td}}"><a href="https://www.npmjs.com/package/webcommander" style="{{style:a}}">webcommander</a> on npm</td>
+      <td style="{{style:td}}"><code style="{{style:code}}">npm install webcommander</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><strong>PHP</strong></td>
+      <td style="{{style:td}}"><a href="https://packagist.org/packages/webcommander/webcommander" style="{{style:a}}">webcommander/webcommander</a> on Packagist</td>
+      <td style="{{style:td}}"><code style="{{style:code}}">composer require webcommander/webcommander</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><strong>Java</strong></td>
+      <td style="{{style:td}}"><a href="https://central.sonatype.com/artifact/com.webcommander/webcommander" style="{{style:a}}">com.webcommander:webcommander</a> on Maven Central</td>
+      <td style="{{style:td}}">Add the dependency to <code style="{{style:code}}">pom.xml</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><strong>.NET</strong></td>
+      <td style="{{style:td}}"><a href="https://www.nuget.org/packages/WebCommander" style="{{style:a}}">WebCommander</a> on NuGet</td>
+      <td style="{{style:td}}"><code style="{{style:code}}">dotnet add package WebCommander</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><strong>Dart</strong></td>
+      <td style="{{style:td}}"><a href="https://pub.dev/packages/webcommander" style="{{style:a}}">webcommander</a> on pub.dev</td>
+      <td style="{{style:td}}"><code style="{{style:code}}">dart pub add webcommander</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><strong>Go</strong></td>
+      <td style="{{style:td}}"><a href="https://pkg.go.dev/github.com/WebCommanderCMS/webcommander-sdk-go/v4" style="{{style:a}}">github.com/WebCommanderCMS/webcommander-sdk-go/v4</a> on Go module proxy</td>
+      <td style="{{style:td}}"><code style="{{style:code}}">go get github.com/WebCommanderCMS/webcommander-sdk-go/v4</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="{{style:h2}}">Install from GitHub</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">Language</th>
+      <th style="{{style:th}}">Repository</th>
+      <th style="{{style:th}}">How</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}"><strong>Python</strong></td>
+      <td style="{{style:td}}"><a href="https://github.com/WebCommanderCMS/webcommander-sdk-python" style="{{style:a}}">WebCommanderCMS/webcommander-sdk-python</a></td>
+      <td style="{{style:td}}"><code style="{{style:code}}">pip install git+https://github.com/WebCommanderCMS/webcommander-sdk-python.git</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><strong>JavaScript</strong></td>
+      <td style="{{style:td}}"><a href="https://github.com/WebCommanderCMS/webcommander-sdk-js" style="{{style:a}}">WebCommanderCMS/webcommander-sdk-js</a></td>
+      <td style="{{style:td}}"><code style="{{style:code}}">npm install github:WebCommanderCMS/webcommander-sdk-js</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><strong>PHP</strong></td>
+      <td style="{{style:td}}"><a href="https://github.com/WebCommanderCMS/webcommander-sdk-php" style="{{style:a}}">WebCommanderCMS/webcommander-sdk-php</a></td>
+      <td style="{{style:td}}">Add the repository as a VCS source, then <code style="{{style:code}}">composer require webcommander/webcommander:dev-main</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><strong>Java</strong></td>
+      <td style="{{style:td}}"><a href="https://github.com/WebCommanderCMS/webcommander-sdk-java" style="{{style:a}}">WebCommanderCMS/webcommander-sdk-java</a></td>
+      <td style="{{style:td}}">Clone it, run <code style="{{style:code}}">mvn install -DskipTests</code>, then add the dependency</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><strong>.NET</strong></td>
+      <td style="{{style:td}}"><a href="https://github.com/WebCommanderCMS/webcommander-sdk-dotnet" style="{{style:a}}">WebCommanderCMS/webcommander-sdk-dotnet</a></td>
+      <td style="{{style:td}}">Clone it, run <code style="{{style:code}}">dotnet pack</code>, then add the package from the local folder</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><strong>Dart</strong></td>
+      <td style="{{style:td}}"><a href="https://github.com/WebCommanderCMS/webcommander-sdk-dart" style="{{style:a}}">WebCommanderCMS/webcommander-sdk-dart</a></td>
+      <td style="{{style:td}}"><code style="{{style:code}}">dart pub add webcommander --git-url=https://github.com/WebCommanderCMS/webcommander-sdk-dart.git</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><strong>Go</strong></td>
+      <td style="{{style:td}}"><a href="https://github.com/WebCommanderCMS/webcommander-sdk-go" style="{{style:a}}">WebCommanderCMS/webcommander-sdk-go</a></td>
+      <td style="{{style:td}}">Same as the package: Go always installs from the GitHub repository</td>
+    </tr>
+  </tbody>
+</table>
 
 <h2 style="{{style:h2}}">What each SDK needs</h2>
 
@@ -19,59 +114,43 @@
     <tr>
       <th style="{{style:th}}">Language</th>
       <th style="{{style:th}}">You need</th>
-      <th style="{{style:th}}">Command in the clone</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td style="{{style:td}}"><strong>Python</strong></td>
-      <td style="{{style:td}}">uv 0.8.4 or newer (it provides Python 3.10 to 3.13)</td>
-      <td style="{{style:td}}"><code style="{{style:code}}">uv sync</code></td>
+      <td style="{{style:td}}">Python 3.10 or newer</td>
     </tr>
     <tr>
       <td style="{{style:td}}"><strong>JavaScript</strong></td>
-      <td style="{{style:td}}">Node.js 18 or newer</td>
-      <td style="{{style:td}}"><code style="{{style:code}}">npm install</code></td>
+      <td style="{{style:td}}">Node.js 20.19 or newer</td>
     </tr>
     <tr>
       <td style="{{style:td}}"><strong>PHP</strong></td>
       <td style="{{style:td}}">PHP 8.2 or newer and Composer 2</td>
-      <td style="{{style:td}}"><code style="{{style:code}}">composer install</code></td>
     </tr>
     <tr>
       <td style="{{style:td}}"><strong>Java</strong></td>
       <td style="{{style:td}}">JDK 17 or newer and Maven 3.9 or newer</td>
-      <td style="{{style:td}}"><code style="{{style:code}}">mvn install -DskipTests</code></td>
     </tr>
     <tr>
       <td style="{{style:td}}"><strong>.NET</strong></td>
       <td style="{{style:td}}">.NET SDK 8.0.100 or newer</td>
-      <td style="{{style:td}}"><code style="{{style:code}}">dotnet pack</code></td>
     </tr>
     <tr>
       <td style="{{style:td}}"><strong>Dart</strong></td>
       <td style="{{style:td}}">Dart 3.5 or newer (included with Flutter)</td>
-      <td style="{{style:td}}"><code style="{{style:code}}">dart pub get</code></td>
     </tr>
     <tr>
       <td style="{{style:td}}"><strong>Go</strong></td>
       <td style="{{style:td}}">Go 1.24 or newer</td>
-      <td style="{{style:td}}"><code style="{{style:code}}">go build ./...</code></td>
     </tr>
   </tbody>
 </table>
 
 <h2 style="{{style:h2}}">Keeping the SDK up to date</h2>
 
-<p style="{{style:p}}">Run <code style="{{style:code}}">git pull</code> in the clone. Python, JavaScript, PHP, Dart and Go pick up the change straight away. Java and .NET use a built copy, so run the command in the clone again after you pull.</p>
-
-<h2 style="{{style:h2}}">Troubleshooting</h2>
-
-<h3 style="{{style:h3}}">The SDK files are missing after cloning</h3>
-<p style="{{style:p}}">The clone is on the wrong branch. Clone again with <code style="{{style:code}}">--branch development</code>; the repository's default branch does not contain the SDK.</p>
-
-<h3 style="{{style:h3}}">Java cannot find the SDK</h3>
-<p style="{{style:p}}">An error such as <code style="{{style:code}}">Could not find artifact com.webcommander:webcommander-sdk</code> means the build step was skipped. Run <code style="{{style:code}}">mvn install -DskipTests</code> in the clone, then build your project again. No extra repository or registry login is needed.</p>
+<p style="{{style:p}}">If you installed from the package registry, upgrade with your package manager, for example <code style="{{style:code}}">pip install --upgrade webcommander</code> or <code style="{{style:code}}">npm install webcommander@latest</code>. If you installed from GitHub, run the same install command again; for Java and .NET, pull the clone and run <code style="{{style:code}}">mvn install -DskipTests</code> or <code style="{{style:code}}">dotnet pack</code> again.</p>
 
 <h2 style="{{style:h2}}">Related articles</h2>
 
