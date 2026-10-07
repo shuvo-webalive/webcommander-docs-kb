@@ -57,6 +57,12 @@
       "title": "Working with domain aliases through the API",
       "subtitle": "List, add and delete the extra hostnames a store responds to",
       "summary": "Common domain alias tasks, all four endpoints, and what to watch for."
+    },
+    {
+      "file": "14-discount-profiles.html",
+      "title": "Working with discount profiles through the API",
+      "subtitle": "List, create, retrieve, replace and delete discount profiles, generate coupon codes for a profile, and assign a code to a customer by email address",
+      "summary": "Common discount profile tasks, all seven endpoints, and what to watch for."
     }
   ]
 }
