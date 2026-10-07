@@ -57,6 +57,12 @@
       "title": "Working with domain aliases through the API",
       "subtitle": "List, add and delete the extra hostnames a store responds to",
       "summary": "Common domain alias tasks, all four endpoints, and what to watch for."
+    },
+    {
+      "file": "13-categories.html",
+      "title": "Working with categories through the API",
+      "subtitle": "List, create, update and delete product categories, assign products to them, and read or change one section of a category at a time",
+      "summary": "Common category tasks, all ten endpoints, and what to watch for."
     }
   ]
 }
