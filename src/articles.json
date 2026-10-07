@@ -57,6 +57,12 @@
       "title": "Working with domain aliases through the API",
       "subtitle": "List, add and delete the extra hostnames a store responds to",
       "summary": "Common domain alias tasks, all four endpoints, and what to watch for."
+    },
+    {
+      "file": "12-carts.html",
+      "title": "Working with carts through the API",
+      "subtitle": "Add products to a customer's cart, read it, change or remove its items, empty it, and turn it into an order",
+      "summary": "Common cart tasks, all seven endpoints, and what to watch for."
     }
   ]
 }
