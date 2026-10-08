@@ -57,6 +57,12 @@
       "title": "Working with domain aliases through the API",
       "subtitle": "List, add and delete the extra hostnames a store responds to",
       "summary": "Common domain alias tasks, all four endpoints, and what to watch for."
+    },
+    {
+      "file": "10-orders.html",
+      "title": "Working with orders through the API",
+      "subtitle": "List, create, change, cancel and delete orders, record payments, refunds and shipments, add comments and email invoices",
+      "summary": "Common order tasks, all twenty-four endpoints, and what to watch for."
     }
   ]
 }
