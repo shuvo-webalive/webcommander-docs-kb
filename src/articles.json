@@ -65,6 +65,12 @@
       "summary": "Common order custom field tasks, all four endpoints, and what to watch for."
     },
     {
+      "file": "12-carts.html",
+      "title": "Working with carts through the API",
+      "subtitle": "Add products to a customer's cart, read it, change or remove its items, empty it, and turn it into an order",
+      "summary": "Common cart tasks, all seven endpoints, and what to watch for."
+    },
+    {
       "file": "13-categories.html",
       "title": "Working with categories through the API",
       "subtitle": "List, create, update and delete product categories, assign products to them, and read or change one section of a category at a time",
