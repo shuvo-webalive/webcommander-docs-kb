@@ -57,6 +57,12 @@
       "title": "Working with domain aliases through the API",
       "subtitle": "List, add and delete the extra hostnames a store responds to",
       "summary": "Common domain alias tasks, all four endpoints, and what to watch for."
+    },
+    {
+      "file": "11-order-custom-fields.html",
+      "title": "Working with order custom fields through the API",
+      "subtitle": "List, count and retrieve the custom fields a store's orders can have, and check a timeslot against an order limit",
+      "summary": "Common order custom field tasks, all four endpoints, and what to watch for."
     }
   ]
 }
