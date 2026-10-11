@@ -63,6 +63,12 @@
       "title": "Working with order custom fields through the API",
       "subtitle": "List, count and retrieve the custom fields a store's orders can have, and check a timeslot against an order limit",
       "summary": "Common order custom field tasks, all four endpoints, and what to watch for."
+    },
+    {
+      "file": "16-blog-categories.html",
+      "title": "Working with blog categories through the API",
+      "subtitle": "List, create, retrieve, update and delete the categories a store files its blog posts under",
+      "summary": "Common blog category tasks, all five endpoints, and what to watch for."
     }
   ]
 }
