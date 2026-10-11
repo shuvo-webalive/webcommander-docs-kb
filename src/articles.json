@@ -59,6 +59,12 @@
       "summary": "Common domain alias tasks, all four endpoints, and what to watch for."
     },
     {
+      "file": "10-orders.html",
+      "title": "Working with orders through the API",
+      "subtitle": "List, create, change, cancel and delete orders, record payments, refunds and shipments, add comments and email invoices",
+      "summary": "Common order tasks, all twenty-four endpoints, and what to watch for."
+    },
+    {
       "file": "11-order-custom-fields.html",
       "title": "Working with order custom fields through the API",
       "subtitle": "List, count and retrieve the custom fields a store's orders can have, and check a timeslot against an order limit",
