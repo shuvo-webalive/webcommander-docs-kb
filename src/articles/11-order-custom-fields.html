@@ -1,0 +1,67 @@
+<p style="{{style:lead}}">The Order custom fields API lets your software read the custom fields a store's orders can have, such as a gift message or a preferred delivery date. You can list and count the fields, retrieve one field with its choices, hover text, placeholder and default value, and check whether a timeslot on a date is available under an order limit. You cannot create, change or delete order custom fields through the API. All four endpoints are available in all seven WebCommander SDKs.</p>
+
+<p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/order-custom-fields" style="{{style:a}}">Open the Order custom fields reference</a></strong></p>
+
+<h2 style="{{style:h2}}">Common tasks</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">You want to</th>
+      <th style="{{style:th}}">Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}">Get every order custom field the store has</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/order-custom-fields/list-order-custom-fields" style="{{style:a}}">List order custom fields</a>, page by page. Each call returns at most 20 fields</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Get only the fields of one type, such as the date fields</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/order-custom-fields/list-order-custom-fields" style="{{style:a}}">List order custom fields</a> with <code style="{{style:code}}">filterBy=date</code>. Send the type in lower case, exactly as <code style="{{style:code}}">field_type</code> shows it</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Find out how many fields the store has, or how many of one type</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/order-custom-fields/count-order-custom-fields" style="{{style:a}}">Count order custom fields</a>, with <code style="{{style:code}}">filterBy</code> to count only one type. The number is in <code style="{{style:code}}">count</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Get a select field's choices, or a field's hover text, placeholder and default value</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/order-custom-fields/list-order-custom-fields" style="{{style:a}}">List order custom fields</a> to find the order custom field's <code style="{{style:code}}">id</code>, then <a href="{{MINTLIFY}}/api-reference/order-custom-fields/retrieve-an-order-custom-field" style="{{style:a}}">Retrieve an order custom field</a> with that <code style="{{style:code}}">id</code> as <code style="{{style:code}}">order_custom_field_id</code>. A listing does not return <code style="{{style:code}}">options</code>, <code style="{{style:code}}">hover_text</code>, <code style="{{style:code}}">placeholder</code> or <code style="{{style:code}}">default_value</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Find out whether a field is allowed for shipping, delivery, store pickup or pre-orders</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/order-custom-fields/retrieve-an-order-custom-field" style="{{style:a}}">Retrieve an order custom field</a> and read <code style="{{style:code}}">is_allowed_for_shipping</code>, <code style="{{style:code}}">is_allowed_for_delivery</code>, <code style="{{style:code}}">is_allowed_for_store_pickup</code> and <code style="{{style:code}}">is_allowed_for_pre_order</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Check whether a timeslot on a date is available or fully booked</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/order-custom-fields/validate-a-timeslot" style="{{style:a}}">Validate a timeslot</a> with the order custom field's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">order_custom_field_id</code> and a body such as <code style="{{style:code}}">{"selected_date": "25/10/2026", "weekday_id": 1, "start_hour": 9, "end_hour": 12, "order_limit": 10}</code>, then read <code style="{{style:code}}">valid</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="{{style:h2}}">All endpoints</h2>
+
+<p style="{{style:p}}">These four endpoints list, count and retrieve the store's order custom fields and check a timeslot against an order limit, at paths that start with <code style="{{style:code}}">/api/v4/admin/order_custom_fields</code>.</p>
+
+{{endpoints:order_custom_fields}}
+
+<h2 style="{{style:h2}}">Good to know</h2>
+
+<p style="{{style:p}}"><strong>Validating a timeslot stores nothing, even though it returns <code style="{{style:code}}">201</code>.</strong> <a href="{{MINTLIFY}}/api-reference/order-custom-fields/validate-a-timeslot" style="{{style:a}}">Validate a timeslot</a> does not reserve the timeslot or change the order custom field: the field's <code style="{{style:code}}">last_updated_on</code> and the number of order custom fields stay the same, and the same check sent again returns the same result. The status is <code style="{{style:code}}">201</code> whether the timeslot is available or not, so read <code style="{{style:code}}">valid</code> in the response: <code style="{{style:code}}">true</code> with the message <code style="{{style:code}}">Timeslot available</code>, or <code style="{{style:code}}">false</code> with <code style="{{style:code}}">Timeslot fully booked</code>. An <code style="{{style:code}}">order_limit</code> of <code style="{{style:code}}">0</code> returns <code style="{{style:code}}">valid: false</code>, and a negative <code style="{{style:code}}">order_limit</code>, or none, returns <code style="{{style:code}}">valid: true</code>.</p>
+
+<p style="{{style:p}}"><strong>Send the timeslot keys at the top level of the body.</strong> Put <code style="{{style:code}}">selected_date</code>, <code style="{{style:code}}">weekday_id</code>, <code style="{{style:code}}">start_hour</code>, <code style="{{style:code}}">end_hour</code> and <code style="{{style:code}}">order_limit</code> straight into the body, as in <code style="{{style:code}}">{"selected_date": "25/10/2026", "weekday_id": 1, "start_hour": 9, "end_hour": 12, "order_limit": 10}</code>. A body wrapped in a key, such as <code style="{{style:code}}">{"validate_timeslot": {...}}</code> or <code style="{{style:code}}">{"order_custom_field": {...}}</code>, is read as a body without <code style="{{style:code}}">selected_date</code>. The store rejects it with <code style="{{style:code}}">400</code> and the message <code style="{{style:code}}">selected_date: is required, in dd/MM/yyyy form, e.g. 25/07/2026</code>. <code style="{{style:code}}">selected_date</code> is required and must be a real date written <code style="{{style:code}}">dd/MM/yyyy</code>, such as <code style="{{style:code}}">25/10/2026</code>. <code style="{{style:code}}">31/02/2026</code>, <code style="{{style:code}}">2026-10-25</code> and <code style="{{style:code}}">5/1/2026</code> are rejected with <code style="{{style:code}}">400</code>. When <code style="{{style:code}}">order_limit</code> is above <code style="{{style:code}}">0</code>, also send <code style="{{style:code}}">start_hour</code> and <code style="{{style:code}}">end_hour</code>, each a whole number from <code style="{{style:code}}">0</code> to <code style="{{style:code}}">23</code>, or the call is rejected with <code style="{{style:code}}">400</code>.</p>
+
+<p style="{{style:p}}"><strong>After a rejected query parameter, your next call can be rejected too.</strong> When a query parameter is rejected with <code style="{{style:code}}">400</code>, your next call on the same client returns the same <code style="{{style:code}}">400</code> if its endpoint reads that parameter, even when that call's own parameters are valid. <a href="{{MINTLIFY}}/api-reference/order-custom-fields/list-order-custom-fields" style="{{style:a}}">List order custom fields</a> reads all seven of its parameters: <code style="{{style:code}}">limit</code>, <code style="{{style:code}}">offset</code>, <code style="{{style:code}}">page</code>, <code style="{{style:code}}">sort</code>, <code style="{{style:code}}">dir</code>, <code style="{{style:code}}">filterBy</code> and <code style="{{style:code}}">field_metadata</code>. <a href="{{MINTLIFY}}/api-reference/order-custom-fields/retrieve-an-order-custom-field" style="{{style:a}}">Retrieve an order custom field</a> reads <code style="{{style:code}}">field_metadata</code>, and <a href="{{MINTLIFY}}/api-reference/order-custom-fields/count-order-custom-fields" style="{{style:a}}">Count order custom fields</a> reads <code style="{{style:code}}">filterBy</code>. If a call with valid parameters returns that <code style="{{style:code}}">400</code>, send it again: the second try runs normally, and so does every call on a new client. A rejected timeslot body does not affect the next call.</p>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}"><strong>You can read order custom fields, but not create, change or delete them.</strong> <code style="{{style:code}}">POST</code> on <code style="{{style:code}}">/api/v4/admin/order_custom_fields</code>, and <code style="{{style:code}}">PUT</code>, <code style="{{style:code}}">PATCH</code> and <code style="{{style:code}}">DELETE</code> on <code style="{{style:code}}">/api/v4/admin/order_custom_fields/{order_custom_field_id}</code>, are rejected with <code style="{{style:code}}">405 method_not_allowed</code> and the message <code style="{{style:code}}">HTTP method not allowed for this endpoint.</code> The listing's <code style="{{style:code}}">group_meta</code> shows <code style="{{style:code}}">writable: false</code>. <code style="{{style:code}}">OPTIONS</code> lists <code style="{{style:code}}">HEAD</code> in its <code style="{{style:code}}">Allow</code> header, but <code style="{{style:code}}">HEAD</code> returns <code style="{{style:code}}">404</code> on the listing and on an order custom field's path, and <code style="{{style:code}}">405</code> on <code style="{{style:code}}">/count</code>. Use <code style="{{style:code}}">GET</code> instead.</li>
+  <li style="{{style:li}}"><strong>A listing returns at most 20 fields per call.</strong> A larger <code style="{{style:code}}">limit</code> is capped at <code style="{{style:code}}">20</code>, and <code style="{{style:code}}">pagination.limit</code> shows <code style="{{style:code}}">20</code>. To get every field, raise <code style="{{style:code}}">offset</code> by the number of fields each page returned, <code style="{{style:code}}">pagination.count</code>, until you reach <code style="{{style:code}}">pagination.total</code>. <code style="{{style:code}}">filterBy</code> limits both the listing and the count to one field type. No parameter searches the fields: the listing ignores <code style="{{style:code}}">q</code>, <code style="{{style:code}}">search</code>, <code style="{{style:code}}">name</code>, <code style="{{style:code}}">label</code> and <code style="{{style:code}}">is_active</code>. To find one field, page through the listing and look for its <code style="{{style:code}}">name</code> or <code style="{{style:code}}">label</code>.</li>
+  <li style="{{style:li}}"><strong><code style="{{style:code}}">sort</code> takes its own names for five keys, not the names the response uses.</strong> Send <code style="{{style:code}}">sort=type</code> to sort by <code style="{{style:code}}">field_type</code>, <code style="{{style:code}}">sort=orderNo</code> for <code style="{{style:code}}">order_no</code>, <code style="{{style:code}}">sort=isActive</code> for <code style="{{style:code}}">is_active</code>, <code style="{{style:code}}">sort=created</code> for <code style="{{style:code}}">created_on</code> and <code style="{{style:code}}">sort=updated</code> for <code style="{{style:code}}">last_updated_on</code>. <code style="{{style:code}}">sort=field_type</code> and the other four response names are rejected with <code style="{{style:code}}">400</code>, and so is a leading <code style="{{style:code}}">-</code>: set <code style="{{style:code}}">dir</code> to <code style="{{style:code}}">asc</code> or <code style="{{style:code}}">desc</code> instead. <code style="{{style:code}}">sort=id</code>, <code style="{{style:code}}">sort=label</code> and <code style="{{style:code}}">sort=name</code> sort by the order custom field's <code style="{{style:code}}">id</code>, <code style="{{style:code}}">label</code> and <code style="{{style:code}}">name</code>.</li>
+</ul>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+</ul>
