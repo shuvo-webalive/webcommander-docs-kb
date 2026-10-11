@@ -65,6 +65,12 @@
       "summary": "Common order custom field tasks, all four endpoints, and what to watch for."
     },
     {
+      "file": "13-categories.html",
+      "title": "Working with categories through the API",
+      "subtitle": "List, create, update and delete product categories, assign products to them, and read or change one section of a category at a time",
+      "summary": "Common category tasks, all ten endpoints, and what to watch for."
+    },
+    {
       "file": "16-blog-categories.html",
       "title": "Working with blog categories through the API",
       "subtitle": "List, create, retrieve, update and delete the categories a store files its blog posts under",
