@@ -71,6 +71,12 @@
       "summary": "Common category tasks, all ten endpoints, and what to watch for."
     },
     {
+      "file": "14-discount-profiles.html",
+      "title": "Working with discount profiles through the API",
+      "subtitle": "List, create, retrieve, replace and delete discount profiles, generate coupon codes for a profile, and assign a code to a customer by email address",
+      "summary": "Common discount profile tasks, all seven endpoints, and what to watch for."
+    },
+    {
       "file": "16-blog-categories.html",
       "title": "Working with blog categories through the API",
       "subtitle": "List, create, retrieve, update and delete the categories a store files its blog posts under",
