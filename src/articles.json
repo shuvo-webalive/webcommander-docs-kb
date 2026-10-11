@@ -63,6 +63,42 @@
       "title": "Working with orders through the API",
       "subtitle": "List, create, change, cancel and delete orders, record payments, refunds and shipments, add comments and email invoices",
       "summary": "Common order tasks, all twenty-four endpoints, and what to watch for."
+    },
+    {
+      "file": "11-order-custom-fields.html",
+      "title": "Working with order custom fields through the API",
+      "subtitle": "List, count and retrieve the custom fields a store's orders can have, and check a timeslot against an order limit",
+      "summary": "Common order custom field tasks, all four endpoints, and what to watch for."
+    },
+    {
+      "file": "12-carts.html",
+      "title": "Working with carts through the API",
+      "subtitle": "Add products to a customer's cart, read it, change or remove its items, empty it, and turn it into an order",
+      "summary": "Common cart tasks, all seven endpoints, and what to watch for."
+    },
+    {
+      "file": "13-categories.html",
+      "title": "Working with categories through the API",
+      "subtitle": "List, create, update and delete product categories, assign products to them, and read or change one section of a category at a time",
+      "summary": "Common category tasks, all ten endpoints, and what to watch for."
+    },
+    {
+      "file": "14-discount-profiles.html",
+      "title": "Working with discount profiles through the API",
+      "subtitle": "List, create, retrieve, replace and delete discount profiles, generate coupon codes for a profile, and assign a code to a customer by email address",
+      "summary": "Common discount profile tasks, all seven endpoints, and what to watch for."
+    },
+    {
+      "file": "15-blogs.html",
+      "title": "Working with blogs through the API",
+      "subtitle": "List, count, create, change and delete blog posts, and add, read, approve and mark as spam the comments on each post",
+      "summary": "Common blog tasks, all twelve endpoints, and what to watch for."
+    },
+    {
+      "file": "16-blog-categories.html",
+      "title": "Working with blog categories through the API",
+      "subtitle": "List, create, retrieve, update and delete the categories a store files its blog posts under",
+      "summary": "Common blog category tasks, all five endpoints, and what to watch for."
     }
   ]
 }
