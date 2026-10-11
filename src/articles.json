@@ -77,6 +77,12 @@
       "summary": "Common discount profile tasks, all seven endpoints, and what to watch for."
     },
     {
+      "file": "15-blogs.html",
+      "title": "Working with blogs through the API",
+      "subtitle": "List, count, create, change and delete blog posts, and add, read, approve and mark as spam the comments on each post",
+      "summary": "Common blog tasks, all twelve endpoints, and what to watch for."
+    },
+    {
       "file": "16-blog-categories.html",
       "title": "Working with blog categories through the API",
       "subtitle": "List, create, retrieve, update and delete the categories a store files its blog posts under",
