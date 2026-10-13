@@ -1,0 +1,73 @@
+<p style="{{style:lead}}">The Customer groups API lets your software work with a store's customer groups. You can list, count, create, retrieve, update and delete groups, and choose which customers belong to each group. Each group also holds its own purchase, tax and product display settings, under <code style="{{style:code}}">purchase_preference</code>, <code style="{{style:code}}">tax_configuration</code> and <code style="{{style:code}}">product_display</code>. All nine endpoints are available in all seven WebCommander SDKs.</p>
+
+<p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/customer-groups" style="{{style:a}}">Open the Customer groups reference</a></strong></p>
+
+<h2 style="{{style:h2}}">Common tasks</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">You want to</th>
+      <th style="{{style:th}}">Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}">Find groups by name, or only the active ones, or count them</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/customer-groups/list-customer-groups" style="{{style:a}}">List customer groups</a> with <code style="{{style:code}}">search_text</code>, such as <code style="{{style:code}}">search_text=wholesale</code>, and <code style="{{style:code}}">status=active</code> or <code style="{{style:code}}">status=inactive</code>. It returns the groups whose <code style="{{style:code}}">name</code> contains that text, in any letter case. <a href="{{MINTLIFY}}/api-reference/customer-groups/count-customer-groups" style="{{style:a}}">Count customer groups</a> takes the same filters and returns the number of matches as <code style="{{style:code}}">total</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Add a group, such as one for trade accounts</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/customer-groups/create-a-customer-group" style="{{style:a}}">Create a customer group</a> with <code style="{{style:code}}">{"customer_group": {"name": "Wholesale Partners"}}</code>. Only <code style="{{style:code}}">name</code> is required. It returns the new group, with the group's <code style="{{style:code}}">id</code>, which the other calls take as <code style="{{style:code}}">customer_group_id</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Change one setting of a group, such as making it tax exempt</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/customer-groups/update-a-customer-group" style="{{style:a}}">Update a customer group</a> with <code style="{{style:code}}">{"customer_group": {"tax_configuration": {"tax_exempt": true}}}</code>. Only the fields you send change, and it returns the updated group</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Add one customer to a group and keep its other members</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/customer-groups/add-a-customer-to-a-customer-group" style="{{style:a}}">Add a customer to a customer group</a> with the customer's <code style="{{style:code}}">customer_id</code> as <code style="{{style:code}}">customer</code> and the group's <code style="{{style:code}}">customer_group_id</code> as <code style="{{style:code}}">group</code>: <code style="{{style:code}}">{"customer": 5678, "group": 1234}</code>. It returns <code style="{{style:code}}">201</code> whether or not it added the customer: <code style="{{style:code}}">added</code> is <code style="{{style:code}}">true</code> when the customer joined and <code style="{{style:code}}">false</code> when the customer was already a member</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">See who is in a group, or check whether one customer is</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/customer-groups/retrieve-a-customer-group" style="{{style:a}}">Retrieve a customer group</a> returns its members under <code style="{{style:code}}">customers</code> and their number as <code style="{{style:code}}">customer_count</code>. <a href="{{MINTLIFY}}/api-reference/customer-groups/retrieve-a-member-of-a-customer-group" style="{{style:a}}">Retrieve a member of a customer group</a> with the group's <code style="{{style:code}}">customer_group_id</code> and the customer's <code style="{{style:code}}">customer_id</code> returns that member, or <code style="{{style:code}}">404</code> when that customer is not a member</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Set exactly who is in a group, or take a customer out of it</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/customer-groups/replace-the-members-of-a-customer-group" style="{{style:a}}">Replace the members of a customer group</a> with the <code style="{{style:code}}">customer_id</code> of every customer who should be in the group, such as <code style="{{style:code}}">{"customers": [5678, 5679]}</code>. A customer you leave out leaves the group. It returns the group with its new members</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Remove a group</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/customer-groups/delete-a-customer-group" style="{{style:a}}">Delete a customer group</a>. It deletes the group permanently and returns <code style="{{style:code}}">204</code> with no body. Its members stay in the store as customers</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="{{style:h2}}">All endpoints</h2>
+
+<p style="{{style:p}}">These endpoints list, count, create, retrieve, update and delete customer groups, and replace, check and add their members. The <a href="{{MINTLIFY}}/customer-groups" style="{{style:a}}">Customer groups overview</a> lists what each one does.</p>
+
+{{endpoints:customer_groups}}
+
+<h2 style="{{style:h2}}">Good to know</h2>
+
+<p style="{{style:p}}"><strong>Replacing a group's members removes every customer you leave out of the list.</strong> <a href="{{MINTLIFY}}/api-reference/customer-groups/replace-the-members-of-a-customer-group" style="{{style:a}}">Replace the members of a customer group</a> makes the list you send the whole membership, and <code style="{{style:code}}">{"customers": []}</code> empties the group. To add one customer and keep the others, use <a href="{{MINTLIFY}}/api-reference/customer-groups/add-a-customer-to-a-customer-group" style="{{style:a}}">Add a customer to a customer group</a> instead.</p>
+
+<p style="{{style:p}}"><strong>Wrap a group in <code style="{{style:code}}">customer_group</code> when you create or update it.</strong> Send <code style="{{style:code}}">{"customer_group": {"name": "Wholesale Partners"}}</code>. A create or update without the wrapper is rejected with <code style="{{style:code}}">400</code> and the message <code style="{{style:code}}">customer_group is required</code>. Replacing the members and adding a customer take no wrapper: send <code style="{{style:code}}">{"customers": [...]}</code> to replace the members, and <code style="{{style:code}}">{"customer": ..., "group": ...}</code> to add a customer. A replace that sends a bare list instead of <code style="{{style:code}}">{"customers": [...]}</code> returns <code style="{{style:code}}">500</code> with the message <code style="{{style:code}}">Unexpected Error Occurred</code>; wrap the list in <code style="{{style:code}}">customers</code>.</p>
+
+<p style="{{style:p}}"><strong>An update changes only the fields you send, inside nested settings too.</strong> <code style="{{style:code}}">{"customer_group": {"tax_configuration": {"tax_exempt": true}}}</code> changes <code style="{{style:code}}">tax_exempt</code> and keeps the other five tax settings. There is no replace: <code style="{{style:code}}">PUT</code> on a group is rejected with <code style="{{style:code}}">405</code>.</p>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}"><strong>Members are customers, identified by their <code style="{{style:code}}">customer_id</code>.</strong> The member calls take the customer's <code style="{{style:code}}">customer_id</code>, as a number or a string, not the customer's <code style="{{style:code}}">internal_id</code>. In a group's <code style="{{style:code}}">customers</code> list, each member's <code style="{{style:code}}">id</code> is that customer's <code style="{{style:code}}">customer_id</code>. To see which groups a customer is in, <a href="{{MINTLIFY}}/api-reference/customers/retrieve-a-customer" style="{{style:a}}">Retrieve a customer</a> and read <code style="{{style:code}}">customer_groups</code>.</li>
+  <li style="{{style:li}}"><strong>A listing returns 20 groups per call unless you send <code style="{{style:code}}">limit</code>.</strong> <code style="{{style:code}}">limit</code> takes <code style="{{style:code}}">1</code> to <code style="{{style:code}}">100</code>. To get more, send a higher <code style="{{style:code}}">offset</code>, or the next <code style="{{style:code}}">page</code>, while <code style="{{style:code}}">pagination.has_next</code> is <code style="{{style:code}}">true</code>. To sort by date, send <code style="{{style:code}}">sort=created</code> or <code style="{{style:code}}">sort=updated</code>; <code style="{{style:code}}">sort=created_at</code> and <code style="{{style:code}}">sort=updated_at</code> are rejected with <code style="{{style:code}}">400</code>.</li>
+  <li style="{{style:li}}"><strong>There is no <code style="{{style:code}}">HEAD</code> call.</strong> <code style="{{style:code}}">HEAD</code> returns <code style="{{style:code}}">404</code> on every customer group path, even though the <code style="{{style:code}}">Allow</code> header of an <code style="{{style:code}}">OPTIONS</code> request lists it on the listing, count and group paths. Use <code style="{{style:code}}">GET</code> instead.</li>
+  <li style="{{style:li}}"><strong>Groups already in the store can hold values a write rejects.</strong> A stored group can have a <code style="{{style:code}}">status</code> other than <code style="{{style:code}}">A</code> or <code style="{{style:code}}">I</code>, a <code style="{{style:code}}">default_tax_code</code> a create rejects, or a <code style="{{style:code}}">name</code> with spaces at either end. Such a group matches neither <code style="{{style:code}}">status=A</code> nor <code style="{{style:code}}">status=I</code>, so those two counts can add up to less than the total.</li>
+  <li style="{{style:li}}"><strong>After a group delete returns <code style="{{style:code}}">404</code>, your next customer delete can fail.</strong> The next <a href="{{MINTLIFY}}/api-reference/customers/delete-a-customer" style="{{style:a}}">Delete a customer</a> call on the same connection can return <code style="{{style:code}}">404</code> with the message <code style="{{style:code}}">Customer already in trash</code>, or <code style="{{style:code}}">204</code>, and not delete the customer: its <code style="{{style:code}}">is_in_trash</code> stays <code style="{{style:code}}">false</code>. Send that customer delete on a new connection, or send it again.</li>
+</ul>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+</ul>
