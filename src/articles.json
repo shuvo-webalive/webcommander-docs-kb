@@ -117,6 +117,12 @@
       "title": "Working with currencies through the API",
       "subtitle": "List, count, create, replace, update and delete currencies, and choose the store's base currency",
       "summary": "Common currency tasks, all eleven endpoints, and what to watch for."
+    },
+    {
+      "file": "20-variations.html",
+      "title": "Working with variations through the API",
+      "subtitle": "List, create, replace, update and delete variation types and their options, and list and update a product's variants",
+      "summary": "Common variation tasks, all eleven endpoints, and what to watch for."
     }
   ]
 }

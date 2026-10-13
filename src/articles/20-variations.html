@@ -1,0 +1,75 @@
+<p style="{{style:lead}}">The Variations API lets your software work with a store's variation types, such as Size, and with the variants of each product. You can list, create, retrieve, replace, update and delete variation types, delete a single option from a type, list a product's variants, and set the availability, prices, stock and order quantities of several variants at once. Each variation type has a <code style="{{style:code}}">name</code>, a <code style="{{style:code}}">standard</code> of <code style="{{style:code}}">text</code>, <code style="{{style:code}}">color</code> or <code style="{{style:code}}">image</code>, and a list of <code style="{{style:code}}">options</code>. All eleven endpoints are available in all seven WebCommander SDKs.</p>
+
+<p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/variations" style="{{style:a}}">Open the Variations reference</a></strong></p>
+
+<h2 style="{{style:h2}}">Common tasks</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">You want to</th>
+      <th style="{{style:th}}">Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}">Get every variation type, or find one by its name</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/variations/list-variation-types" style="{{style:a}}">List variation types</a>, page by page. Each call returns the types under <code style="{{style:code}}">variations</code>, each with all of its options: 20 per call, or the <code style="{{style:code}}">limit</code> you send, from <code style="{{style:code}}">1</code> to <code style="{{style:code}}">100</code>. Send <code style="{{style:code}}">search=size</code> to get only types whose <code style="{{style:code}}">name</code> contains that text, in any letter case, and <code style="{{style:code}}">standard=text</code> to get only one kind of type</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Add a variation type, such as a shirt size</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/variations/create-a-variation-type" style="{{style:a}}">Create a variation type</a> with the type inside <code style="{{style:code}}">variation</code>, such as <code style="{{style:code}}">{"variation": {"name": "Shirt Size", "standard": "text", "options": [{"label": "Small", "value": "S", "order": 1, "default": true}]}}</code>. It returns <code style="{{style:code}}">201</code> and the new type under <code style="{{style:code}}">variation</code>, with the type's <code style="{{style:code}}">id</code> and an <code style="{{style:code}}">id</code> on each option. Pass the type's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">variation_id</code> to retrieve, change or delete the type</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Rename a type, or change or add options without deleting any</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/variations/update-a-variation-type" style="{{style:a}}">Update a variation type</a> with the type's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">variation_id</code> and only what you want to change, such as <code style="{{style:code}}">{"variation": {"options": [{"id": 201, "label": "Petite"}, {"label": "Extra Large", "value": "XL", "order": 4}]}}</code>. An option sent with the option's <code style="{{style:code}}">id</code> changes only the fields you send for it, and an option sent without an <code style="{{style:code}}">id</code> is added. It returns the type with every option it had and any option you added</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Remove one option from a type</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/variations/delete-a-variation-option" style="{{style:a}}">Delete a variation option</a> with the type's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">variation_id</code> and the option's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">variation_option_id</code>. It deletes the option permanently, returns <code style="{{style:code}}">204</code> with no body, and leaves the type's other options as they were</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Remove a variation type</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/variations/delete-a-variation-type" style="{{style:a}}">Delete a variation type</a> with the type's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">variation_id</code> and <code style="{{style:code}}">cascade=true</code>. It deletes the type and its options permanently and returns <code style="{{style:code}}">204</code> with no body</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Set stock, prices, order quantities or availability on a product's variants</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/variations/list-a-products-variants" style="{{style:a}}">List a product's variants</a> with the product's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">product_id</code> to get each variant's <code style="{{style:code}}">variation_id</code>. Then call <a href="{{MINTLIFY}}/api-reference/variations/update-a-products-variants" style="{{style:a}}">Update a product's variants</a> with those values in <code style="{{style:code}}">variation_ids</code> and the fields to set, such as <code style="{{style:code}}">{"variation_ids": [91], "available": true, "available_stock": 12}</code>. Every variant you name gets the values you send</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Find out whether a type changed without reading it</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/variations/check-a-variation-type" style="{{style:a}}">Check a variation type</a> with the type's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">variation_id</code>. It returns headers only, with the same <code style="{{style:code}}">ETag</code> that <a href="{{MINTLIFY}}/api-reference/variations/retrieve-a-variation-type" style="{{style:a}}">Retrieve a variation type</a> returns, and the <code style="{{style:code}}">ETag</code> changes when the type's content changes. It returns <code style="{{style:code}}">404</code> when no type has that <code style="{{style:code}}">variation_id</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="{{style:h2}}">All endpoints</h2>
+
+<p style="{{style:p}}">These eleven endpoints list, check, create, retrieve, replace, update and delete variation types and their options at paths that start with <code style="{{style:code}}">/api/v4/admin/variations</code>, and list and update a product's variants at paths that start with <code style="{{style:code}}">/api/v4/admin/products/{product_id}/variations</code>.</p>
+
+{{endpoints:variations}}
+
+<h2 style="{{style:h2}}">Good to know</h2>
+
+<p style="{{style:p}}"><strong>Replacing a variation type deletes every option you leave out of the body.</strong> <a href="{{MINTLIFY}}/api-reference/variations/replace-a-variation-type" style="{{style:a}}">Replace a variation type</a> keeps only the options you send: an option sent with the option's <code style="{{style:code}}">id</code> is changed, an option sent without an <code style="{{style:code}}">id</code> is added, and every other option is deleted. To change or add options without deleting any, use <a href="{{MINTLIFY}}/api-reference/variations/update-a-variation-type" style="{{style:a}}">Update a variation type</a>, which changes only what you send.</p>
+
+<p style="{{style:p}}"><strong>Wrap every variation type write in <code style="{{style:code}}">variation</code>, and send variant updates with no wrapper.</strong> Create, replace and update all take <code style="{{style:code}}">{"variation": {...}}</code>. A body without the wrapper is rejected with <code style="{{style:code}}">400</code>: the error's <code style="{{style:code}}">details</code> give each top-level key the reason <code style="{{style:code}}">unknown_field</code>, and <code style="{{style:code}}">variation</code> the reason <code style="{{style:code}}">required</code>. <a href="{{MINTLIFY}}/api-reference/variations/update-a-products-variants" style="{{style:a}}">Update a product's variants</a> is the opposite: send <code style="{{style:code}}">variation_ids</code> and the fields to set at the top level of the body.</p>
+
+<p style="{{style:p}}"><strong>On a product whose prices include tax, the variant prices you read are net of tax.</strong> <a href="{{MINTLIFY}}/api-reference/variations/list-a-products-variants" style="{{style:a}}">List a product's variants</a> returns each variant's <code style="{{style:code}}">base_price</code> and <code style="{{style:code}}">sale_price</code> divided by the tax rate and rounded to the cent: a stored <code style="{{style:code}}">90.99</code> reads <code style="{{style:code}}">82.72</code>. <a href="{{MINTLIFY}}/api-reference/variations/update-a-products-variants" style="{{style:a}}">Update a product's variants</a> stores the price you send as it is. If you write back a price you read, the stored price changes, so send the price including tax.</p>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}"><strong>Delete a variation type with <code style="{{style:code}}">cascade=true</code>.</strong> A type you create always has at least one option, and you cannot delete a type's last option on its own: <a href="{{MINTLIFY}}/api-reference/variations/delete-a-variation-option" style="{{style:a}}">Delete a variation option</a> rejects it with <code style="{{style:code}}">409</code> and the message <code style="{{style:code}}">a variation type must keep at least one option</code>. Without <code style="{{style:code}}">cascade=true</code>, <a href="{{MINTLIFY}}/api-reference/variations/delete-a-variation-type" style="{{style:a}}">Delete a variation type</a> rejects a type that has options with <code style="{{style:code}}">409</code> and the message <code style="{{style:code}}">This variation type still has N option(s).</code> With <code style="{{style:code}}">cascade=true</code>, the type and its options are deleted together.</li>
+  <li style="{{style:li}}"><strong><code style="{{style:code}}">variation_ids</code> takes each variant's <code style="{{style:code}}">variation_id</code>, not a variation type's <code style="{{style:code}}">id</code>.</strong> Each variant that <a href="{{MINTLIFY}}/api-reference/variations/list-a-products-variants" style="{{style:a}}">List a product's variants</a> returns has its own <code style="{{style:code}}">variation_id</code>. If any entry in <code style="{{style:code}}">variation_ids</code> is not a variant of the product whose <code style="{{style:code}}">product_id</code> is in the path, the whole request is rejected with <code style="{{style:code}}">400</code> and the message <code style="{{style:code}}">variation N does not belong to product M</code>, and nothing is written.</li>
+  <li style="{{style:li}}"><strong><code style="{{style:code}}">available_stock</code> sets stock even when inventory tracking is off.</strong> <a href="{{MINTLIFY}}/api-reference/variations/update-a-products-variants" style="{{style:a}}">Update a product's variants</a> writes <code style="{{style:code}}">available_stock</code> to each variant's <code style="{{style:code}}">inventory.quantity</code>, even when the variant's inventory tracking is off.</li>
+  <li style="{{style:li}}"><strong>Check a variant's prices with List a product's variants, not with <code style="{{style:code}}">response=full</code>.</strong> By default, each entry in <code style="{{style:code}}">updated</code> has only <code style="{{style:code}}">id</code>, which is the variant's <code style="{{style:code}}">variation_id</code>, and <code style="{{style:code}}">name</code>. With <code style="{{style:code}}">response=full</code>, each entry has fourteen fields, but its <code style="{{style:code}}">sale_price</code> and <code style="{{style:code}}">is_on_sale</code> can differ from the values List a product's variants returns for a product on sale, and the <code style="{{style:code}}">url</code> in each entry returns <code style="{{style:code}}">404</code> if you call it. Read the variant back with List a product's variants to check its values.</li>
+  <li style="{{style:li}}"><strong>A duplicate type name returns <code style="{{style:code}}">409</code> with a body that is not valid JSON.</strong> <code style="{{style:code}}">name</code> must be unique in any letter case. When another type already has the name you send to <a href="{{MINTLIFY}}/api-reference/variations/create-a-variation-type" style="{{style:a}}">Create a variation type</a>, it returns <code style="{{style:code}}">409</code>. The body is not valid JSON: the message is <code style="{{style:code}}">Variation type having name "&lt;name&gt;" already exists</code>, with the name inserted unescaped. Check the status code instead of parsing the body.</li>
+  <li style="{{style:li}}"><strong>A type's <code style="{{style:code}}">standard</code> cannot change after you create it.</strong> On a replace or update, leave <code style="{{style:code}}">standard</code> out or send the type's own value. A different value is rejected with <code style="{{style:code}}">400</code>, the reason <code style="{{style:code}}">read_only_field</code> and the message <code style="{{style:code}}">cannot be changed after the variation type is created</code>.</li>
+  <li style="{{style:li}}"><strong>The listing returns 20 types per call unless you send <code style="{{style:code}}">limit</code>.</strong> <code style="{{style:code}}">limit</code> takes <code style="{{style:code}}">1</code> to <code style="{{style:code}}">100</code>. To get more, send a higher <code style="{{style:code}}">offset</code>, or the next <code style="{{style:code}}">page</code>, while <code style="{{style:code}}">pagination.has_next</code> is <code style="{{style:code}}">true</code>. Sending both <code style="{{style:code}}">page</code> and <code style="{{style:code}}">offset</code> is rejected with <code style="{{style:code}}">400</code> and the reason <code style="{{style:code}}">conflicting_params</code>. The listing accepts only <code style="{{style:code}}">search</code>, <code style="{{style:code}}">standard</code>, <code style="{{style:code}}">limit</code>, <code style="{{style:code}}">offset</code>, <code style="{{style:code}}">page</code> and <code style="{{style:code}}">field_metadata</code>: any other query parameter, such as <code style="{{style:code}}">q</code> or <code style="{{style:code}}">sort</code>, is rejected with <code style="{{style:code}}">400</code> and the reason <code style="{{style:code}}">unknown_parameter</code>.</li>
+</ul>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+</ul>
