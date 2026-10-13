@@ -105,6 +105,12 @@
       "title": "Working with countries through the API",
       "subtitle": "List a store's countries and each country's states, and look up one country or one state by its code or name",
       "summary": "Common country tasks, all eight endpoints, and what to watch for."
+    },
+    {
+      "file": "18-customer-groups.html",
+      "title": "Working with customer groups through the API",
+      "subtitle": "List, count, create, update and delete customer groups, and choose which customers belong to each group",
+      "summary": "Common customer group tasks, all nine endpoints, and what to watch for."
     }
   ]
 }
