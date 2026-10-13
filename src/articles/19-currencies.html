@@ -1,0 +1,73 @@
+<p style="{{style:lead}}">The Currencies API lets your software work with a store's currencies. You can list, count, create, retrieve, replace, update and delete currencies, and choose the store's base currency. Each currency has a <code style="{{style:code}}">name</code>, a three-letter <code style="{{style:code}}">code</code>, a <code style="{{style:code}}">symbol</code>, a <code style="{{style:code}}">country</code>, a <code style="{{style:code}}">conversion_rate</code> against the base currency, a <code style="{{style:code}}">rounding</code> rule, a <code style="{{style:code}}">precision</code> and an <code style="{{style:code}}">active</code> flag. All eleven endpoints are available in all seven WebCommander SDKs.</p>
+
+<p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/currencies" style="{{style:a}}">Open the Currencies reference</a></strong></p>
+
+<h2 style="{{style:h2}}">Common tasks</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">You want to</th>
+      <th style="{{style:th}}">Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}">Get every currency, or only the active ones</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/currencies/list-currencies" style="{{style:a}}">List currencies</a>, page by page. Each call returns up to 20 currencies under <code style="{{style:code}}">currencies</code>, or up to the <code style="{{style:code}}">limit</code> you send, from <code style="{{style:code}}">1</code> to <code style="{{style:code}}">100</code>. Send <code style="{{style:code}}">active=true</code> to get only active currencies, or <code style="{{style:code}}">active=false</code> to get only inactive ones</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Find a currency by its name or code, or count the matches</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/currencies/list-currencies" style="{{style:a}}">List currencies</a> with <code style="{{style:code}}">search</code>, such as <code style="{{style:code}}">search=dollar</code>. It returns the currencies whose <code style="{{style:code}}">name</code> or <code style="{{style:code}}">code</code> contains that text, in any letter case. <a href="{{MINTLIFY}}/api-reference/currencies/count-currencies" style="{{style:a}}">Count currencies</a> takes the same <code style="{{style:code}}">search</code> and <code style="{{style:code}}">active</code> and returns the number of matches as <code style="{{style:code}}">total</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Add a currency</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/currencies/create-a-currency" style="{{style:a}}">Create a currency</a> with the fields at the top level of the body, such as <code style="{{style:code}}">{"name": "Example Dollar", "code": "XEX", "symbol": "$", "country": "NZ", "conversion_rate": 1.2345}</code>. <code style="{{style:code}}">name</code>, <code style="{{style:code}}">code</code> and <code style="{{style:code}}">symbol</code> are required. It returns <code style="{{style:code}}">201</code> and the new currency under <code style="{{style:code}}">currency</code>, with the new currency's <code style="{{style:code}}">id</code>. Pass the currency's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">currency_id</code> to retrieve, change or delete the currency</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Change a currency's rate, or any one field</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/currencies/update-a-currency" style="{{style:a}}">Update a currency</a> with the currency's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">currency_id</code> and only the fields to change, such as <code style="{{style:code}}">{"conversion_rate": 2.5}</code>. Every field you leave out keeps its value. It returns the currency after the change</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Make another currency the base currency</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/currencies/set-the-base-currency" style="{{style:a}}">Set the base currency</a> with the currency's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">currency_id</code> and no body. The currency must be active. It returns the new base under <code style="{{style:code}}">currency</code> and the currency that was the base under <code style="{{style:code}}">previous_base</code>. It also sets the new base's <code style="{{style:code}}">conversion_rate</code> to <code style="{{style:code}}">1</code> and divides every other currency's <code style="{{style:code}}">conversion_rate</code> by the new base's old rate</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Find out whether a currency changed without reading it</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/currencies/check-a-currency" style="{{style:a}}">Check a currency</a> with the currency's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">currency_id</code>. It returns headers only, with the same <code style="{{style:code}}">ETag</code> that <a href="{{MINTLIFY}}/api-reference/currencies/retrieve-a-currency" style="{{style:a}}">Retrieve a currency</a> returns, and the <code style="{{style:code}}">ETag</code> changes when the currency changes. It returns <code style="{{style:code}}">404</code> when no currency has that <code style="{{style:code}}">currency_id</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Remove a currency</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/currencies/delete-a-currency" style="{{style:a}}">Delete a currency</a> with the currency's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">currency_id</code>. It deletes the currency permanently and returns <code style="{{style:code}}">204</code> with no body. If the currency is the base currency, make another currency the base first</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="{{style:h2}}">All endpoints</h2>
+
+<p style="{{style:p}}">These eleven endpoints list, count, create, retrieve, replace, update and delete the store's currencies, and choose the base currency, at paths that start with <code style="{{style:code}}">/api/v4/admin/currencies</code>.</p>
+
+{{endpoints:currencies}}
+
+<h2 style="{{style:h2}}">Good to know</h2>
+
+<p style="{{style:p}}"><strong>Setting the base currency changes the <code style="{{style:code}}">conversion_rate</code> of every currency in the store.</strong> <a href="{{MINTLIFY}}/api-reference/currencies/set-the-base-currency" style="{{style:a}}">Set the base currency</a> sets the new base's <code style="{{style:code}}">conversion_rate</code> to <code style="{{style:code}}">1</code> and divides every other currency's rate, inactive ones included, by the new base's old rate. Every currency gets a new <code style="{{style:code}}">updated_at</code> and <code style="{{style:code}}">ETag</code>. Rates are kept to 6 decimal places, so switching back does not always restore a rate exactly. Product <code style="{{style:code}}">base_price</code> values do not change. The response returns only the new base's <code style="{{style:code}}">id</code>, <code style="{{style:code}}">name</code>, <code style="{{style:code}}">code</code> and <code style="{{style:code}}">base</code>, so retrieve the currency to read its other fields. Send no body: any body, <code style="{{style:code}}">{}</code> included, is rejected with <code style="{{style:code}}">400</code>.</p>
+
+<p style="{{style:p}}"><strong>Send the fields at the top level of the body, not inside <code style="{{style:code}}">currency</code>.</strong> Create, replace and update all take the currency's fields directly in the body, such as <code style="{{style:code}}">{"conversion_rate": 2.5}</code>. A body wrapped in <code style="{{style:code}}">currency</code> is rejected with <code style="{{style:code}}">400</code>. The error's <code style="{{style:code}}">details</code> give <code style="{{style:code}}">currency</code> the reason <code style="{{style:code}}">unknown_field</code>, and <code style="{{style:code}}">name</code>, <code style="{{style:code}}">code</code> and <code style="{{style:code}}">symbol</code> the reason <code style="{{style:code}}">required</code>. The responses return the currency inside <code style="{{style:code}}">currency</code>. Leave out the currency's <code style="{{style:code}}">id</code>: a body that sends it is rejected with <code style="{{style:code}}">400</code> and the message <code style="{{style:code}}">must not be present - the URL names the currency</code>. <code style="{{style:code}}">base</code> and <code style="{{style:code}}">updated_at</code> are rejected with <code style="{{style:code}}">400</code> too, with the message <code style="{{style:code}}">is not a currency field</code>.</p>
+
+<p style="{{style:p}}"><strong><code style="{{style:code}}">PUT</code> replaces a currency, and <code style="{{style:code}}">PATCH</code> changes only the fields you send.</strong> <a href="{{MINTLIFY}}/api-reference/currencies/replace-a-currency" style="{{style:a}}">Replace a currency</a> resets every field you leave out: <code style="{{style:code}}">conversion_rate</code> to <code style="{{style:code}}">1</code>, <code style="{{style:code}}">rounding</code> to <code style="{{style:code}}">nearest</code>, <code style="{{style:code}}">precision</code> to <code style="{{style:code}}">2</code>, <code style="{{style:code}}">active</code> to <code style="{{style:code}}">true</code> and <code style="{{style:code}}">country</code> to the store's default country. To change one field, use <a href="{{MINTLIFY}}/api-reference/currencies/update-a-currency" style="{{style:a}}">Update a currency</a>. An update with an empty body is rejected with <code style="{{style:code}}">400</code> and the message <code style="{{style:code}}">request body is empty</code>.</p>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}"><strong>Exactly one currency is the base, and you cannot replace, update or delete it.</strong> <code style="{{style:code}}">PUT</code> and <code style="{{style:code}}">PATCH</code> on the base currency are rejected with <code style="{{style:code}}">400</code> and the message <code style="{{style:code}}">The base currency is read-only - make another currency the base first.</code> <code style="{{style:code}}">DELETE</code> on it is rejected with <code style="{{style:code}}">409</code> and the message <code style="{{style:code}}">The base currency cannot be deleted.</code> Make another currency the base first with <a href="{{MINTLIFY}}/api-reference/currencies/set-the-base-currency" style="{{style:a}}">Set the base currency</a>. That call is the only way to move the base, and it rejects an inactive currency with <code style="{{style:code}}">400</code> and the message <code style="{{style:code}}">An inactive currency cannot be the base currency - activate it first.</code></li>
+  <li style="{{style:li}}"><strong>A listing returns 20 currencies per call unless you send <code style="{{style:code}}">limit</code>.</strong> <code style="{{style:code}}">limit</code> takes <code style="{{style:code}}">1</code> to <code style="{{style:code}}">100</code>, and <code style="{{style:code}}">pagination.limit</code> shows the page size applied. To get more, send a higher <code style="{{style:code}}">offset</code> while <code style="{{style:code}}">pagination.has_next</code> is <code style="{{style:code}}">true</code>. <code style="{{style:code}}">page</code> is rejected with <code style="{{style:code}}">400</code>. Without <code style="{{style:code}}">sort</code>, currencies come in ascending order of the currency's <code style="{{style:code}}">id</code>, and the base currency is not moved to the top.</li>
+  <li style="{{style:li}}"><strong><code style="{{style:code}}">q</code> does not filter the listing.</strong> The store ignores <code style="{{style:code}}">q</code> and returns every currency, so send <code style="{{style:code}}">search</code> instead. <code style="{{style:code}}">search</code> matches <code style="{{style:code}}">name</code> and <code style="{{style:code}}">code</code> only: it does not search <code style="{{style:code}}">symbol</code> or the country.</li>
+  <li style="{{style:li}}"><strong><code style="{{style:code}}">code</code> is any three letters, stored in upper case.</strong> The store does not check it against ISO 4217, even though <code style="{{style:code}}">field_metadata</code> describes it as an ISO 4217 code. <code style="{{style:code}}">code</code> and <code style="{{style:code}}">name</code> must each be unique: a <code style="{{style:code}}">code</code> or <code style="{{style:code}}">name</code> another currency already has is rejected with <code style="{{style:code}}">409</code>. <code style="{{style:code}}">name</code> is compared without regard to letter case.</li>
+  <li style="{{style:li}}"><strong>Rates are stored to 6 decimal places.</strong> <code style="{{style:code}}">conversion_rate</code> must be above <code style="{{style:code}}">0</code> and at most <code style="{{style:code}}">999999999</code>. A rate of <code style="{{style:code}}">1.234567891</code> is stored as <code style="{{style:code}}">1.234568</code>, so read the rate from the response.</li>
+</ul>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+</ul>
