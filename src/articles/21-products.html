@@ -1,0 +1,73 @@
+<p style="{{style:lead}}">The Products API lets your software read and update a store's products, read and set each product's stock at each inventory location, and unassign a location from a product. Every call takes the product's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">product_id</code> in the path. All five endpoints are available in all seven WebCommander SDKs.</p>
+
+<p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/products" style="{{style:a}}">Open the Products reference</a></strong></p>
+
+<h2 style="{{style:h2}}">Common tasks</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">You want to</th>
+      <th style="{{style:th}}">Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}">Find a product's <code style="{{style:code}}">product_id</code></td>
+      <td style="{{style:td}}">None of the five Products endpoints lists products. Call <a href="{{MINTLIFY}}/api-reference/inventory-locations/list-stock-at-an-inventory-location" style="{{style:a}}">List stock at an inventory location</a> with the location's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">inventory_location_id</code>. It returns the <code style="{{style:code}}">id</code> of each product the location holds as <code style="{{style:code}}">items[].product.id</code>, 20 products per call. Send <code style="{{style:code}}">offset</code> to get the next products</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Read a product's prices, availability, stock and variations</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/products/retrieve-a-product" style="{{style:a}}">Retrieve a product</a> with the product's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">product_id</code>. It returns the product under <code style="{{style:code}}">product</code>, or <code style="{{style:code}}">404</code> with the message <code style="{{style:code}}">Product not found</code> when no product has that <code style="{{style:code}}">product_id</code>. Send <code style="{{style:code}}">field_metadata=true</code> to also get a description of each field</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Change some of a product's fields and keep the rest</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/products/update-a-product" style="{{style:a}}">Update a product</a> with only the fields to change, at the top level of the body, such as <code style="{{style:code}}">{"invoice_note": "Ships in 2 business days", "advanced": {"advance_information": {"mpn": "MPN-0001"}}}</code>. It returns the product after the update</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">See how many units a product has at each location</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/products/retrieve-a-products-stock" style="{{style:a}}">Retrieve a product's stock</a>. It returns one row in <code style="{{style:code}}">locations</code> for each location the product is assigned to, with the location's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">warehouse</code>, its name as <code style="{{style:code}}">warehouse_name</code>, the product's units there as <code style="{{style:code}}">stock</code>, the <code style="{{style:code}}">low_stock_level</code>, and <code style="{{style:code}}">is_default</code> set to <code style="{{style:code}}">true</code> on the product's default location. The total across the rows is <code style="{{style:code}}">available_stock</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Change a product's stock at a location</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/products/retrieve-a-products-stock" style="{{style:a}}">Retrieve a product's stock</a>, then <a href="{{MINTLIFY}}/api-reference/products/set-a-products-stock" style="{{style:a}}">Set a product's stock</a> with every row you read, changing only <code style="{{style:code}}">stock</code> on the row you mean to change, such as <code style="{{style:code}}">{"note": "Restock", "locations": [{"warehouse": 1, "stock": 10, "low_stock_level": 2, "is_default": true}, {"warehouse": 4, "stock": 30, "low_stock_level": 5, "is_default": false}]}</code>. When no row has <code style="{{style:code}}">is_default: true</code>, the first row you send becomes the product's default. It returns the product's stock after the write</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Stock a product at another location</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/products/set-a-products-stock" style="{{style:a}}">Set a product's stock</a> with every row the product already has and one more row with the new location's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">warehouse</code>. <a href="{{MINTLIFY}}/api-reference/inventory-locations/list-inventory-locations" style="{{style:a}}">List inventory locations</a> returns the store's locations</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Stop stocking a product at a location</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/products/unassign-an-inventory-location-from-a-product" style="{{style:a}}">Unassign an inventory location from a product</a> with the product's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">product_id</code> and the location's <code style="{{style:code}}">id</code>, the row's <code style="{{style:code}}">warehouse</code>, as <code style="{{style:code}}">inventory_location_id</code>. It returns <code style="{{style:code}}">204</code> with an empty body. The call is rejected with <code style="{{style:code}}">409</code> while the location still holds units of the product or is its default. Before you call it, use <a href="{{MINTLIFY}}/api-reference/products/set-a-products-stock" style="{{style:a}}">Set a product's stock</a> to set the location's <code style="{{style:code}}">stock</code> to <code style="{{style:code}}">0</code> and, if it is the default, send <code style="{{style:code}}">is_default: true</code> on another row</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="{{style:h2}}">All endpoints</h2>
+
+<p style="{{style:p}}">These five endpoints, at paths that start with <code style="{{style:code}}">/api/v4/admin/products</code>, read and update a product, read and set its stock at each inventory location, and unassign a location from it.</p>
+
+{{endpoints:products}}
+
+<h2 style="{{style:h2}}">Good to know</h2>
+
+<p style="{{style:p}}"><strong>Setting a product's stock unassigns every location you leave out, even one that still holds stock.</strong> <a href="{{MINTLIFY}}/api-reference/products/set-a-products-stock" style="{{style:a}}">Set a product's stock</a> replaces the product's whole set of locations with the rows you send in <code style="{{style:code}}">locations</code>. Read the rows first with <a href="{{MINTLIFY}}/api-reference/products/retrieve-a-products-stock" style="{{style:a}}">Retrieve a product's stock</a>, send every row you want to keep, and change only the values you mean to change. You can send the rows back as you read them: <code style="{{style:code}}">warehouse_name</code> is ignored.</p>
+
+<p style="{{style:p}}"><strong>Send product fields at the top level of the body, not inside <code style="{{style:code}}">product</code>.</strong> Responses return the product inside <code style="{{style:code}}">product</code>, but a body wrapped in <code style="{{style:code}}">product</code> is rejected with <code style="{{style:code}}">400</code> and the message <code style="{{style:code}}">product: is not a recognised product field</code>. Send the stock body's <code style="{{style:code}}">note</code> and <code style="{{style:code}}">locations</code> at the top level too.</p>
+
+<p style="{{style:p}}"><strong>Some fields you read cannot be written.</strong> If you send the product's <code style="{{style:code}}">id</code>, <code style="{{style:code}}">created_at</code>, <code style="{{style:code}}">created_on</code>, <code style="{{style:code}}">custom_class</code>, <code style="{{style:code}}">sold_out</code>, <code style="{{style:code}}">sold_out_label</code>, <code style="{{style:code}}">length</code>, <code style="{{style:code}}">width</code>, <code style="{{style:code}}">height</code>, <code style="{{style:code}}">weight</code>, <code style="{{style:code}}">featured</code>, <code style="{{style:code}}">new</code>, <code style="{{style:code}}">model</code>, <code style="{{style:code}}">is_draft</code>, <code style="{{style:code}}">has_variations</code>, <code style="{{style:code}}">urls</code> or <code style="{{style:code}}">created_by</code> with a value that differs from the one you read, the update is rejected with <code style="{{style:code}}">400</code> and the reason <code style="{{style:code}}">read_only_field</code>. Sending the value you read is accepted. Sending <code style="{{style:code}}">status</code> or <code style="{{style:code}}">reviews</code> is rejected with <code style="{{style:code}}">400</code> and the reason <code style="{{style:code}}">unknown_field</code>, so remove both before you send back a product you read. Write the dimensions in <code style="{{style:code}}">product_properties</code>, and <code style="{{style:code}}">mpn</code>, <code style="{{style:code}}">upc</code>, <code style="{{style:code}}">barcode</code> and <code style="{{style:code}}">hs_code</code> in <code style="{{style:code}}">advanced.advance_information</code>: a top-level <code style="{{style:code}}">mpn</code>, <code style="{{style:code}}">upc</code>, <code style="{{style:code}}">barcode</code> or <code style="{{style:code}}">hs_code</code> is rejected with <code style="{{style:code}}">400</code> and the reason <code style="{{style:code}}">unknown_field</code>. The <code style="{{style:code}}">field_metadata</code> you get with <code style="{{style:code}}">field_metadata=true</code> lists <code style="{{style:code}}">mpn</code>, <code style="{{style:code}}">upc</code>, <code style="{{style:code}}">barcode</code>, <code style="{{style:code}}">hs_code</code>, <code style="{{style:code}}">length</code>, <code style="{{style:code}}">width</code>, <code style="{{style:code}}">height</code>, <code style="{{style:code}}">weight</code> and <code style="{{style:code}}">sold_out_label</code> as writable at the top level, but an update rejects each of them there.</p>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}"><strong>An update changes only the fields you send, at every level.</strong> <code style="{{style:code}}">{"advanced": {"advance_information": {"mpn": "MPN-0001"}}}</code> changes <code style="{{style:code}}">mpn</code> and keeps the other eight fields of <code style="{{style:code}}">advance_information</code>. A body that changes nothing returns <code style="{{style:code}}">200</code> and leaves <code style="{{style:code}}">version</code> and the <code style="{{style:code}}">ETag</code> header as they were.</li>
+  <li style="{{style:li}}"><strong>Setting stock changes the product too.</strong> <code style="{{style:code}}">available_stock</code> becomes the sum of the rows' <code style="{{style:code}}">stock</code>, and <code style="{{style:code}}">product_pricing_and_stock.low_level_stock</code> takes the <code style="{{style:code}}">low_stock_level</code> of the product's default location. The product's <code style="{{style:code}}">version</code>, <code style="{{style:code}}">updated_at</code> and <code style="{{style:code}}">last_updated_by</code> change when its stock changes. <code style="{{style:code}}">product_pricing_and_stock.locations</code> in <a href="{{MINTLIFY}}/api-reference/products/retrieve-a-product" style="{{style:a}}">Retrieve a product</a> holds the same rows as <a href="{{MINTLIFY}}/api-reference/products/retrieve-a-products-stock" style="{{style:a}}">Retrieve a product's stock</a>.</li>
+  <li style="{{style:li}}"><strong>The first location you assign to a product is missing from the response.</strong> On a product with no location yet, <a href="{{MINTLIFY}}/api-reference/products/set-a-products-stock" style="{{style:a}}">Set a product's stock</a> returns <code style="{{style:code}}">locations: []</code> but stores the row. Call <a href="{{MINTLIFY}}/api-reference/products/retrieve-a-products-stock" style="{{style:a}}">Retrieve a product's stock</a> to see it. A product that already has a location returns its rows at once.</li>
+  <li style="{{style:li}}"><strong>Retrieve a product accepts only one query parameter.</strong> <a href="{{MINTLIFY}}/api-reference/products/retrieve-a-product" style="{{style:a}}">Retrieve a product</a> accepts only <code style="{{style:code}}">field_metadata</code>, set to <code style="{{style:code}}">true</code>, <code style="{{style:code}}">false</code>, <code style="{{style:code}}">1</code> or <code style="{{style:code}}">0</code>. Any other value, or any other query parameter such as <code style="{{style:code}}">limit</code> or <code style="{{style:code}}">fields</code>, is rejected with <code style="{{style:code}}">400</code>.</li>
+  <li style="{{style:li}}"><strong>Once a location is unassigned from every product, you can delete it.</strong> After <a href="{{MINTLIFY}}/api-reference/products/unassign-an-inventory-location-from-a-product" style="{{style:a}}">Unassign an inventory location from a product</a>, <a href="{{MINTLIFY}}/api-reference/inventory-locations/list-stock-at-an-inventory-location" style="{{style:a}}">List stock at an inventory location</a> no longer lists the product there. Unassigning the same location again returns <code style="{{style:code}}">404</code>. When no product is assigned to the location, delete it with <a href="{{MINTLIFY}}/api-reference/inventory-locations/delete-an-inventory-location" style="{{style:a}}">Delete an inventory location</a>.</li>
+</ul>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+</ul>

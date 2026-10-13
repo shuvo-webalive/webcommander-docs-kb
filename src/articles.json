@@ -123,6 +123,12 @@
       "title": "Working with variations through the API",
       "subtitle": "List, create, replace, update and delete variation types and their options, and list and update a product's variants",
       "summary": "Common variation tasks, all eleven endpoints, and what to watch for."
+    },
+    {
+      "file": "21-products.html",
+      "title": "Working with products through the API",
+      "subtitle": "Read and update a product, read and set its stock at each inventory location, and unassign a location from it",
+      "summary": "Common product tasks, all five endpoints, and what to watch for."
     }
   ]
 }
