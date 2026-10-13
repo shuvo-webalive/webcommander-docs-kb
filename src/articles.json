@@ -99,6 +99,12 @@
       "title": "Working with blog categories through the API",
       "subtitle": "List, create, retrieve, update and delete the categories a store files its blog posts under",
       "summary": "Common blog category tasks, all five endpoints, and what to watch for."
+    },
+    {
+      "file": "17-countries.html",
+      "title": "Working with countries through the API",
+      "subtitle": "List a store's countries and each country's states, and look up one country or one state by its code or name",
+      "summary": "Common country tasks, all eight endpoints, and what to watch for."
     }
   ]
 }
