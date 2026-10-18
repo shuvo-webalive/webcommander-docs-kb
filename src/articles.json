@@ -129,6 +129,12 @@
       "title": "Working with products through the API",
       "subtitle": "Read and update a product, read and set its stock at each inventory location, and unassign a location from it",
       "summary": "Common product tasks, all five endpoints, and what to watch for."
+    },
+    {
+      "file": "23-transactions.html",
+      "title": "Working with transactions through the API",
+      "subtitle": "List the transaction numbers stamped on a store's records, count each number's records by type, and list its records of one type",
+      "summary": "Common transactions tasks, all six endpoints, and what to watch for."
     }
   ]
 }
