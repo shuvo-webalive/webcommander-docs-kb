@@ -129,6 +129,12 @@
       "title": "Working with products through the API",
       "subtitle": "Read and update a product, read and set its stock at each inventory location, and unassign a location from it",
       "summary": "Common product tasks, all five endpoints, and what to watch for."
+    },
+    {
+      "file": "22-cities.html",
+      "title": "Working with cities through the API",
+      "subtitle": "Look up a store's cities and their post codes by country, state, post code or part of the name, and check whether the list changed",
+      "summary": "Common cities tasks, all two endpoints, and what to watch for."
     }
   ]
 }
