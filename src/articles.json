@@ -129,6 +129,12 @@
       "title": "Working with products through the API",
       "subtitle": "Read and update a product, read and set its stock at each inventory location, and unassign a location from it",
       "summary": "Common product tasks, all five endpoints, and what to watch for."
+    },
+    {
+      "file": "24-payment-gateways.html",
+      "title": "Working with payment gateways through the API",
+      "subtitle": "List, count and retrieve your store's checkout payment gateways, and change their settings with PUT or PATCH",
+      "summary": "Common payment gateways tasks, all eight endpoints, and what to watch for."
     }
   ]
 }
