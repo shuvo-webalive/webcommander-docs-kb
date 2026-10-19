@@ -1,0 +1,69 @@
+<p style="{{style:lead}}">The Cities API lets your software look up a store's cities and their post codes. You can filter the cities by country, state, post code or part of the city name, sort them, and check whether the list changed. Each city has an <code style="{{style:code}}">id</code>, a <code style="{{style:code}}">name</code>, a <code style="{{style:code}}">post_code</code>, the <code style="{{style:code}}">state</code> it is in and the <code style="{{style:code}}">country</code> it is in. You can only read cities. Both endpoints are available in all seven WebCommander SDKs.</p>
+
+<p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/cities" style="{{style:a}}">Open the Cities reference</a></strong></p>
+
+<h2 style="{{style:h2}}">Common tasks</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">You want to</th>
+      <th style="{{style:th}}">Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}">Get the cities of one state</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/cities/list-cities" style="{{style:a}}">List cities</a> with the state's code and the country, such as <code style="{{style:code}}">country=AU&amp;state=VIC</code>, or with the state's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">state</code>, such as <code style="{{style:code}}">state=72</code>. It returns the cities under <code style="{{style:code}}">cities</code>, each with its <code style="{{style:code}}">state</code> and <code style="{{style:code}}">country</code>, and a <code style="{{style:code}}">pagination</code> object</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Find the cities that have a post code</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/cities/list-cities" style="{{style:a}}">List cities</a> with <code style="{{style:code}}">post_code</code>, such as <code style="{{style:code}}">post_code=3000</code>. It returns only the cities with exactly that post code. Part of a post code, such as <code style="{{style:code}}">300</code>, returns no cities</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Find a city by part of its name</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/cities/list-cities" style="{{style:a}}">List cities</a> with <code style="{{style:code}}">search</code>, such as <code style="{{style:code}}">search=melb</code>. It returns the cities whose <code style="{{style:code}}">name</code> contains that text, in any letter case. It does not match post codes. Filters you send together must all match</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Sort the cities by name or post code</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/cities/list-cities" style="{{style:a}}">List cities</a> with <code style="{{style:code}}">sort=name</code> or <code style="{{style:code}}">sort=post_code</code>, and <code style="{{style:code}}">order=desc</code> to reverse the order. Without <code style="{{style:code}}">sort</code>, cities are sorted by state, then post code, then city name, in ascending order</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Get every city, page by page</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/cities/list-cities" style="{{style:a}}">List cities</a> returns 100 cities per call, or the <code style="{{style:code}}">limit</code> you send, from <code style="{{style:code}}">1</code> to <code style="{{style:code}}">100</code>. Send a higher <code style="{{style:code}}">offset</code> while <code style="{{style:code}}">pagination.has_next</code> is <code style="{{style:code}}">true</code>. <code style="{{style:code}}">pagination.total</code> is the number of cities that match your filters across all pages</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Find out whether the cities list changed without downloading it</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/cities/check-the-cities-list" style="{{style:a}}">Check the cities list</a> returns <code style="{{style:code}}">200</code> with headers only. Its <code style="{{style:code}}">ETag</code> is the same one <a href="{{MINTLIFY}}/api-reference/cities/list-cities" style="{{style:a}}">List cities</a> returns when you send no query parameters. Compare it with the <code style="{{style:code}}">ETag</code> you saved</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="{{style:h2}}">All endpoints</h2>
+
+<p style="{{style:p}}">These two endpoints list the store's cities and return the list's headers, both at the path <code style="{{style:code}}">/api/v4/app/cities</code>.</p>
+
+{{endpoints:cities}}
+
+<h2 style="{{style:h2}}">Good to know</h2>
+
+<p style="{{style:p}}"><strong>Send <code style="{{style:code}}">country</code> with a state code.</strong> Codes such as <code style="{{style:code}}">WA</code> repeat across countries, so <code style="{{style:code}}">state=VIC</code> on its own is rejected with <code style="{{style:code}}">400</code> and the detail code <code style="{{style:code}}">country_required</code>. Send <code style="{{style:code}}">country=AU&amp;state=VIC</code>, or send the state's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">state</code>, such as <code style="{{style:code}}">state=72</code>, which works without <code style="{{style:code}}">country</code>. A state name such as <code style="{{style:code}}">Victoria</code> matches no cities.</p>
+
+<p style="{{style:p}}"><strong>Take the <code style="{{style:code}}">country</code> and <code style="{{style:code}}">state</code> values from the Countries API.</strong> A city's <code style="{{style:code}}">country.id</code> is the country's <code style="{{style:code}}">id</code> from <a href="{{MINTLIFY}}/api-reference/countries/list-countries" style="{{style:a}}">List countries</a>, and its <code style="{{style:code}}">state.id</code> is the state's <code style="{{style:code}}">id</code> from <a href="{{MINTLIFY}}/api-reference/countries/list-the-states-of-a-country" style="{{style:a}}">List the states of a country</a>. Send the country's <code style="{{style:code}}">id</code> or its two-letter <code style="{{style:code}}">code</code> in any letter case, such as <code style="{{style:code}}">12</code>, <code style="{{style:code}}">AU</code> or <code style="{{style:code}}">au</code>, as <code style="{{style:code}}">country</code>. A country name such as <code style="{{style:code}}">Australia</code> is rejected with <code style="{{style:code}}">400</code>.</p>
+
+<p style="{{style:p}}"><strong>You can only read cities.</strong> <code style="{{style:code}}">POST</code>, <code style="{{style:code}}">PUT</code>, <code style="{{style:code}}">PATCH</code> and <code style="{{style:code}}">DELETE</code> on <code style="{{style:code}}">/api/v4/app/cities</code> are rejected with <code style="{{style:code}}">405</code>. There is no path for a single city: no endpoint takes the city's <code style="{{style:code}}">id</code> as a path parameter, and <code style="{{style:code}}">GET /api/v4/app/cities/{city_id}</code> returns <code style="{{style:code}}">404</code> with the error code <code style="{{style:code}}">not_found</code>. To find one city, filter <a href="{{MINTLIFY}}/api-reference/cities/list-cities" style="{{style:a}}">List cities</a> instead.</p>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}"><strong>The cities list has a read limit.</strong> You can make 20 calls within about 10 seconds, with <a href="{{MINTLIFY}}/api-reference/cities/list-cities" style="{{style:a}}">List cities</a> and <a href="{{MINTLIFY}}/api-reference/cities/check-the-cities-list" style="{{style:a}}">Check the cities list</a> counted together. The next call is rejected with <code style="{{style:code}}">429</code> and the error code <code style="{{style:code}}">rate_limited</code>. The <code style="{{style:code}}">Retry-After</code> header says how many seconds to wait.</li>
+  <li style="{{style:li}}"><strong>Every read returns an <code style="{{style:code}}">ETag</code>.</strong> Each <code style="{{style:code}}">GET</code> and <code style="{{style:code}}">HEAD</code> response has an <code style="{{style:code}}">ETag</code> and <code style="{{style:code}}">Cache-Control: private, max-age=3600</code>. Send that <code style="{{style:code}}">ETag</code> in <code style="{{style:code}}">If-None-Match</code>, and while it is still current you get <code style="{{style:code}}">304</code> with no body. The SDK functions take no headers, so they never send <code style="{{style:code}}">If-None-Match</code>: you get <code style="{{style:code}}">304</code> only from your own HTTP calls.</li>
+  <li style="{{style:li}}"><strong>Older parameter names still work, but send each parameter once.</strong> <code style="{{style:code}}">max</code> is the same as <code style="{{style:code}}">limit</code>, <code style="{{style:code}}">countryId</code> as <code style="{{style:code}}">country</code>, <code style="{{style:code}}">stateId</code> as <code style="{{style:code}}">state</code>, <code style="{{style:code}}">postCode</code> as <code style="{{style:code}}">post_code</code>, and <code style="{{style:code}}">searchText</code> and <code style="{{style:code}}">name</code> as <code style="{{style:code}}">search</code>. A parameter sent twice, or sent together with its other name, is rejected with <code style="{{style:code}}">400</code> and the detail code <code style="{{style:code}}">duplicate_parameter</code>.</li>
+  <li style="{{style:li}}"><strong>Unknown parameters are ignored.</strong> <code style="{{style:code}}">q</code>, <code style="{{style:code}}">dir</code>, <code style="{{style:code}}">page</code>, <code style="{{style:code}}">field_metadata</code> and any other name the listing does not know return <code style="{{style:code}}">200</code> and the same cities as without them. Use <code style="{{style:code}}">search</code>, <code style="{{style:code}}">order</code> and <code style="{{style:code}}">offset</code> instead.</li>
+  <li style="{{style:li}}"><strong><code style="{{style:code}}">state.default</code> follows the store's default state.</strong> A state has <code style="{{style:code}}">default</code> set to <code style="{{style:code}}">true</code> while it is the <code style="{{style:code}}">default_state</code> in the <code style="{{style:code}}">administration</code> section of the site settings, which you read with <a href="{{MINTLIFY}}/api-reference/site-settings/get-a-settings-section" style="{{style:a}}">Get a settings section</a>. The store's default country does not filter the listing.</li>
+</ul>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+</ul>
