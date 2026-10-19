@@ -147,6 +147,12 @@
       "title": "Working with payment gateways through the API",
       "subtitle": "List, count and retrieve your store's checkout payment gateways, and change their settings with PUT or PATCH",
       "summary": "Common payment gateways tasks, all eight endpoints, and what to watch for."
+    },
+    {
+      "file": "25-trash.html",
+      "title": "Working with trash through the API",
+      "subtitle": "List the items in a store's trash and the types it holds, and restore items or delete them permanently, one at a time or up to 100 per call",
+      "summary": "Common trash tasks, all eight endpoints, and what to watch for."
     }
   ]
 }
