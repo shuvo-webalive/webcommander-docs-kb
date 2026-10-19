@@ -1,0 +1,78 @@
+<p style="{{style:lead}}">The Transactions API lets your software read back the transaction numbers stamped on a store's records. When a create call sends a <code style="{{style:code}}">transaction_no</code>, the store stamps that number on the record it creates. With this API you list those numbers, count each number's records by record type, and list the records of one type, such as the products stamped with one number. You can only read transaction numbers. All six endpoints are available in all seven WebCommander SDKs.</p>
+
+<p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/transactions" style="{{style:a}}">Open the Transactions reference</a></strong></p>
+
+<h2 style="{{style:h2}}">Common tasks</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">You want to</th>
+      <th style="{{style:th}}">Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}">Get every transaction number on the store, page by page</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/transactions/list-transactions" style="{{style:a}}">List transactions</a>. It returns the numbers under <code style="{{style:code}}">transactions</code> in ascending order of <code style="{{style:code}}">transaction_no</code>, 20 per call, or up to the <code style="{{style:code}}">limit</code> you send, at most <code style="{{style:code}}">200</code>. Each row has the number in <code style="{{style:code}}">transaction_no</code> and how many records it is stamped on in <code style="{{style:code}}">total_records</code>. Send a higher <code style="{{style:code}}">offset</code> while <code style="{{style:code}}">pagination.has_next</code> is <code style="{{style:code}}">true</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Find out how many records one number is stamped on</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/transactions/list-transactions" style="{{style:a}}">List transactions</a> with the number as the <code style="{{style:code}}">transaction_no</code> query parameter, such as <code style="{{style:code}}">transaction_no=IMPORT-2026-0001</code>. It returns only that number's row, with its <code style="{{style:code}}">total_records</code>, and no <code style="{{style:code}}">pagination</code> block</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">See how many records of each type one number is stamped on</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/transactions/retrieve-a-transaction" style="{{style:a}}">Retrieve a transaction</a> with the number as the <code style="{{style:code}}">transaction_no</code> path parameter. It returns <code style="{{style:code}}">total_records</code> and <code style="{{style:code}}">by_type</code>: always 15 rows in the same order, one per record type, each with <code style="{{style:code}}">type</code> and <code style="{{style:code}}">count</code>. It returns <code style="{{style:code}}">404</code> when no record is stamped with the number</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">List the products stamped with a number</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/transactions/list-the-records-of-a-transaction" style="{{style:a}}">List the records of a transaction</a> with the number as the <code style="{{style:code}}">transaction_no</code> path parameter and <code style="{{style:code}}">type=product</code>. It returns the products under <code style="{{style:code}}">items</code>, newest first, 20 per call unless you send <code style="{{style:code}}">limit</code>. Each item has the product's <code style="{{style:code}}">id</code>, <code style="{{style:code}}">name</code>, <code style="{{style:code}}">sku</code> and <code style="{{style:code}}">url</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Get the full records instead of the short form</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/transactions/list-the-records-of-a-transaction" style="{{style:a}}">List the records of a transaction</a> with <code style="{{style:code}}">detail=full</code>, such as <code style="{{style:code}}">type=category&amp;detail=full</code>. Each item is then the record as its own retrieve call returns it, without the wrapping key</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Open one of the records</td>
+      <td style="{{style:td}}">Call the path in the item's <code style="{{style:code}}">url</code>, such as <code style="{{style:code}}">/api/v4/admin/products/207</code>. For a category, pass the item's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">category_id</code> to <a href="{{MINTLIFY}}/api-reference/categories/retrieve-a-category" style="{{style:a}}">Retrieve a category</a>. An order's <code style="{{style:code}}">url</code> ends with the order's <code style="{{style:code}}">order_no</code>, not the order's <code style="{{style:code}}">id</code>: the orders API takes the <code style="{{style:code}}">order_no</code> as <code style="{{style:code}}">order_id</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Find out whether any record is stamped with a number</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/transactions/check-a-transaction" style="{{style:a}}">Check a transaction</a> with the number as the <code style="{{style:code}}">transaction_no</code> path parameter. It returns <code style="{{style:code}}">200</code> with headers only when at least one record is stamped with it, and <code style="{{style:code}}">404</code> when none is</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="{{style:h2}}">All endpoints</h2>
+
+<p style="{{style:p}}">These six endpoints list the store's transaction numbers, return one number's record counts by type, list its records of one type, and return the headers of each, at paths that start with <code style="{{style:code}}">/api/v4/admin/transactions</code>.</p>
+
+{{endpoints:transactions}}
+
+<h2 style="{{style:h2}}">Good to know</h2>
+
+<p style="{{style:p}}"><strong>Do not follow <code style="{{style:code}}">url</code>, <code style="{{style:code}}">items_url</code> or <code style="{{style:code}}">pagination.next_page</code> for a number that contains a space.</strong> The store writes a space in these links as <code style="{{style:code}}">+</code>, then reads a <code style="{{style:code}}">+</code> in a path as a literal <code style="{{style:code}}">+</code>, so the link returns <code style="{{style:code}}">404</code>. Pass the number as <code style="{{style:code}}">transaction_no</code> to the SDK function instead: the SDKs percent-encode it, so a space reaches the store intact. For the next page, call the SDK function with the next <code style="{{style:code}}">offset</code>.</p>
+
+<p style="{{style:p}}"><strong>Do not use <code style="{{style:code}}">/</code> in the transaction numbers you send.</strong> A number that contains <code style="{{style:code}}">/</code> cannot be read. The request is rejected with <code style="{{style:code}}">400</code> and an HTML page, <code style="{{style:code}}">Invalid URI: [The encoded slash character is not allowed]</code>, not a JSON error, before it reaches the API.</p>
+
+<p style="{{style:p}}"><strong><code style="{{style:code}}">transaction_no</code> matches exactly, letter case included.</strong> Send the number exactly as the create call sent it. <code style="{{style:code}}">import-2026-0001</code> returns <code style="{{style:code}}">404</code> with the error code <code style="{{style:code}}">not_found</code> and the message <code style="{{style:code}}">transaction not found</code> when the number was stored as <code style="{{style:code}}">IMPORT-2026-0001</code>. The store trims surrounding spaces off a number when it stores it, so send the number without them.</p>
+
+<p style="{{style:p}}"><strong>An unknown number returns an empty list, not <code style="{{style:code}}">404</code>, when you list its records.</strong> <a href="{{MINTLIFY}}/api-reference/transactions/list-the-records-of-a-transaction" style="{{style:a}}">List the records of a transaction</a> returns <code style="{{style:code}}">200</code> with an empty <code style="{{style:code}}">items</code> list and a <code style="{{style:code}}">total</code> of <code style="{{style:code}}">0</code> both for a number no record is stamped with and for a type with no records. To tell the two apart, use <a href="{{MINTLIFY}}/api-reference/transactions/check-a-transaction" style="{{style:a}}">Check a transaction</a> or <a href="{{MINTLIFY}}/api-reference/transactions/retrieve-a-transaction" style="{{style:a}}">Retrieve a transaction</a>, which return <code style="{{style:code}}">404</code> for a number no record is stamped with.</p>
+
+<p style="{{style:p}}"><strong>A record you delete stays counted.</strong> After you delete a category stamped with a number, using <a href="{{MINTLIFY}}/api-reference/categories/delete-a-category" style="{{style:a}}">Delete a category</a>, the number's <code style="{{style:code}}">total_records</code>, its <code style="{{style:code}}">category</code> count and the category's row under <code style="{{style:code}}">items</code> do not change. The number also stays in the listing.</p>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}"><strong>You can only read transaction numbers.</strong> Every path accepts <code style="{{style:code}}">GET</code>, <code style="{{style:code}}">HEAD</code> and <code style="{{style:code}}">OPTIONS</code>. <code style="{{style:code}}">POST</code>, <code style="{{style:code}}">PUT</code>, <code style="{{style:code}}">PATCH</code> and <code style="{{style:code}}">DELETE</code> are rejected with <code style="{{style:code}}">405</code>, the error code <code style="{{style:code}}">method_not_allowed</code> and the message <code style="{{style:code}}">HTTP method not allowed for this endpoint.</code> To stamp a number, send <code style="{{style:code}}">transaction_no</code> on the create call that makes the record.</li>
+  <li style="{{style:li}}"><strong>Send <code style="{{style:code}}">type</code> every time you list or check a number's records.</strong> It takes one of the 15 type names in lower case, such as <code style="{{style:code}}">product</code>, <code style="{{style:code}}">customer</code>, <code style="{{style:code}}">order</code> or <code style="{{style:code}}">category</code>. A missing <code style="{{style:code}}">type</code> is rejected with <code style="{{style:code}}">400</code> and the message <code style="{{style:code}}">type query parameter is required</code>. A name in upper case, an unknown name or a comma-separated list is rejected with <code style="{{style:code}}">400</code> too. <code style="{{style:code}}">detail</code> takes only <code style="{{style:code}}">slim</code> or <code style="{{style:code}}">full</code> in lower case; any other value is rejected with <code style="{{style:code}}">400</code> and the message <code style="{{style:code}}">detail must be 'slim' or 'full'</code>.</li>
+  <li style="{{style:li}}"><strong>The two listings handle a large <code style="{{style:code}}">limit</code> differently.</strong> <a href="{{MINTLIFY}}/api-reference/transactions/list-transactions" style="{{style:a}}">List transactions</a> holds a <code style="{{style:code}}">limit</code> above <code style="{{style:code}}">200</code> to <code style="{{style:code}}">200</code> and shows <code style="{{style:code}}">200</code> in <code style="{{style:code}}">pagination.limit</code>. <a href="{{MINTLIFY}}/api-reference/transactions/list-the-records-of-a-transaction" style="{{style:a}}">List the records of a transaction</a> rejects it with <code style="{{style:code}}">400</code> and the message <code style="{{style:code}}">max cannot exceed 200</code>. Both default to <code style="{{style:code}}">20</code> and accept <code style="{{style:code}}">max</code> as another name for <code style="{{style:code}}">limit</code>. A <code style="{{style:code}}">limit</code> of <code style="{{style:code}}">0</code> or a negative <code style="{{style:code}}">offset</code> is rejected with <code style="{{style:code}}">400</code>.</li>
+  <li style="{{style:li}}"><strong>Sorting and searching are ignored.</strong> <a href="{{MINTLIFY}}/api-reference/transactions/list-transactions" style="{{style:a}}">List transactions</a> ignores <code style="{{style:code}}">search</code>, <code style="{{style:code}}">q</code>, <code style="{{style:code}}">sort</code>, <code style="{{style:code}}">order</code> and parameters it does not know, and always returns numbers in ascending order. <a href="{{MINTLIFY}}/api-reference/transactions/list-the-records-of-a-transaction" style="{{style:a}}">List the records of a transaction</a> ignores <code style="{{style:code}}">sort</code> and <code style="{{style:code}}">order</code> and always returns records newest first. To find one number, send it as the <code style="{{style:code}}">transaction_no</code> query parameter.</li>
+  <li style="{{style:li}}"><strong>Past the last row, a listing returns no rows.</strong> Both listings then return <code style="{{style:code}}">pagination.has_previous</code> set to <code style="{{style:code}}">false</code>, even though earlier rows exist, and <code style="{{style:code}}">pagination.current_page</code> equal to <code style="{{style:code}}">pagination.total_pages</code>. Stop when <code style="{{style:code}}">pagination.has_next</code> is <code style="{{style:code}}">false</code>.</li>
+  <li style="{{style:li}}"><strong>No response has an <code style="{{style:code}}">ETag</code>.</strong> Every response has <code style="{{style:code}}">Cache-Control: no-cache, no-store</code>.</li>
+</ul>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+</ul>
