@@ -131,6 +131,12 @@
       "summary": "Common product tasks, all five endpoints, and what to watch for."
     },
     {
+      "file": "22-cities.html",
+      "title": "Working with cities through the API",
+      "subtitle": "Look up a store's cities and their post codes by country, state, post code or part of the name, and check whether the list changed",
+      "summary": "Common cities tasks, all two endpoints, and what to watch for."
+    },
+    {
       "file": "23-transactions.html",
       "title": "Working with transactions through the API",
       "subtitle": "List the transaction numbers stamped on a store's records, count each number's records by type, and list its records of one type",
