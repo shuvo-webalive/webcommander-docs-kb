@@ -1,0 +1,66 @@
+<p style="{{style:lead}}">The Email API lets your software send an email from your store to up to 100 addresses in one call. You send your own HTML or plain text, or name an installed plugin's email template and pass its variables. The call returns the addresses the email was sent to and the addresses it could not be sent to. The store keeps no copy of the email. The one endpoint is available in all seven WebCommander SDKs, at <code style="{{style:code}}">/api/v4/admin/email/send</code>.</p>
+
+<p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/email" style="{{style:a}}">Open the Email reference</a></strong></p>
+
+<h2 style="{{style:h2}}">Common tasks</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">You want to</th>
+      <th style="{{style:th}}">Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}">Send your own HTML email to one or more addresses</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/email/send-an-email" style="{{style:a}}">Send an email</a> with <code style="{{style:code}}">recipients</code>, <code style="{{style:code}}">subject</code> and <code style="{{style:code}}">htmlContent</code> at the top level of the body, such as <code style="{{style:code}}">{"recipients": ["customer@example.com"], "subject": "Your order has shipped", "htmlContent": "&lt;p&gt;Your order is on its way.&lt;/p&gt;"}</code>. Leave out the <code style="{{style:code}}">plugin_uuid</code> header. It returns <code style="{{style:code}}">200</code> once every message is sent, with <code style="{{style:code}}">status</code> <code style="{{style:code}}">success</code> and the recipients in <code style="{{style:code}}">accepted</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Send a plain-text email</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/email/send-an-email" style="{{style:a}}">Send an email</a> with the text in <code style="{{style:code}}">htmlContent</code> and <code style="{{style:code}}">contentType</code> set to <code style="{{style:code}}">text</code>. <code style="{{style:code}}">contentType</code> takes <code style="{{style:code}}">html</code>, <code style="{{style:code}}">text</code> or <code style="{{style:code}}">text/html</code>; any other value is rejected with <code style="{{style:code}}">400</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Copy or blind-copy other addresses</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/email/send-an-email" style="{{style:a}}">Send an email</a> with the addresses in <code style="{{style:code}}">cc</code> or <code style="{{style:code}}">bcc</code>, each a list, such as <code style="{{style:code}}">"cc": ["orders@example.com"]</code>. They count toward the 100 addresses of a call and the 500 addresses a sender can send to each day. The response returns them in <code style="{{style:code}}">cc</code> and <code style="{{style:code}}">bcc</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Send from a plugin's email template</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/email/send-an-email" style="{{style:a}}">Send an email</a> with <code style="{{style:code}}">recipients</code>, <code style="{{style:code}}">subject</code>, the template's <code style="{{style:code}}">identifier</code>, such as <code style="{{style:code}}">order-shipped</code>, and its variables as an object in <code style="{{style:code}}">data</code>, such as <code style="{{style:code}}">{"order_no": "1001"}</code>. Leave out <code style="{{style:code}}">htmlContent</code>. Send the installed plugin's uuid in the <code style="{{style:code}}">plugin_uuid</code> header, and authenticate with the plugin's own access token</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Find out which addresses the email did not reach</td>
+      <td style="{{style:td}}">Read <code style="{{style:code}}">status</code>, <code style="{{style:code}}">accepted</code> and <code style="{{style:code}}">rejected</code> in the response of <a href="{{MINTLIFY}}/api-reference/email/send-an-email" style="{{style:a}}">Send an email</a>. On <code style="{{style:code}}">200</code>, <code style="{{style:code}}">status</code> is <code style="{{style:code}}">success</code> and <code style="{{style:code}}">rejected</code> is empty. When the mail server fails the send, the call returns <code style="{{style:code}}">502</code> with <code style="{{style:code}}">status</code> <code style="{{style:code}}">failed</code>, an empty <code style="{{style:code}}">accepted</code>, and one object per address in <code style="{{style:code}}">rejected</code>, with <code style="{{style:code}}">email</code> and <code style="{{style:code}}">reason</code> <code style="{{style:code}}">send_failed</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="{{style:h2}}">All endpoints</h2>
+
+<p style="{{style:p}}">This one endpoint sends an email from your store, at the path <code style="{{style:code}}">/api/v4/admin/email/send</code>.</p>
+
+{{endpoints:email}}
+
+<h2 style="{{style:h2}}">Good to know</h2>
+
+<p style="{{style:p}}"><strong>Each sender can send to 500 addresses a day.</strong> Every address in <code style="{{style:code}}">recipients</code>, <code style="{{style:code}}">cc</code> and <code style="{{style:code}}">bcc</code> counts. Past the limit, a valid send is rejected with <code style="{{style:code}}">429</code> until 00:00 UTC. <code style="{{style:code}}">error.code</code> is <code style="{{style:code}}">rate_limited</code>, the message is <code style="{{style:code}}">The daily email limit of 500 addresses is reached; try again after 00:00 UTC.</code>, and the <code style="{{style:code}}">Retry-After</code> header gives the seconds left until 00:00 UTC. The SDKs' automatic retries do not wait that long, so the call still fails: send again after 00:00 UTC. A send rejected with <code style="{{style:code}}">400</code> does not count toward the limit, and an invalid body still gets <code style="{{style:code}}">400</code> after the limit is reached.</p>
+
+<p style="{{style:p}}"><strong>Send the fields at the top level of the body, in camelCase.</strong> Write <code style="{{style:code}}">htmlContent</code> and <code style="{{style:code}}">contentType</code>, not <code style="{{style:code}}">html_content</code> or <code style="{{style:code}}">content_type</code>. The store ignores any field it does not know, snake_case spellings included, and returns no error for it. A body wrapped in <code style="{{style:code}}">email</code> is rejected with <code style="{{style:code}}">400</code>, and the error's <code style="{{style:code}}">details</code> give <code style="{{style:code}}">recipients</code> and <code style="{{style:code}}">htmlContent</code> the code <code style="{{style:code}}">required</code>.</p>
+
+<p style="{{style:p}}"><strong>The <code style="{{style:code}}">plugin_uuid</code> header makes the store authenticate the call as the plugin.</strong> With an installed plugin's uuid in the header, an admin access token gets <code style="{{style:code}}">401</code>, even when you send <code style="{{style:code}}">htmlContent</code>. Leave the header out when you send your own content. A template send needs the header and the plugin's own access token. Write the header name exactly as <code style="{{style:code}}">plugin_uuid</code>, with an underscore. A <code style="{{style:code}}">plugin_uuid</code> field in the body is ignored. An <code style="{{style:code}}">identifier</code> sent without the header is rejected with <code style="{{style:code}}">400</code> and the message <code style="{{style:code}}">plugin_uuid header is required to send by identifier</code>, and a uuid no plugin has is rejected with <code style="{{style:code}}">400</code> and the message <code style="{{style:code}}">Plugin not found</code>.</p>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}"><strong>Send your own content or a template, not both.</strong> A body with both <code style="{{style:code}}">htmlContent</code> and <code style="{{style:code}}">identifier</code> is rejected with <code style="{{style:code}}">400</code> and the code <code style="{{style:code}}">conflicting_value</code>.</li>
+  <li style="{{style:li}}"><strong>One call sends to at most 100 addresses.</strong> <code style="{{style:code}}">recipients</code>, <code style="{{style:code}}">cc</code> and <code style="{{style:code}}">bcc</code> together hold at most 100 addresses. More is rejected with <code style="{{style:code}}">400</code> and the code <code style="{{style:code}}">too_many</code>, and nothing is sent.</li>
+  <li style="{{style:li}}"><strong>A <code style="{{style:code}}">400</code> names each problem field.</strong> <code style="{{style:code}}">error.code</code> is <code style="{{style:code}}">invalid_request</code>, and each entry in <code style="{{style:code}}">details</code> gives the field in <code style="{{style:code}}">field</code> and the reason in <code style="{{style:code}}">code</code>. An invalid address is named by its position, such as <code style="{{style:code}}">recipients[1]</code> or <code style="{{style:code}}">cc[0]</code>, with the code <code style="{{style:code}}">invalid_email</code>. A missing <code style="{{style:code}}">subject</code> is reported only when the body has <code style="{{style:code}}">htmlContent</code> or <code style="{{style:code}}">identifier</code>. An empty body <code style="{{style:code}}">{}</code> returns the message <code style="{{style:code}}">request body is empty</code>. Nothing is sent when the call returns <code style="{{style:code}}">400</code>.</li>
+  <li style="{{style:li}}"><strong>Each address gets one email.</strong> Spaces around an address are trimmed, and an address you list twice, in any letter case, is sent once. The response lists it once, in the form you sent first.</li>
+  <li style="{{style:li}}"><strong>The body must stay within 1048576 bytes.</strong> A larger body is rejected with <code style="{{style:code}}">413</code> and the message <code style="{{style:code}}">The request body is larger than 1048576 bytes.</code></li>
+  <li style="{{style:li}}"><strong><code style="{{style:code}}">POST</code> is the only method.</strong> <code style="{{style:code}}">GET</code>, <code style="{{style:code}}">HEAD</code>, <code style="{{style:code}}">PUT</code>, <code style="{{style:code}}">PATCH</code> and <code style="{{style:code}}">DELETE</code> are rejected with <code style="{{style:code}}">405</code> and the header <code style="{{style:code}}">Allow: POST, OPTIONS</code>. The store keeps no copy of the email, so there is nothing to read back or delete after a send.</li>
+</ul>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+</ul>
