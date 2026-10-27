@@ -1,0 +1,75 @@
+<p style="{{style:lead}}">The Common settings API lets your software read and change a store's settings by group and key, and read the fields of the customer registration form. Settings come in groups, such as <code style="{{style:code}}">general</code>, <code style="{{style:code}}">locale</code>, <code style="{{style:code}}">email</code>, <code style="{{style:code}}">e_commerce</code>, <code style="{{style:code}}">notifications</code> and <code style="{{style:code}}">customer_registration_field</code>. In every group except <code style="{{style:code}}">notifications</code>, a setting has a <code style="{{style:code}}">config_key</code> and a <code style="{{style:code}}">value</code>. The paths start with <code style="{{style:code}}">/api/v4/settings</code> and <code style="{{style:code}}">/api/v4/create-customer-fields</code>, directly under <code style="{{style:code}}">/api/v4</code> and not under <code style="{{style:code}}">/api/v4/admin</code>. All six endpoints are available in all seven WebCommander SDKs.</p>
+
+<p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/common-settings" style="{{style:a}}">Open the Common settings reference</a></strong></p>
+
+<h2 style="{{style:h2}}">Common tasks</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">You want to</th>
+      <th style="{{style:th}}">Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}">Read every setting in one group</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/common-settings/get-settings" style="{{style:a}}">Get settings</a> with the group's name as <code style="{{style:code}}">type</code>, such as <code style="{{style:code}}">type=general</code>. It returns <code style="{{style:code}}">settings</code>, with the group as a list of <code style="{{style:code}}">config_key</code> and <code style="{{style:code}}">value</code> pairs</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Read one setting</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/common-settings/get-settings" style="{{style:a}}">Get settings</a> with <code style="{{style:code}}">type</code> and the setting's key as <code style="{{style:code}}">config_key</code>, such as <code style="{{style:code}}">type=customer_registration_field&amp;config_key=abn_placeholder</code>. It returns <code style="{{style:code}}">{"settings": {"customer_registration_field": [{"config_key": "abn_placeholder", "value": "Enter your ABN"}]}}</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Change one or more settings</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/common-settings/update-settings" style="{{style:a}}">Update settings</a> with the groups to change inside <code style="{{style:code}}">settings</code>, such as <code style="{{style:code}}">{"settings": {"customer_registration_field": [{"config_key": "abn_placeholder", "value": "Enter your ABN"}]}}</code>. Only the keys you send change. It returns <code style="{{style:code}}">200</code> and every settings group of the store, about 2 MB</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Change settings with <code style="{{style:code}}">POST</code> instead of <code style="{{style:code}}">PUT</code></td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/common-settings/save-settings" style="{{style:a}}">Save settings</a> takes the same body as Update settings and saves it the same way. In either call, each group can be a list of <code style="{{style:code}}">config_key</code> and <code style="{{style:code}}">value</code> pairs or an object of <code style="{{style:code}}">config_key</code> to value, such as <code style="{{style:code}}">{"settings": {"customer_registration_field": {"abn_placeholder": "Enter your ABN"}}}</code>. It returns <code style="{{style:code}}">201</code> instead of <code style="{{style:code}}">200</code>, with every settings group of the store</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">See which fields the customer registration form shows</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/common-settings/get-the-customer-registration-fields" style="{{style:a}}">Get the customer registration fields</a>, with no query parameters. It returns <code style="{{style:code}}">fields</code>, the keys of the active fields in their order, such as <code style="{{style:code}}">first_name</code>, and <code style="{{style:code}}">fields_configs</code>, six settings for each of the 20 fields, inactive ones included: <code style="{{style:code}}">_order</code>, <code style="{{style:code}}">_key</code>, <code style="{{style:code}}">_label</code>, <code style="{{style:code}}">_placeholder</code>, <code style="{{style:code}}">_active</code> and <code style="{{style:code}}">_required</code>, such as <code style="{{style:code}}">first_name_label</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Change a field on the customer registration form</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/common-settings/update-settings" style="{{style:a}}">Update settings</a> in the <code style="{{style:code}}">customer_registration_field</code> group, such as the key <code style="{{style:code}}">abn_placeholder</code>. The form follows that group</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Check that a settings group can be read, without getting its body</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/common-settings/check-settings" style="{{style:a}}">Check settings</a> with the group's name as <code style="{{style:code}}">type</code>, such as <code style="{{style:code}}">type=general</code>. It returns <code style="{{style:code}}">200</code> with headers only, or <code style="{{style:code}}">404</code> when no group has that name</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="{{style:h2}}">All endpoints</h2>
+
+<p style="{{style:p}}">These six endpoints read, check and change the store's settings at <code style="{{style:code}}">/api/v4/settings</code>, and read and check the customer registration form at <code style="{{style:code}}">/api/v4/create-customer-fields</code>.</p>
+
+{{endpoints:common_settings}}
+
+<h2 style="{{style:h2}}">Good to know</h2>
+
+<p style="{{style:p}}"><strong>A write changes settings for the whole store, and one entry that is not valid saves nothing.</strong> <a href="{{MINTLIFY}}/api-reference/common-settings/update-settings" style="{{style:a}}">Update settings</a> and <a href="{{MINTLIFY}}/api-reference/common-settings/save-settings" style="{{style:a}}">Save settings</a> change only the keys you send, but one entry that is not valid rejects the whole request with <code style="{{style:code}}">400</code>. A group the store does not have is rejected with the detail code <code style="{{style:code}}">unknown_group</code>, and a key the group does not have with <code style="{{style:code}}">unknown_key</code>. Send the groups inside <code style="{{style:code}}">settings</code>: groups sent without it are each rejected as <code style="{{style:code}}">unknown_field</code>, with <code style="{{style:code}}">settings</code> as <code style="{{style:code}}">required</code>. A body of <code style="{{style:code}}">{}</code> is rejected with the message <code style="{{style:code}}">request body is empty</code>.</p>
+
+<p style="{{style:p}}"><strong>A write can take longer than the SDKs' default timeout.</strong> A write returns every settings group of the store, about 2 MB, and can take from 5 to more than 50 seconds. The SDKs' default timeout is 30 seconds, so build the client with a longer timeout, such as 120 seconds. If Save settings times out, read the keys back with <a href="{{MINTLIFY}}/api-reference/common-settings/get-settings" style="{{style:a}}">Get settings</a> before you send it again.</p>
+
+<p style="{{style:p}}"><strong>Send <code style="{{style:code}}">type</code> on every read.</strong> Without it, <a href="{{MINTLIFY}}/api-reference/common-settings/get-settings" style="{{style:a}}">Get settings</a> returns every group, about 2 MB, and can take 30 seconds or more. An empty <code style="{{style:code}}">type=</code> counts as no <code style="{{style:code}}">type</code>. <code style="{{style:code}}">type</code> takes one group: an unknown group, or a comma list of groups such as <code style="{{style:code}}">general,locale</code>, is rejected with <code style="{{style:code}}">404</code> and the detail code <code style="{{style:code}}">unknown_type</code>. For an unknown group, the message is <code style="{{style:code}}">Unknown settings type: &lt;type&gt;</code>.</p>
+
+<p style="{{style:p}}"><strong>Never send a <code style="{{style:code}}">***</code> value back.</strong> Passwords, keys and tokens read as <code style="{{style:code}}">***</code>, not as the stored value. This includes <code style="{{style:code}}">smtp_password</code> in the <code style="{{style:code}}">email</code> group, and the <code style="{{style:code}}">password_*</code> and <code style="{{style:code}}">retype_password_*</code> keys in <code style="{{style:code}}">customer_registration_field</code>. Write only the keys you change, so a <code style="{{style:code}}">***</code> you read never goes back to the store.</p>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}"><strong>Read one key per call with <code style="{{style:code}}">config_key</code>.</strong> A comma list such as <code style="{{style:code}}">abn_label,abn_placeholder</code> matches nothing and returns <code style="{{style:code}}">{"settings": {}}</code> with <code style="{{style:code}}">200</code>. Send one call per key, or read the whole group with <code style="{{style:code}}">type</code> alone. Without <code style="{{style:code}}">type</code>, the response places the key under the group it belongs to.</li>
+  <li style="{{style:li}}"><strong>Every value is text, except in the <code style="{{style:code}}">notifications</code> group.</strong> Values come back as strings, such as <code style="{{style:code}}">"true"</code> or <code style="{{style:code}}">"18"</code>, and a number you write is stored as its text: <code style="{{style:code}}">5</code> becomes <code style="{{style:code}}">"5"</code>. The <code style="{{style:code}}">notifications</code> group is an object of names to <code style="{{style:code}}">true</code> or <code style="{{style:code}}">false</code>, such as <code style="{{style:code}}">{"order_emails_enabled": true, "customer_emails_enabled": true}</code>, not a list.</li>
+  <li style="{{style:li}}"><strong>The registration form returns booleans where Get settings returns text.</strong> <a href="{{MINTLIFY}}/api-reference/common-settings/get-the-customer-registration-fields" style="{{style:a}}">Get the customer registration fields</a> returns each field's <code style="{{style:code}}">_active</code> and <code style="{{style:code}}">_required</code> as <code style="{{style:code}}">true</code> or <code style="{{style:code}}">false</code>. Reading the same keys from the <code style="{{style:code}}">customer_registration_field</code> group returns them as text, such as <code style="{{style:code}}">"true"</code>. <code style="{{style:code}}">_order</code> is text in both.</li>
+  <li style="{{style:li}}"><strong>Get settings takes only <code style="{{style:code}}">type</code> and <code style="{{style:code}}">config_key</code>, each once.</strong> Any other query parameter, <code style="{{style:code}}">limit</code> and <code style="{{style:code}}">offset</code> included, is rejected with <code style="{{style:code}}">400</code> and the message <code style="{{style:code}}">unknown query parameter(s): &lt;name&gt;</code>. Sending <code style="{{style:code}}">type</code> or <code style="{{style:code}}">config_key</code> twice is rejected with <code style="{{style:code}}">400</code> and the message <code style="{{style:code}}">Send each query parameter once: &lt;name&gt;</code>. The response is not paginated. Get the customer registration fields takes no query parameters at all.</li>
+  <li style="{{style:li}}"><strong><code style="{{style:code}}">/settings</code> accepts <code style="{{style:code}}">GET</code>, <code style="{{style:code}}">HEAD</code>, <code style="{{style:code}}">PUT</code> and <code style="{{style:code}}">POST</code>, and <code style="{{style:code}}">/create-customer-fields</code> accepts only <code style="{{style:code}}">GET</code> and <code style="{{style:code}}">HEAD</code>.</strong> Neither path sends an <code style="{{style:code}}">ETag</code> header.</li>
+</ul>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+</ul>

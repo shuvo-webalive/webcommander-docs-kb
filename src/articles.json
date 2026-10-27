@@ -153,6 +153,12 @@
       "title": "Working with trash through the API",
       "subtitle": "List the items in a store's trash and the types it holds, and restore items or delete them permanently, one at a time or up to 100 per call",
       "summary": "Common trash tasks, all eight endpoints, and what to watch for."
+    },
+    {
+      "file": "27-common-settings.html",
+      "title": "Working with common settings through the API",
+      "subtitle": "Read and change a store's settings by group and key, and read the fields of the customer registration form",
+      "summary": "Common common settings tasks, all six endpoints, and what to watch for."
     }
   ]
 }
