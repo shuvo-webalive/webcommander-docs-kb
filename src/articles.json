@@ -153,6 +153,12 @@
       "title": "Working with trash through the API",
       "subtitle": "List the items in a store's trash and the types it holds, and restore items or delete them permanently, one at a time or up to 100 per call",
       "summary": "Common trash tasks, all eight endpoints, and what to watch for."
+    },
+    {
+      "file": "26-pages.html",
+      "title": "Working with pages through the API",
+      "subtitle": "List, count, create, change, copy and delete a store's pages, move a page to a new URL, and choose the store's landing page",
+      "summary": "Common pages tasks, all fifteen endpoints, and what to watch for."
     }
   ]
 }
