@@ -155,10 +155,10 @@
       "summary": "Common trash tasks, all eight endpoints, and what to watch for."
     },
     {
-      "file": "27-common-settings.html",
-      "title": "Working with common settings through the API",
-      "subtitle": "Read and change a store's settings by group and key, and read the fields of the customer registration form",
-      "summary": "Common common settings tasks, all six endpoints, and what to watch for."
+      "file": "26-pages.html",
+      "title": "Working with pages through the API",
+      "subtitle": "List, count, create, change, copy and delete a store's pages, move a page to a new URL, and choose the store's landing page",
+      "summary": "Common pages tasks, all fifteen endpoints, and what to watch for."
     }
   ]
 }
