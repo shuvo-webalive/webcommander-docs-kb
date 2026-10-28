@@ -165,6 +165,12 @@
       "title": "Working with common settings through the API",
       "subtitle": "Read and change a store's settings by group and key, and read the fields of the customer registration form",
       "summary": "Common common settings tasks, all six endpoints, and what to watch for."
+    },
+    {
+      "file": "28-email.html",
+      "title": "Working with email through the API",
+      "subtitle": "Send an email from your store to up to 100 addresses, with your own HTML or text or an installed plugin's template, and see which addresses it reached",
+      "summary": "Common email tasks, the one endpoint, and what to watch for."
     }
   ]
 }
