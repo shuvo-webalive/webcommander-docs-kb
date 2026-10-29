@@ -27,8 +27,8 @@
     </tr>
     <tr>
       <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>JavaScript</strong></td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><a href="https://www.npmjs.com/package/webcommander">webcommander</a> on npm</td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">npm install webcommander</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><a href="https://www.npmjs.com/package/@webcommander/webcommander">@webcommander/webcommander</a> on npm</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">npm install @webcommander/webcommander</code></td>
     </tr>
     <tr>
       <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>PHP</strong></td>
@@ -82,7 +82,7 @@
     <tr>
       <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>PHP</strong></td>
       <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><a href="https://github.com/WebCommanderCMS/webcommander-sdk-php">WebCommanderCMS/webcommander-sdk-php</a></td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Add the repository as a VCS source, then <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">composer require webcommander/webcommander:dev-main</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Add the repository as a VCS source, then <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">composer require webcommander/webcommander:^4.0</code></td>
     </tr>
     <tr>
       <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Java</strong></td>
@@ -92,7 +92,7 @@
     <tr>
       <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>.NET</strong></td>
       <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><a href="https://github.com/WebCommanderCMS/webcommander-sdk-dotnet">WebCommanderCMS/webcommander-sdk-dotnet</a></td>
-      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Clone it, run <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">dotnet pack</code>, then add the package from the local folder</td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Clone it, run <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">dotnet pack src/WebCommander -c Release</code>, then add the package from the local folder</td>
     </tr>
     <tr>
       <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Dart</strong></td>
@@ -150,7 +150,7 @@
 
 <h2 style="margin: 32px 0 12px;">Keeping the SDK up to date</h2>
 
-<p style="margin: 0 0 16px;">If you installed from the package registry, upgrade with your package manager, for example <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">pip install --upgrade webcommander</code> or <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">npm install webcommander@latest</code>. If you installed from GitHub, run the same install command again; for Java and .NET, pull the clone and run <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">mvn install -DskipTests</code> or <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">dotnet pack</code> again.</p>
+<p style="margin: 0 0 16px;">If you installed from the package registry, upgrade with your package manager, for example <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">pip install --upgrade webcommander</code> or <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">npm install @webcommander/webcommander@latest</code>. If you installed from GitHub, run the same install command again; for Java and .NET, pull the clone and run <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">mvn install -DskipTests</code> or <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">dotnet pack src/WebCommander -c Release</code> again.</p>
 
 <h2 style="margin: 32px 0 12px;">Related articles</h2>
 
