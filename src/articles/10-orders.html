@@ -1,4 +1,4 @@
-<p style="{{style:lead}}">The Orders API lets your software work with a store's orders. You can list, count, create, change, cancel and delete orders, move an order to another status, add comments, record payments, refunds and shipments, and email invoices. All twenty-four endpoints are available in all seven WebCommander SDKs.</p>
+<p style="{{style:lead}}">The Orders API lets your software work with a store's orders. You can list, count, create, change, cancel and delete orders, move an order to another status, add comments, record payments, refunds and shipments, and email invoices. All twenty-five endpoints are available in all seven WebCommander SDKs.</p>
 
 <p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/orders" style="{{style:a}}">Open the Orders reference</a></strong></p>
 
@@ -33,6 +33,10 @@
       <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/orders/refund-a-payment" style="{{style:a}}">Refund a payment</a> with the payment's <code style="{{style:code}}">payment_id</code>, an <code style="{{style:code}}">Idempotency-Key</code> header, and the <code style="{{style:code}}">amount</code> wrapped in <code style="{{style:code}}">refund</code>, such as <code style="{{style:code}}">"5.00"</code>. The order's <code style="{{style:code}}">paid</code> goes down and its <code style="{{style:code}}">refunded</code> goes up</td>
     </tr>
     <tr>
+      <td style="{{style:td}}">See the refunds recorded against an order</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/orders/list-an-orders-refunds" style="{{style:a}}">List an order's refunds</a> with the order's <code style="{{style:code}}">order_id</code>. It returns the refunds under <code style="{{style:code}}">refunds</code>, newest first, with a <code style="{{style:code}}">pagination</code> block. Each call returns at most 20 refunds: send <code style="{{style:code}}">limit</code> from <code style="{{style:code}}">1</code> to <code style="{{style:code}}">20</code>, and <code style="{{style:code}}">page</code> or <code style="{{style:code}}">offset</code> to get the next refunds</td>
+    </tr>
+    <tr>
       <td style="{{style:td}}">Complete, pause or cancel an order</td>
       <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/orders/change-an-orders-status" style="{{style:a}}">Change an order's status</a> with <code style="{{style:code}}">status</code> set to <code style="{{style:code}}">completed</code>, <code style="{{style:code}}">paused</code> or <code style="{{style:code}}">cancelled</code>. This call does not read the key <code style="{{style:code}}">order_status</code>. It returns the order with its new <code style="{{style:code}}">order_status</code>. To cancel, you can also use <a href="{{MINTLIFY}}/api-reference/orders/cancel-an-order" style="{{style:a}}">Cancel an order</a>, which needs no body</td>
     </tr>
@@ -45,7 +49,7 @@
 
 <h2 style="{{style:h2}}">All endpoints</h2>
 
-<p style="{{style:p}}">These twenty-four endpoints work with orders and their comments, custom fields, payments, refunds, shipments and invoices; most paths start with <code style="{{style:code}}">/api/v4/admin/orders</code>, and the other three start with <code style="{{style:code}}">/api/v4/admin/payment</code> (Refund a payment), <code style="{{style:code}}">/api/v4/admin/order</code> (Add a custom order status) and <code style="{{style:code}}">/api/v4/admin/customers</code> (List a customer's orders).</p>
+<p style="{{style:p}}">These twenty-five endpoints work with orders and their comments, custom fields, payments, refunds, shipments and invoices; most paths start with <code style="{{style:code}}">/api/v4/admin/orders</code>, and the other three start with <code style="{{style:code}}">/api/v4/admin/payment</code> (Refund a payment), <code style="{{style:code}}">/api/v4/admin/order</code> (Add a custom order status) and <code style="{{style:code}}">/api/v4/admin/customers</code> (List a customer's orders).</p>
 
 {{endpoints:orders}}
 

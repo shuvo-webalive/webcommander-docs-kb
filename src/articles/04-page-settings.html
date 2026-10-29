@@ -1,4 +1,4 @@
-<p style="{{style:lead}}">The Page settings API lets your software read and change what a store's category pages, product pages, search result page, shopping cart and checkout page show, and create, change and delete the product promotions on the search result page. All thirty-one endpoints are available in all seven WebCommander SDKs.</p>
+<p style="{{style:lead}}">The Page settings API lets your software read and change what a store's category pages, product pages, search result page, shopping cart and checkout page show, and create, change and delete the product promotions on the search result page. All thirty-three endpoints are available in all seven WebCommander SDKs.</p>
 
 <p style="{{style:p}}">Each page has its own reference: <a href="{{MINTLIFY}}/category-page" style="{{style:a}}">Category page</a>, <a href="{{MINTLIFY}}/product-page" style="{{style:a}}">Product page</a>, <a href="{{MINTLIFY}}/search-result-page" style="{{style:a}}">Search result page</a>, <a href="{{MINTLIFY}}/shopping-cart" style="{{style:a}}">Shopping cart</a> and <a href="{{MINTLIFY}}/checkout-page" style="{{style:a}}">Checkout page</a>. A page's settings are split into sections, and you can read or change the whole page at once or one section at a time.</p>
 
@@ -31,6 +31,10 @@
       <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/search-result-page/turn-a-product-promotion-on-or-off" style="{{style:a}}">Turn a product promotion on or off</a> with <code style="{{style:code}}">is_active: false</code>, passing the promotion's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">promotion_id</code></td>
     </tr>
     <tr>
+      <td style="{{style:td}}">Check that a product promotion exists without downloading it</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/search-result-page/get-a-product-promotion-headers" style="{{style:a}}">Get a product promotion headers</a> with the promotion's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">promotion_id</code>. It returns <code style="{{style:code}}">200</code> with headers only, or <code style="{{style:code}}">404</code> when no promotion has that <code style="{{style:code}}">promotion_id</code></td>
+    </tr>
+    <tr>
       <td style="{{style:td}}">Turn on the slide-out flying cart</td>
       <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/shopping-cart/update-a-shopping-cart-section" style="{{style:a}}">Update a shopping cart section</a> with <code style="{{style:code}}">flying_cart</code> as the <code style="{{style:code}}">section</code> and <code style="{{style:code}}">enabled: true</code></td>
     </tr>
@@ -57,7 +61,7 @@
 
 <h3 style="{{style:h3}}">Search result page</h3>
 
-<p style="{{style:p}}">Use these endpoints to choose how the search result page shows products (the <code style="{{style:code}}">product_information</code> section), and to list, create, change, turn on or off and delete the product promotions shown on it. For more detail, see the <a href="{{MINTLIFY}}/search-result-page" style="{{style:a}}">Search result page overview</a>.</p>
+<p style="{{style:p}}">Use these endpoints to choose how the search result page shows products (the <code style="{{style:code}}">product_information</code> section), and to list, create, change, turn on or off and delete the product promotions shown on it, and to check the headers of the promotions list and of one promotion. For more detail, see the <a href="{{MINTLIFY}}/search-result-page" style="{{style:a}}">Search result page overview</a>.</p>
 
 {{endpoints:search_result_page}}
 
