@@ -1,4 +1,4 @@
-<p style="{{style:lead}}">The store settings endpoints let your software read and change how a store is set up: its details, logo and email settings, stock and pricing rules, customer portal, price display, product listings, search, SEO, shipping defaults and animation effects. All fifty-four endpoints are available in every WebCommander SDK.</p>
+<p style="{{style:lead}}">The store settings endpoints let your software read and change how a store is set up: its details, logo and email settings, stock and pricing rules, customer portal, price display, product listings, search, SEO, shipping defaults and animation effects. All fifty-eight endpoints are available in every WebCommander SDK.</p>
 
 <p style="{{style:p}}">The settings are split into nine areas, and each has its own reference: <a href="{{MINTLIFY}}/site-settings" style="{{style:a}}">Site settings</a>, <a href="{{MINTLIFY}}/ecommerce-settings" style="{{style:a}}">Ecommerce settings</a>, <a href="{{MINTLIFY}}/customer-portal" style="{{style:a}}">Customer portal</a>, <a href="{{MINTLIFY}}/price-display-settings" style="{{style:a}}">Price display settings</a>, <a href="{{MINTLIFY}}/product-listing" style="{{style:a}}">Product listing</a>, <a href="{{MINTLIFY}}/search-settings" style="{{style:a}}">Search settings</a>, <a href="{{MINTLIFY}}/seo-configuration" style="{{style:a}}">SEO configuration</a>, <a href="{{MINTLIFY}}/shipping-settings" style="{{style:a}}">Shipping settings</a> and <a href="{{MINTLIFY}}/animation-effects" style="{{style:a}}">Animation effects</a>.</p>
 
@@ -47,6 +47,10 @@
       <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/seo-configuration/upload-a-document-root-file" style="{{style:a}}">Upload a document root file</a></td>
     </tr>
     <tr>
+      <td style="{{style:td}}">Check that a redirect exists without downloading it</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/seo-configuration/get-a-redirect-headers" style="{{style:a}}">Get a redirect headers</a> with the redirect's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">redirect_id</code>. It returns <code style="{{style:code}}">200</code> with headers only, or <code style="{{style:code}}">404</code> when no redirect has that <code style="{{style:code}}">redirect_id</code></td>
+    </tr>
+    <tr>
       <td style="{{style:td}}">Choose the store's default shipping profile</td>
       <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/shipping-settings/update-shipping-settings" style="{{style:a}}">Update shipping settings</a>, with the shipping profile's <code style="{{style:code}}">id</code> in <code style="{{style:code}}">default_shipping_profile</code></td>
     </tr>
@@ -61,7 +65,7 @@
 
 <h3 style="{{style:h3}}">Site settings</h3>
 
-<p style="{{style:p}}">Read and change your store's details, logo, favicon, brand colours, date and time formats, units of measure, CAPTCHA, and domain and email settings. See the <a href="{{MINTLIFY}}/site-settings" style="{{style:a}}">Site settings reference</a>.</p>
+<p style="{{style:p}}">Read and change your store's details, logo (a read also returns its dark background and sticky header variants), favicon, brand colours, date and time formats, units of measure, CAPTCHA, and domain and email settings. See the <a href="{{MINTLIFY}}/site-settings" style="{{style:a}}">Site settings reference</a>.</p>
 
 {{endpoints:site_settings}}
 
@@ -126,6 +130,7 @@
   <li style="{{style:li}}"><strong>Secret site settings read back as <code style="{{style:code}}">***</code>.</strong> They are the SMTP password, the SendGrid API key, the CAPTCHA private keys and the site lock code. Send a new value to change one, and leave it out to keep it. Send only the fields you change, not a copy of a read.</li>
   <li style="{{style:li}}"><strong>Some areas limit how fast you can write.</strong> Customer portal rejects the eleventh write within about 3.25 seconds with <code style="{{style:code}}">429</code>, and Animation effects rejects the eleventh within about 0.8 seconds. SEO configuration limits writes in each ten-second window. Wait for the time in the <code style="{{style:code}}">Retry-After</code> header before you write again: a retry sent sooner counts as another write.</li>
   <li style="{{style:li}}"><strong>In Price display settings, <code style="{{style:code}}">scopes</code> follow <code style="{{style:code}}">enabled</code> unless <code style="{{style:code}}">customize</code> is <code style="{{style:code}}">true</code>.</strong> While a setting's <code style="{{style:code}}">customize</code> is <code style="{{style:code}}">false</code>, turning <code style="{{style:code}}">enabled</code> on sets every entry in its <code style="{{style:code}}">scopes</code> to <code style="{{style:code}}">true</code>, whatever <code style="{{style:code}}">scopes</code> you send. To choose the shopping cart, checkout and order success page one by one, send <code style="{{style:code}}">customize: true</code> with your <code style="{{style:code}}">scopes</code>.</li>
+  <li style="{{style:li}}"><strong>In Product listing, a field cannot be turned on while the field it depends on is off.</strong> Turning on <code style="{{style:code}}">product_information.interaction_buttons.show_view_details</code> while <code style="{{style:code}}">product_information.interaction_buttons.enabled</code> is off, or <code style="{{style:code}}">sortable_items.options.created_date</code> while <code style="{{style:code}}">sortable_items.enabled</code> is off, is rejected with <code style="{{style:code}}">400</code> and the code <code style="{{style:code}}">constraint_violation</code>. Turn on the field it depends on in the same body.</li>
   <li style="{{style:li}}"><strong>Turning off shipping classes also turns off <code style="{{style:code}}">enable_flat_view_class</code>.</strong> When you set <code style="{{style:code}}">enable_shipping_class</code> to <code style="{{style:code}}">false</code>, <code style="{{style:code}}">enable_flat_view_class</code> becomes <code style="{{style:code}}">false</code> too. While shipping classes are off, a write of <code style="{{style:code}}">enable_flat_view_class: true</code> returns <code style="{{style:code}}">200</code> but the value stays <code style="{{style:code}}">false</code>. Turning shipping classes back on does not restore it, so send <code style="{{style:code}}">enable_flat_view_class: true</code> as well, and check the value in the response.</li>
 </ul>
 
