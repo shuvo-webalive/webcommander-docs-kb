@@ -1,0 +1,66 @@
+<p style="{{style:lead}}">The Dashboard sections API lets your software read what one tab of the admin dashboard's section tabs shows: order updates and best sellers, content to review, bookings, courses, or blog activity. The one endpoint is available in all seven WebCommander SDKs.</p>
+
+<p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/dashboard-sections" style="{{style:a}}">Open the Dashboard sections reference</a></strong></p>
+
+<h2 style="{{style:h2}}">Common tasks</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">You want to</th>
+      <th style="{{style:th}}">Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}">Read the ecommerce tab</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboard-sections/get-a-dashboard-section" style="{{style:a}}">Get a dashboard section</a> with <code style="{{style:code}}">section</code> set to <code style="{{style:code}}">ecommerce</code>. It returns <code style="{{style:code}}">order_updates</code> and <code style="{{style:code}}">best_selling_products</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Read the content tab</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboard-sections/get-a-dashboard-section" style="{{style:a}}">Get a dashboard section</a> with <code style="{{style:code}}">section</code> set to <code style="{{style:code}}">content</code>. It returns <code style="{{style:code}}">content_updates</code> and <code style="{{style:code}}">top_pages</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Read the bookings or courses tab</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboard-sections/get-a-dashboard-section" style="{{style:a}}">Get a dashboard section</a> with <code style="{{style:code}}">section</code> set to <code style="{{style:code}}">bookings</code> (<code style="{{style:code}}">needs_attention</code> and <code style="{{style:code}}">upcoming</code>) or <code style="{{style:code}}">courses</code> (<code style="{{style:code}}">new_enrolments</code>, <code style="{{style:code}}">unpaid_orders</code> and <code style="{{style:code}}">popular_courses</code>)</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Read the blog tab</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboard-sections/get-a-dashboard-section" style="{{style:a}}">Get a dashboard section</a> with <code style="{{style:code}}">section</code> set to <code style="{{style:code}}">blog</code>. It returns <code style="{{style:code}}">comments_to_moderate</code>, <code style="{{style:code}}">drafts_to_publish</code> and <code style="{{style:code}}">most_viewed_posts</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Read a tab for another period</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboard-sections/get-a-dashboard-section" style="{{style:a}}">Get a dashboard section</a> with <code style="{{style:code}}">duration</code> such as <code style="{{style:code}}">last_12_months</code>, or with <code style="{{style:code}}">start_date</code> and <code style="{{style:code}}">end_date</code> as <code style="{{style:code}}">YYYY-MM-DD</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="{{style:h2}}">All endpoints</h2>
+
+<p style="{{style:p}}">This one endpoint reads one dashboard tab, at a path that starts with <code style="{{style:code}}">/api/v4/admin/dashboard/sections</code>.</p>
+
+{{endpoints:dashboard_sections}}
+
+<h2 style="{{style:h2}}">Good to know</h2>
+
+<p style="{{style:p}}"><strong>Pass the tab's name as <code style="{{style:code}}">section</code>.</strong> <code style="{{style:code}}">section</code> is one of <code style="{{style:code}}">ecommerce</code>, <code style="{{style:code}}">content</code>, <code style="{{style:code}}">bookings</code>, <code style="{{style:code}}">courses</code> or <code style="{{style:code}}">blog</code>. Any other value is rejected with <code style="{{style:code}}">404</code>, the reason <code style="{{style:code}}">not_found</code> and the message <code style="{{style:code}}">dashboard section not found</code>, with the detail on the field <code style="{{style:code}}">key</code>.</p>
+
+<p style="{{style:p}}"><strong>Each tab returns its own fields.</strong> Beside <code style="{{style:code}}">section</code> and <code style="{{style:code}}">period</code>, the response has only the fields of the tab you asked for. A field of another tab is not in the response.</p>
+
+<ul style="{{style:ul}}">
+
+  <li style="{{style:li}}"><strong>The period is the one the reports use.</strong> <code style="{{style:code}}">duration</code> is <code style="{{style:code}}">last_30_days</code> unless you send it, or <code style="{{style:code}}">start_date</code> with <code style="{{style:code}}">end_date</code>. A bad value is rejected with <code style="{{style:code}}">400</code>, and a query parameter the call does not know is ignored.</li>
+
+  <li style="{{style:li}}"><strong>Lists can be empty.</strong> A period with no best sellers returns <code style="{{style:code}}">best_selling_products</code> as an empty list, and a store without bookings or courses returns empty <code style="{{style:code}}">upcoming</code> and <code style="{{style:code}}">popular_courses</code> lists. <code style="{{style:code}}">content_updates</code> entries have a <code style="{{style:code}}">count</code> of an empty string.</li>
+
+</ul>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
+
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+
+</ul>

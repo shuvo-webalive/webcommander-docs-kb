@@ -1,0 +1,72 @@
+<p style="{{style:lead}}">The Order previews API lets your software price an order before it places it. You start a preview with the products, the customer and the delivery type, and the store returns the lines, tax, shipping and handling, and the grand total. You can apply a coupon or a gift card to see the lower total, and then place the order from the preview. Starting a preview creates no order. All seven endpoints are available in all seven WebCommander SDKs, under <code style="{{style:code}}">/api/v4/admin/orders/preview</code>.</p>
+
+<p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/order-previews" style="{{style:a}}">Open the Order previews reference</a></strong></p>
+
+<h2 style="{{style:h2}}">Common tasks</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">You want to</th>
+      <th style="{{style:th}}">Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}">Price an order without placing it</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/order-previews/start-an-order-preview" style="{{style:a}}">Start an order preview</a> with <code style="{{style:code}}">products</code>, each with a <code style="{{style:code}}">product_id</code> and a <code style="{{style:code}}">quantity</code>, and the customer's <code style="{{style:code}}">customer_id</code>, such as <code style="{{style:code}}">{"customer_id": 512, "products": [{"product_id": 101, "quantity": 2}]}</code>. It returns <code style="{{style:code}}">201</code> with the priced preview under <code style="{{style:code}}">order</code>, and the preview's <code style="{{style:code}}">order.session.session_id</code>, which every other call takes as <code style="{{style:code}}">preview_session_id</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Price an order for a delivery type</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/order-previews/start-an-order-preview" style="{{style:a}}">Start an order preview</a> with <code style="{{style:code}}">delivery_type</code> set to <code style="{{style:code}}">delivery</code>, <code style="{{style:code}}">others_shipping</code>, <code style="{{style:code}}">shipping</code> or <code style="{{style:code}}">store_pickup</code>. It is <code style="{{style:code}}">shipping</code> when you leave it out, and <code style="{{style:code}}">store_pickup</code> sets the shipping cost to <code style="{{style:code}}">0</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Read a preview again</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/order-previews/retrieve-an-order-preview" style="{{style:a}}">Retrieve an order preview</a> with the <code style="{{style:code}}">session_id</code> as <code style="{{style:code}}">preview_session_id</code>. It returns the same shape as starting the preview, with any coupon or gift card you applied, and does not extend the preview's time</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Show a customer the price with a coupon</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/order-previews/apply-a-coupon-to-a-preview" style="{{style:a}}">Apply a coupon to a preview</a> with <code style="{{style:code}}">{"code": "SAVE10"}</code>. It returns <code style="{{style:code}}">discounts.coupon</code> with the <code style="{{style:code}}">amount</code> taken off, and the new <code style="{{style:code}}">totals</code>. To take the coupon off again, use <a href="{{MINTLIFY}}/api-reference/order-previews/remove-the-coupon-from-a-preview" style="{{style:a}}">Remove the coupon from a preview</a>, which returns <code style="{{style:code}}">204</code> with no body</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Pay part of an order with a gift card</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/order-previews/apply-a-gift-card-to-a-preview" style="{{style:a}}">Apply a gift card to a preview</a> with <code style="{{style:code}}">{"code": "GIFT-0001"}</code>. <code style="{{style:code}}">totals.gift_card_applied</code> shows what the card pays and <code style="{{style:code}}">totals.due</code> what is left. To take the card off again, use <a href="{{MINTLIFY}}/api-reference/order-previews/remove-the-gift-card-from-a-preview" style="{{style:a}}">Remove the gift card from a preview</a></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Place the order from a preview</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/order-previews/place-the-order-from-a-preview" style="{{style:a}}">Place the order from a preview</a>. With no body the order is <code style="{{style:code}}">unpaid</code>. Send <code style="{{style:code}}">payment</code>, with a <code style="{{style:code}}">payment_method</code>, to record a payment, such as <code style="{{style:code}}">{"payment": {"amount": 10, "payment_status": "success", "payment_method": "manual"}}</code>. It returns <code style="{{style:code}}">201</code> with the new order, in the same shape as <a href="{{MINTLIFY}}/api-reference/orders/create-an-order" style="{{style:a}}">Create an order</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="{{style:h2}}">All endpoints</h2>
+
+<p style="{{style:p}}">Each endpoint is listed with its method and path, and links to its page in the reference.</p>
+
+{{endpoints:order_previews}}
+
+<h2 style="{{style:h2}}">Good to know</h2>
+
+<p style="{{style:p}}"><strong>Placing the order creates a real order.</strong> <a href="{{MINTLIFY}}/api-reference/order-previews/place-the-order-from-a-preview" style="{{style:a}}">Place the order from a preview</a> closes the preview. Every later call on it, including a second confirm, is rejected with <code style="{{style:code}}">410</code> and the detail <code style="{{style:code}}">session_confirmed</code>.</p>
+
+<p style="{{style:p}}"><strong>A preview lasts 30 minutes from its last change.</strong> <code style="{{style:code}}">order.session.expires_at</code> is 30 minutes after the preview started. Each time you apply or remove a coupon or a gift card, it moves to 30 minutes after that call; reading the preview does not move it. Start a new preview when it has expired.</p>
+
+<p style="{{style:p}}"><strong>The path takes the <code style="{{style:code}}">session_id</code>.</strong> Start a preview and read <code style="{{style:code}}">order.session.session_id</code>, a value such as <code style="{{style:code}}">PRV-3f2a9c41b7d80e65</code>. Every other call takes it as <code style="{{style:code}}">preview_session_id</code>. An unknown value returns <code style="{{style:code}}">404</code>.</p>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}"><strong>Send only <code style="{{style:code}}">product_id</code> and <code style="{{style:code}}">quantity</code> for each product.</strong> The store reads the prices itself. A <code style="{{style:code}}">price</code> or <code style="{{style:code}}">product_name</code> in a product line, or a body field the call does not accept, is rejected with <code style="{{style:code}}">400</code> and the reason <code style="{{style:code}}">unknown_field</code>.</li>
+  <li style="{{style:li}}"><strong>Send a customer or a billing address.</strong> With <code style="{{style:code}}">customer_id</code> alone, the preview uses the customer's saved addresses. Without <code style="{{style:code}}">customer_id</code> and <code style="{{style:code}}">billing_address</code>, the call is rejected with <code style="{{style:code}}">400</code>, and so is a preview with a product to ship and no shipping address.</li>
+  <li style="{{style:li}}"><strong>A preview takes one coupon and one gift card.</strong> A second coupon is rejected with <code style="{{style:code}}">409</code> and the detail <code style="{{style:code}}">coupon_already_applied</code>, and a second gift card with <code style="{{style:code}}">gift_card_already_applied</code>. Remove the applied one first.</li>
+  <li style="{{style:li}}"><strong>A coupon must apply to every customer and every product.</strong> When you create its discount profile, send <code style="{{style:code}}">is_applied_to_all_customers</code> <code style="{{style:code}}">true</code>, <code style="{{style:code}}">is_applied_to_all_products</code> <code style="{{style:code}}">true</code> and <code style="{{style:code}}">category</code> <code style="{{style:code}}">[]</code>. Otherwise the code is rejected with <code style="{{style:code}}">422</code> and the message <code style="{{style:code}}">Invalid Code</code>. The code you apply is the profile's <code style="{{style:code}}">default_coupon_code</code>.</li>
+  <li style="{{style:li}}"><strong>A gift card pays only for the customer whose email address it holds.</strong> The card's <code style="{{style:code}}">email</code> must equal the email of the customer record you previewed, not the billing address's email. A card with no balance, past its end date, inactive or unpaid is rejected with <code style="{{style:code}}">422</code> and the detail <code style="{{style:code}}">invalid_gift_card</code>. The preview lowers <code style="{{style:code}}">due</code>, leaves <code style="{{style:code}}">grand_total</code> as it was, and spends nothing from the card.</li>
+  <li style="{{style:li}}"><strong>The coupon and gift card calls return only part of the preview.</strong> They return <code style="{{style:code}}">session</code>, <code style="{{style:code}}">discounts</code> and <code style="{{style:code}}">totals</code>. Retrieve the preview for the lines and the shipping.</li>
+  <li style="{{style:li}}"><strong>A payment above the amount due is rejected.</strong> When you place the order, a <code style="{{style:code}}">payment.amount</code> over the amount due returns <code style="{{style:code}}">422</code> with the detail <code style="{{style:code}}">payment_exceeds_due</code>, and the preview stays open. An amount below the grand total makes the order <code style="{{style:code}}">partial</code>, and an amount equal to it makes it <code style="{{style:code}}">paid</code>.</li>
+</ul>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+  <li style="{{style:li}}">Working with gift cards through the API</li>
+</ul>
