@@ -1,0 +1,72 @@
+<p style="{{style:lead}}">The Dashboard reports API lets your software read the three reports behind the admin dashboard for a period: the quick report, the sales report and the summary. Each report also has a <code style="{{style:code}}">HEAD</code> form that returns <code style="{{style:code}}">200</code> with no body. All six endpoints are available in all seven WebCommander SDKs.</p>
+
+<p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/dashboard-reports" style="{{style:a}}">Open the Dashboard reports reference</a></strong></p>
+
+<h2 style="{{style:h2}}">Common tasks</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">You want to</th>
+      <th style="{{style:th}}">Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}">Get the headline figures for a period</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboard-reports/get-the-quick-report" style="{{style:a}}">Get the quick report</a>. It returns the 27 <code style="{{style:code}}">kpis</code>, <code style="{{style:code}}">orders</code>, <code style="{{style:code}}">sales</code>, <code style="{{style:code}}">customers</code>, <code style="{{style:code}}">products</code>, <code style="{{style:code}}">page_views</code>, <code style="{{style:code}}">view_report</code> and 12 <code style="{{style:code}}">trends</code>. Send <code style="{{style:code}}">kpis</code> such as <code style="{{style:code}}">total_sales,aov</code> to get only those metrics, in that order</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">See which pages or products are viewed most</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboard-reports/get-the-quick-report" style="{{style:a}}">Get the quick report</a> with <code style="{{style:code}}">entity_name</code> set to <code style="{{style:code}}">page</code> or <code style="{{style:code}}">product</code>. <code style="{{style:code}}">view_report.items</code> ranks them by <code style="{{style:code}}">views</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Get sales by day or month</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboard-reports/get-the-sales-report" style="{{style:a}}">Get the sales report</a>. It returns <code style="{{style:code}}">rows</code> and <code style="{{style:code}}">totals</code>, grouped by <code style="{{style:code}}">day</code> for a period of about a month or less and by <code style="{{style:code}}">month</code> for a longer one. Add <code style="{{style:code}}">breakdown=true</code> for orders, shipping, tax, discounts, refunds and the top product, and <code style="{{style:code}}">sort</code> and <code style="{{style:code}}">order</code> to sort the rows</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Get an overview in one call</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboard-reports/get-the-summary-report" style="{{style:a}}">Get the summary report</a>. It returns totals, orders by month, sales rows, the most visited and best selling products, and <code style="{{style:code}}">order_updates</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Choose the period</td>
+      <td style="{{style:td}}">Send <code style="{{style:code}}">duration</code> such as <code style="{{style:code}}">last_12_months</code> to any report, or <code style="{{style:code}}">start_date</code> with <code style="{{style:code}}">end_date</code> as <code style="{{style:code}}">YYYY-MM-DD</code>. Without either, the period is <code style="{{style:code}}">last_30_days</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Check that a report can be read</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboard-reports/check-the-quick-report" style="{{style:a}}">Check the quick report</a>, <a href="{{MINTLIFY}}/api-reference/dashboard-reports/check-the-sales-report" style="{{style:a}}">Check the sales report</a> or <a href="{{MINTLIFY}}/api-reference/dashboard-reports/check-the-summary-report" style="{{style:a}}">Check the summary report</a>. Each returns <code style="{{style:code}}">200</code> with no body after it checks the same query as its report</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="{{style:h2}}">All endpoints</h2>
+
+<p style="{{style:p}}">These six endpoints read the quick report, the sales report and the summary, and check each one, at paths that start with <code style="{{style:code}}">/api/v4/admin/dashboard/reports</code>.</p>
+
+{{endpoints:dashboard_reports}}
+
+<h2 style="{{style:h2}}">Good to know</h2>
+
+<p style="{{style:p}}"><strong>Every report takes the same period.</strong> <code style="{{style:code}}">duration</code> is one of <code style="{{style:code}}">today</code>, <code style="{{style:code}}">yesterday</code>, <code style="{{style:code}}">last_24_hours</code>, <code style="{{style:code}}">last_7_days</code>, <code style="{{style:code}}">last_30_days</code>, <code style="{{style:code}}">this_month</code>, <code style="{{style:code}}">last_month</code>, <code style="{{style:code}}">last_3_months</code>, <code style="{{style:code}}">last_6_months</code>, <code style="{{style:code}}">last_12_months</code>, <code style="{{style:code}}">last_24_months</code>, <code style="{{style:code}}">last_36_months</code>, <code style="{{style:code}}">last_48_months</code>, <code style="{{style:code}}">last_60_months</code> or <code style="{{style:code}}">custom</code>, which the response uses when you send dates. <code style="{{style:code}}">period</code> in every response shows the days covered, the days before them that <code style="{{style:code}}">previous_value</code> covers, the <code style="{{style:code}}">time_zone</code> and the <code style="{{style:code}}">currency</code>.</p>
+
+<p style="{{style:p}}"><strong>A bad value is rejected with <code style="{{style:code}}">400</code>, and one response lists every field that failed.</strong> A <code style="{{style:code}}">duration</code> outside the list, a <code style="{{style:code}}">duration</code> sent twice, and a <code style="{{style:code}}">start_date</code> without an <code style="{{style:code}}">end_date</code> (or the reverse) are rejected with the reason <code style="{{style:code}}">invalid_request</code>. <code style="{{style:code}}">sort</code>, <code style="{{style:code}}">order</code>, <code style="{{style:code}}">entity_name</code>, <code style="{{style:code}}">kpis</code> and <code style="{{style:code}}">breakdown</code> have their own values, and <code style="{{style:code}}">compare_previous</code> takes <code style="{{style:code}}">true</code> or <code style="{{style:code}}">false</code>. A query parameter a report does not know is ignored.</p>
+
+<ul style="{{style:ul}}">
+
+  <li style="{{style:li}}"><strong>A period with no sales has no rows.</strong> <a href="{{MINTLIFY}}/api-reference/dashboard-reports/get-the-sales-report" style="{{style:a}}">Get the sales report</a> returns <code style="{{style:code}}">rows</code> as an empty list and still returns <code style="{{style:code}}">totals</code>. Lists such as <code style="{{style:code}}">view_report.items</code> can be empty too.</li>
+
+  <li style="{{style:li}}"><strong>Do not expect two reports to give the same total.</strong> In the same call, <code style="{{style:code}}">orders.count</code> and the <code style="{{style:code}}">total_orders</code> tile can differ, and the sales report covers only paid orders.</li>
+
+  <li style="{{style:li}}"><strong>The <code style="{{style:code}}">HEAD</code> calls check the query, not the data.</strong> A <code style="{{style:code}}">HEAD</code> call returns <code style="{{style:code}}">200</code> with no body, and a bad value in the query is rejected with <code style="{{style:code}}">400</code>, as it is for the <code style="{{style:code}}">GET</code>.</li>
+
+</ul>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
+
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+
+</ul>

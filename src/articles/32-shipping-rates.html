@@ -1,0 +1,72 @@
+<p style="{{style:lead}}">The Shipping rates API lets your software work with a store's shipping rates. A shipping rate is the price a shipping rule applies, and its <code style="{{style:code}}">method</code> decides how the price is worked out: a flat amount, free shipping, or an amount by the order's price, quantity, weight or variation. You can list, count, create, retrieve, replace, update and delete rates. All ten endpoints are available in all seven WebCommander SDKs.</p>
+
+<p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/shipping-rates" style="{{style:a}}">Open the Shipping rates reference</a></strong></p>
+
+<h2 style="{{style:h2}}">Common tasks</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">You want to</th>
+      <th style="{{style:th}}">Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}">Get every rate, or only some</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/shipping-rates/list-shipping-rates" style="{{style:a}}">List shipping rates</a>, page by page. Each call returns up to 20 rates under <code style="{{style:code}}">shipping_rates</code>, newest first, or up to the <code style="{{style:code}}">limit</code> you send, from <code style="{{style:code}}">1</code> to <code style="{{style:code}}">100</code>. Send <code style="{{style:code}}">search=flat</code> to get the rates whose <code style="{{style:code}}">name</code> contains that text, <code style="{{style:code}}">method=flat_rate</code> to get one kind of rate, and <code style="{{style:code}}">handling_cost=with_handling</code> to get the rates that have a handling cost. <a href="{{MINTLIFY}}/api-reference/shipping-rates/count-shipping-rates" style="{{style:a}}">Count shipping rates</a> takes the same filters and returns the number of matches as <code style="{{style:code}}">total</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Add a flat rate</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/shipping-rates/create-a-shipping-rate" style="{{style:a}}">Create a shipping rate</a> with <code style="{{style:code}}">{"shipping_rate": {"name": "Flat 10", "method": "flat_rate", "shipping_cost": {"amount": 10, "type": "fixed"}}}</code>. It returns <code style="{{style:code}}">201</code> and the new rate, with its <code style="{{style:code}}">id</code>. Pass that <code style="{{style:code}}">id</code> as <code style="{{style:code}}">shipping_rate_id</code> to retrieve, change or delete the rate</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Add a rate that depends on weight</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/shipping-rates/create-a-shipping-rate" style="{{style:a}}">Create a shipping rate</a> with <code style="{{style:code}}">method</code> set to <code style="{{style:code}}">ship_by_weight</code> and a <code style="{{style:code}}">conditions</code> list. Each row has <code style="{{style:code}}">from</code>, <code style="{{style:code}}">to</code>, <code style="{{style:code}}">packet_weight</code>, a <code style="{{style:code}}">shipping_cost</code> and a <code style="{{style:code}}">handling_cost</code>. The same works for <code style="{{style:code}}">ship_by_price</code>, <code style="{{style:code}}">ship_by_quantity</code> and <code style="{{style:code}}">ship_by_variation</code>, with the row fields that method takes</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Put a new rate on a shipping rule</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/shipping-rates/create-a-shipping-rate" style="{{style:a}}">Create a shipping rate</a> with <code style="{{style:code}}">shipping_rule_id</code> set to the <code style="{{style:code}}">id</code> of a shipping rule that has no rate yet</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Change one field of a rate</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/shipping-rates/update-a-shipping-rate" style="{{style:a}}">Update a shipping rate</a> with the rate's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">shipping_rate_id</code> and only the field to change inside <code style="{{style:code}}">shipping_rate</code>, such as <code style="{{style:code}}">{"shipping_rate": {"shipping_cost": {"amount": 12, "type": "fixed"}}}</code>. Every field you leave out keeps its value. To replace the whole rate, use <a href="{{MINTLIFY}}/api-reference/shipping-rates/replace-a-shipping-rate" style="{{style:a}}">Replace a shipping rate</a></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Remove a rate</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/shipping-rates/delete-a-shipping-rate" style="{{style:a}}">Delete a shipping rate</a> with the rate's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">shipping_rate_id</code>. It returns <code style="{{style:code}}">204</code> with no body. A rate that a shipping rule uses is rejected with <code style="{{style:code}}">409</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="{{style:h2}}">All endpoints</h2>
+
+<p style="{{style:p}}">These ten endpoints list, count, create, retrieve, replace, update and delete shipping rates, at paths that start with <code style="{{style:code}}">/api/v4/admin/shipping_rates</code>.</p>
+
+{{endpoints:shipping_rates}}
+
+<h2 style="{{style:h2}}">Good to know</h2>
+
+<p style="{{style:p}}"><strong>A rate that a shipping rule uses cannot be deleted.</strong> <a href="{{MINTLIFY}}/api-reference/shipping-rates/delete-a-shipping-rate" style="{{style:a}}">Delete a shipping rate</a> on it is rejected with <code style="{{style:code}}">409</code>, the code <code style="{{style:code}}">in_use</code> and the <code style="{{style:code}}">id</code> of the rule. The <code style="{{style:code}}">shipping_rules</code> list on the rate shows which rules use it. Delete those rules, or take the rate off them, first.</p>
+
+<p style="{{style:p}}"><strong>Send the fields inside <code style="{{style:code}}">shipping_rate</code>.</strong> Create, replace and update take <code style="{{style:code}}">{"shipping_rate": {...}}</code>. A body without the wrapper is rejected with <code style="{{style:code}}">400</code>, and so is a field the rate does not have or an <code style="{{style:code}}">id</code> in the body. Responses return the rate inside <code style="{{style:code}}">shipping_rate</code>.</p>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}"><strong><code style="{{style:code}}">method</code> decides which fields a rate takes.</strong> It is required, and it is <code style="{{style:code}}">flat_rate</code>, <code style="{{style:code}}">free_shipping</code>, <code style="{{style:code}}">ship_by_price</code>, <code style="{{style:code}}">ship_by_quantity</code>, <code style="{{style:code}}">ship_by_weight</code>, <code style="{{style:code}}">ship_by_variation</code> or <code style="{{style:code}}">shipping_variant</code>. A <code style="{{style:code}}">flat_rate</code> needs <code style="{{style:code}}">shipping_cost</code> and takes <code style="{{style:code}}">handling_cost</code> and <code style="{{style:code}}">additional_rule</code>. The four <code style="{{style:code}}">ship_by_...</code> methods take their costs per row in <code style="{{style:code}}">conditions</code>, and a <code style="{{style:code}}">shipping_cost</code> at the top level of the rate is rejected with <code style="{{style:code}}">400</code>. <code style="{{style:code}}">free_shipping</code> and <code style="{{style:code}}">shipping_variant</code> need no cost. A cost is <code style="{{style:code}}">{"amount": 10, "type": "fixed"}</code>, and <code style="{{style:code}}">type</code> is <code style="{{style:code}}">fixed</code> or <code style="{{style:code}}">percent</code>.</li>
+  <li style="{{style:li}}"><strong>Rows in <code style="{{style:code}}">conditions</code> must not overlap.</strong> A price or quantity row has <code style="{{style:code}}">from</code>, <code style="{{style:code}}">to</code>, <code style="{{style:code}}">shipping_cost</code> and <code style="{{style:code}}">handling_cost</code>. A weight row also has <code style="{{style:code}}">packet_weight</code>. A variation row has <code style="{{style:code}}">variation_combination</code>, a list of <code style="{{style:code}}">{"id": ...}</code> with a variation's <code style="{{style:code}}">id</code>, instead of <code style="{{style:code}}">from</code> and <code style="{{style:code}}">to</code>. Rows that overlap are rejected with <code style="{{style:code}}">400</code> and the code <code style="{{style:code}}">overlapping_range</code>.</li>
+  <li style="{{style:li}}"><strong><code style="{{style:code}}">free_shipping</code> always saves <code style="{{style:code}}">calculate_for_entire_order</code> as <code style="{{style:code}}">false</code>.</strong> The store ignores a <code style="{{style:code}}">true</code> you send. <code style="{{style:code}}">price_entered_with_tax</code> keeps your value.</li>
+  <li style="{{style:li}}"><strong><code style="{{style:code}}">PUT</code> replaces a rate, and <code style="{{style:code}}">PATCH</code> changes only the fields you send.</strong> <a href="{{MINTLIFY}}/api-reference/shipping-rates/replace-a-shipping-rate" style="{{style:a}}">Replace a shipping rate</a> needs <code style="{{style:code}}">name</code>, <code style="{{style:code}}">method</code>, <code style="{{style:code}}">calculate_for_entire_order</code> and <code style="{{style:code}}">price_entered_with_tax</code>, the costs the method uses, <code style="{{style:code}}">handling_cost</code> and <code style="{{style:code}}">additional_rule</code>, and names each missing field in the <code style="{{style:code}}">400</code> response with the code <code style="{{style:code}}">required</code>. <code style="{{style:code}}">handling_cost</code> and <code style="{{style:code}}">additional_rule</code> take <code style="{{style:code}}">null</code>. An update with an empty <code style="{{style:code}}">shipping_rate</code> object returns <code style="{{style:code}}">200</code> and changes nothing.</li>
+  <li style="{{style:li}}"><strong>Rate names are unique, in any letter case.</strong> A <code style="{{style:code}}">name</code> that another rate has is rejected with <code style="{{style:code}}">409</code> and the code <code style="{{style:code}}">duplicate</code>. Send <code style="{{style:code}}">suggest_name</code> as <code style="{{style:code}}">true</code> on a create to get the next free name, such as <code style="{{style:code}}">Flat 10(1)</code>, instead. A <code style="{{style:code}}">shipping_rule_id</code> that names a rule that already has a rate is rejected with <code style="{{style:code}}">409</code> and the code <code style="{{style:code}}">in_use</code>.</li>
+  <li style="{{style:li}}"><strong>An extra cost for further items is <code style="{{style:code}}">additional_rule</code>.</strong> It is <code style="{{style:code}}">{"enabled": true, "for_each_additional": 2, "additional_cost": 1.5}</code>. When <code style="{{style:code}}">enabled</code> is <code style="{{style:code}}">true</code>, <code style="{{style:code}}">for_each_additional</code> must be <code style="{{style:code}}">1</code> or more and <code style="{{style:code}}">additional_cost</code> <code style="{{style:code}}">0</code> or more.</li>
+  <li style="{{style:li}}"><strong>Older rates can return a <code style="{{style:code}}">method</code> other than the seven names.</strong> For example <code style="{{style:code}}">FLAT_RATE</code> or <code style="{{style:code}}">[sbq, sbq]</code>, with <code style="{{style:code}}">shipping_cost</code> set to <code style="{{style:code}}">null</code>. Treat any other value as unknown, and send only the seven names on a write.</li>
+  <li style="{{style:li}}"><strong>You can file a rate under a transaction number.</strong> Send <code style="{{style:code}}">transaction_no</code> inside <code style="{{style:code}}">shipping_rate</code>, or the <code style="{{style:code}}">X-Transaction-No</code> header on a create. When you send both, the header wins.</li>
+  <li style="{{style:li}}"><strong>A listing returns 20 rates per call unless you send <code style="{{style:code}}">limit</code>.</strong> <code style="{{style:code}}">limit</code> takes <code style="{{style:code}}">1</code> to <code style="{{style:code}}">100</code>: <code style="{{style:code}}">0</code>, a value above <code style="{{style:code}}">100</code> and a value that is not a number, such as <code style="{{style:code}}">all</code>, are rejected with <code style="{{style:code}}">400</code>. To get more, send a higher <code style="{{style:code}}">offset</code> while <code style="{{style:code}}">pagination.has_next</code> is <code style="{{style:code}}">true</code>. <code style="{{style:code}}">sort</code> takes <code style="{{style:code}}">id</code>, <code style="{{style:code}}">name</code>, <code style="{{style:code}}">method</code>, <code style="{{style:code}}">created_at</code>, <code style="{{style:code}}">updated_at</code> or <code style="{{style:code}}">transaction_no</code>, and <code style="{{style:code}}">order</code> takes <code style="{{style:code}}">asc</code> or <code style="{{style:code}}">desc</code>.</li>
+</ul>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+  <li style="{{style:li}}">Working with shipping through the API</li>
+</ul>

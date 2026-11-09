@@ -1,0 +1,59 @@
+<p style="{{style:lead}}">The Gift cards API lets your software list a store's gift cards, newest first, and filter them by code, email address or active state. Use it to find a customer's cards and their balances before you apply one to an order preview. The one endpoint is available in all seven WebCommander SDKs, at <code style="{{style:code}}">/api/v4/admin/gift_cards</code>.</p>
+
+<p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/gift-cards" style="{{style:a}}">Open the Gift cards reference</a></strong></p>
+
+<h2 style="{{style:h2}}">Common tasks</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">You want to</th>
+      <th style="{{style:th}}">Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}">List the newest gift cards</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/gift-cards/list-gift-cards" style="{{style:a}}">List gift cards</a> with <code style="{{style:code}}">limit</code> up to <code style="{{style:code}}">20</code>. For more, send <code style="{{style:code}}">page</code> or <code style="{{style:code}}">offset</code> while <code style="{{style:code}}">pagination.has_next</code> is <code style="{{style:code}}">true</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Find the gift cards of one customer</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/gift-cards/list-gift-cards" style="{{style:a}}">List gift cards</a> with <code style="{{style:code}}">email</code> set to the customer's whole email address, such as <code style="{{style:code}}">email=jane.doe@example.com</code>. The match ignores letter case, and a part of an address matches nothing</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Look up one gift card by its code</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/gift-cards/list-gift-cards" style="{{style:a}}">List gift cards</a> with <code style="{{style:code}}">code</code> set to the whole code. A part of a code matches nothing</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Keep only the cards a customer can still use</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/gift-cards/list-gift-cards" style="{{style:a}}">List gift cards</a> with <code style="{{style:code}}">is_active=true</code>, then check each card's <code style="{{style:code}}">is_paid</code>, <code style="{{style:code}}">balance</code> and <code style="{{style:code}}">available_to</code>. <code style="{{style:code}}">is_active</code> takes <code style="{{style:code}}">true</code>, <code style="{{style:code}}">false</code>, <code style="{{style:code}}">1</code> or <code style="{{style:code}}">0</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Pay for a previewed order with a card</td>
+      <td style="{{style:td}}">Read the card's <code style="{{style:code}}">code</code> from the listing, then call <a href="{{MINTLIFY}}/api-reference/order-previews/apply-a-gift-card-to-a-preview" style="{{style:a}}">Apply a gift card to a preview</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="{{style:h2}}">All endpoints</h2>
+
+<p style="{{style:p}}">This one endpoint lists gift cards, at the path <code style="{{style:code}}">/api/v4/admin/gift_cards</code>.</p>
+
+{{endpoints:gift_cards}}
+
+<h2 style="{{style:h2}}">Good to know</h2>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}"><strong>A listing returns at most 20 gift cards per call.</strong> A larger <code style="{{style:code}}">limit</code> is capped at <code style="{{style:code}}">20</code>, and <code style="{{style:code}}">pagination.limit</code> shows <code style="{{style:code}}">20</code>. <code style="{{style:code}}">limit=0</code> is rejected with <code style="{{style:code}}">400</code> and the reason <code style="{{style:code}}">invalid_pagination</code>.</li>
+  <li style="{{style:li}}"><strong>The listing accepts only six parameters.</strong> <code style="{{style:code}}">limit</code>, <code style="{{style:code}}">offset</code>, <code style="{{style:code}}">page</code>, <code style="{{style:code}}">code</code>, <code style="{{style:code}}">email</code> and <code style="{{style:code}}">is_active</code>. Any other name, such as <code style="{{style:code}}">is_paid</code>, <code style="{{style:code}}">balance</code>, <code style="{{style:code}}">customer_id</code> or <code style="{{style:code}}">sort</code>, is rejected with <code style="{{style:code}}">400</code> and the reason <code style="{{style:code}}">unknown_parameter</code>. An <code style="{{style:code}}">is_active</code> value other than the four is rejected with <code style="{{style:code}}">invalid_boolean</code>.</li>
+  <li style="{{style:li}}"><strong>A card pays only for the customer whose email address it holds.</strong> Each card's <code style="{{style:code}}">email</code> must equal the email of the customer record you preview an order for.</li>
+  <li style="{{style:li}}"><strong>This API only lists gift cards.</strong> There is no endpoint to create or change one.</li>
+</ul>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+  <li style="{{style:li}}">Working with order previews through the API</li>
+</ul>

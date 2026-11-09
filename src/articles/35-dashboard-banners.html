@@ -1,0 +1,80 @@
+<p style="{{style:lead}}">The Dashboard banners API lets your software work with the announcement banners on the store's admin dashboard. You can list, create, retrieve, update and delete banners, and read the feed the dashboard shows them from. Each banner has a <code style="{{style:code}}">key</code>, a <code style="{{style:code}}">title</code>, a <code style="{{style:code}}">description</code>, up to three <code style="{{style:code}}">tags</code>, a <code style="{{style:code}}">learn_more</code> button, an optional <code style="{{style:code}}">try_it</code> button, a <code style="{{style:code}}">position</code> and an <code style="{{style:code}}">active</code> flag. All six endpoints are available in all seven WebCommander SDKs.</p>
+
+<p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/dashboard-banners" style="{{style:a}}">Open the Dashboard banners reference</a></strong></p>
+
+<h2 style="{{style:h2}}">Common tasks</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">You want to</th>
+      <th style="{{style:th}}">Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}">See every banner</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboard-banners/list-dashboard-banners" style="{{style:a}}">List dashboard banners</a>. It returns all banners under <code style="{{style:code}}">banners</code> in <code style="{{style:code}}">position</code> order, active and hidden ones, with no paging</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">See what the dashboard shows now</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboard-banners/get-the-dashboard-feed" style="{{style:a}}">Get the dashboard feed</a>. It returns only the active banners, and the support <code style="{{style:code}}">contact</code> details, <code style="{{style:code}}">online_store</code> and <code style="{{style:code}}">member_label</code> beside them</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Read one banner</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboard-banners/retrieve-a-dashboard-banner" style="{{style:a}}">Retrieve a dashboard banner</a> with the banner's <code style="{{style:code}}">key</code> as <code style="{{style:code}}">banner_key</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Add a banner</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboard-banners/create-a-dashboard-banner" style="{{style:a}}">Create a dashboard banner</a> with <code style="{{style:code}}">key</code>, <code style="{{style:code}}">title</code>, <code style="{{style:code}}">description</code> and <code style="{{style:code}}">learn_more</code>, such as <code style="{{style:code}}">{"key": "spring_sale", "title": "Spring sale", "description": "Ends Friday.", "learn_more": {"action": "open_link", "label": "Learn more", "url": "https://example.com/"}}</code>. It returns <code style="{{style:code}}">201</code> and the banner, which shows on the dashboard of every admin at once</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Change a banner or hide it</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboard-banners/update-a-dashboard-banner" style="{{style:a}}">Update a dashboard banner</a> with the banner's <code style="{{style:code}}">key</code> as <code style="{{style:code}}">banner_key</code> and only the fields to change. Send <code style="{{style:code}}">{"active": false}</code> to hide it from the dashboard and keep it in the list</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Move a banner</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboard-banners/update-a-dashboard-banner" style="{{style:a}}">Update a dashboard banner</a> with a <code style="{{style:code}}">position</code>. The banner moves there and the others are renumbered</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Remove a banner</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboard-banners/delete-a-dashboard-banner" style="{{style:a}}">Delete a dashboard banner</a> with the banner's <code style="{{style:code}}">key</code> as <code style="{{style:code}}">banner_key</code>. It returns <code style="{{style:code}}">204</code> with no body, and the banners after it move up one <code style="{{style:code}}">position</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="{{style:h2}}">All endpoints</h2>
+
+<p style="{{style:p}}">These six endpoints list, create, retrieve, update and delete dashboard banners and read the dashboard feed, at paths that start with <code style="{{style:code}}">/api/v4/admin/dashboard/banners</code>, except the feed, which is at <code style="{{style:code}}">/api/v4/admin/dashboard/content_info</code>.</p>
+
+{{endpoints:dashboard_banners}}
+
+<h2 style="{{style:h2}}">Good to know</h2>
+
+<p style="{{style:p}}"><strong>Banners are store-wide: a banner you create, change or delete shows on the dashboard of every admin.</strong> A created banner appears in <a href="{{MINTLIFY}}/api-reference/dashboard-banners/get-the-dashboard-feed" style="{{style:a}}">Get the dashboard feed</a> at once while <code style="{{style:code}}">active</code> is <code style="{{style:code}}">true</code>, and it stays until you delete it. Creating, moving or deleting a banner also changes the <code style="{{style:code}}">position</code> of the banners after it. The store already has banners of its own, so list them with <a href="{{MINTLIFY}}/api-reference/dashboard-banners/list-dashboard-banners" style="{{style:a}}">List dashboard banners</a> before you write, and change only banners you created.</p>
+
+<p style="{{style:p}}"><strong>Send the fields as they are, with no wrapper.</strong> Create and update take the banner's fields at the top level of the body, and the responses return the banner the same way. A field a banner does not have is rejected with <code style="{{style:code}}">400</code> and the reason <code style="{{style:code}}">unknown_field</code>, and one <code style="{{style:code}}">400</code> response lists every field that failed.</p>
+
+<ul style="{{style:ul}}">
+
+  <li style="{{style:li}}"><strong>Pass the banner's <code style="{{style:code}}">key</code> as <code style="{{style:code}}">banner_key</code>.</strong> The <code style="{{style:code}}">key</code> uses lowercase letters, digits and <code style="{{style:code}}">_</code>, starts with a letter, is at most 64 characters and is unique. You choose it when you create the banner and cannot change it. A <code style="{{style:code}}">key</code> that matches no banner is rejected with <code style="{{style:code}}">404</code> and the reason <code style="{{style:code}}">not_found</code>.</li>
+
+  <li style="{{style:li}}"><strong><code style="{{style:code}}">learn_more</code> is required and takes one of two forms.</strong> <code style="{{style:code}}">{"action": "open_link", "label": "...", "url": "https://..."}</code> opens a link, and the <code style="{{style:code}}">url</code> must start with <code style="{{style:code}}">https</code>. <code style="{{style:code}}">{"action": "open_modal", "label": "...", "title": "...", "subtitle": "...", "steps": [...]}</code> opens a window with at least one step, each with a <code style="{{style:code}}">title</code> and a <code style="{{style:code}}">description</code>. <code style="{{style:code}}">try_it</code> is optional: <code style="{{style:code}}">{"label": "...", "url": "..."}</code> adds a second button, and <code style="{{style:code}}">null</code> means none.</li>
+
+  <li style="{{style:li}}"><strong><code style="{{style:code}}">title</code> is 1 to 80 characters, <code style="{{style:code}}">description</code> is 1 to 200, and <code style="{{style:code}}">tags</code> holds at most 3.</strong> <code style="{{style:code}}">icon</code> is saved as you send it and is not checked against a list.</li>
+
+  <li style="{{style:li}}"><strong>An update replaces <code style="{{style:code}}">learn_more</code> and <code style="{{style:code}}">try_it</code> whole.</strong> An <code style="{{style:code}}">open_modal</code> <code style="{{style:code}}">learn_more</code> sent over an <code style="{{style:code}}">open_link</code> one drops the <code style="{{style:code}}">url</code>, and <code style="{{style:code}}">"try_it": null</code> removes the second button. <code style="{{style:code}}">key</code> cannot be sent, and an empty body is rejected with <code style="{{style:code}}">400</code>.</li>
+
+  <li style="{{style:li}}"><strong><code style="{{style:code}}">position</code> counts from <code style="{{style:code}}">1</code> over every banner, hidden ones included.</strong> Without a <code style="{{style:code}}">position</code>, a new banner goes last. With one, from <code style="{{style:code}}">1</code> to one more than the number of banners, the banners from that place move down by one. A <code style="{{style:code}}">position</code> outside that range is rejected with <code style="{{style:code}}">400</code> and the reason <code style="{{style:code}}">out_of_range</code>.</li>
+
+</ul>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
+
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+
+</ul>

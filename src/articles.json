@@ -121,14 +121,14 @@
     {
       "file": "20-variations.html",
       "title": "Working with variations through the API",
-      "subtitle": "List, create, replace, update and delete variation types and their options, and list and update a product's variants",
-      "summary": "Common variation tasks, all eleven endpoints, and what to watch for."
+      "subtitle": "List, create, replace, update and delete variation types and their options, and list, import, read, update and delete a product's variants",
+      "summary": "Common variation tasks, all fourteen endpoints, and what to watch for."
     },
     {
       "file": "21-products.html",
       "title": "Working with products through the API",
-      "subtitle": "Read and update a product, read and set its stock at each inventory location, and unassign a location from it",
-      "summary": "Common product tasks, all five endpoints, and what to watch for."
+      "subtitle": "List, count, create, read, update and delete products, check a SKU, delete several products at once, manage a product's reviews and images, and read and set its stock",
+      "summary": "Common product tasks, all twenty-two endpoints, and what to watch for."
     },
     {
       "file": "22-cities.html",
@@ -171,6 +171,66 @@
       "title": "Working with email through the API",
       "subtitle": "Send an email from your store to up to 100 addresses, with your own HTML or text or an installed plugin's template, and see which addresses it reached",
       "summary": "Common email tasks, the one endpoint, and what to watch for."
+    },
+    {
+      "file": "29-order-previews.html",
+      "title": "Working with order previews through the API",
+      "subtitle": "Price an order before you place it, apply a coupon or a gift card, and place the order from the preview",
+      "summary": "Common order previews tasks, all seven endpoints, and what to watch for."
+    },
+    {
+      "file": "30-gift-cards.html",
+      "title": "Working with gift cards through the API",
+      "subtitle": "List a store's gift cards and filter them by code, email address or active state",
+      "summary": "Common gift cards tasks, the one endpoint, and what to watch for."
+    },
+    {
+      "file": "31-shipping-profiles.html",
+      "title": "Working with shipping profiles through the API",
+      "subtitle": "List, count, create, change and delete a store's shipping profiles, choose the default profile, and build a profile with its rules and rates in one call",
+      "summary": "Common shipping profile tasks, all eleven endpoints, and what to watch for."
+    },
+    {
+      "file": "32-shipping-rates.html",
+      "title": "Working with shipping rates through the API",
+      "subtitle": "List, count, create, change and delete the shipping rates a store's rules apply: flat, free, and per price, quantity, weight or variation",
+      "summary": "Common shipping rate tasks, all ten endpoints, and what to watch for."
+    },
+    {
+      "file": "33-shipping-rules.html",
+      "title": "Working with shipping rules through the API",
+      "subtitle": "List, count, create, change and delete the shipping rules that join a shipping class, a shipping rate and zones",
+      "summary": "Common shipping rule tasks, all ten endpoints, and what to watch for."
+    },
+    {
+      "file": "34-dashboards.html",
+      "title": "Working with dashboard layouts through the API",
+      "subtitle": "List, create, update and delete the layouts that choose which sections and KPI tiles the store's admin dashboard shows",
+      "summary": "Common dashboard layout tasks, all five endpoints, and what to watch for."
+    },
+    {
+      "file": "35-dashboard-banners.html",
+      "title": "Working with dashboard banners through the API",
+      "subtitle": "List, create, change, hide and delete the announcement banners on the store's admin dashboard, and read the dashboard feed",
+      "summary": "Common dashboard banner tasks, all six endpoints, and what to watch for."
+    },
+    {
+      "file": "36-dashboard-kpis.html",
+      "title": "Working with dashboard KPIs through the API",
+      "subtitle": "See the metrics the dashboard's KPI tiles can show, read the tiles with their figures, and choose which tiles the dashboard shows",
+      "summary": "Common dashboard KPI tasks, all three endpoints, and what to watch for."
+    },
+    {
+      "file": "37-dashboard-reports.html",
+      "title": "Working with dashboard reports through the API",
+      "subtitle": "Read the quick report, the sales report and the summary behind the store's admin dashboard for any period",
+      "summary": "Common dashboard report tasks, all six endpoints, and what to watch for."
+    },
+    {
+      "file": "38-dashboard-sections.html",
+      "title": "Working with dashboard sections through the API",
+      "subtitle": "Read what each tab of the store's admin dashboard shows: ecommerce, content, bookings, courses and blog",
+      "summary": "Common dashboard section tasks, the endpoint, and what to watch for."
     }
   ]
 }

@@ -1,0 +1,64 @@
+<p style="{{style:lead}}">The Dashboard KPIs API lets your software see which metrics the dashboard's KPI tiles can show, read the tiles in use with their figures for a period, and choose which 2 to 5 tiles the dashboard shows. All three endpoints are available in all seven WebCommander SDKs.</p>
+
+<p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/dashboard-kpis" style="{{style:a}}">Open the Dashboard KPIs reference</a></strong></p>
+
+<h2 style="{{style:h2}}">Common tasks</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">You want to</th>
+      <th style="{{style:th}}">Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}">See which metrics a tile can show</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboard-kpis/list-kpi-options" style="{{style:a}}">List KPI options</a>. It returns the 27 metrics in five <code style="{{style:code}}">groups</code> (<code style="{{style:code}}">ecommerce</code>, <code style="{{style:code}}">content</code>, <code style="{{style:code}}">blog</code>, <code style="{{style:code}}">bookings</code> and <code style="{{style:code}}">courses</code>), each with its <code style="{{style:code}}">key</code>, <code style="{{style:code}}">code</code>, <code style="{{style:code}}">label</code>, <code style="{{style:code}}">format</code> and <code style="{{style:code}}">in_use</code>, and the keys now <code style="{{style:code}}">selected</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Read the tiles with their figures</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboard-kpis/get-the-kpi-selection" style="{{style:a}}">Get the KPI selection</a>. It returns the tiles in <code style="{{style:code}}">selected</code>, each with <code style="{{style:code}}">value</code>, <code style="{{style:code}}">previous_value</code>, <code style="{{style:code}}">change_percent</code> and <code style="{{style:code}}">direction</code>, for <code style="{{style:code}}">last_30_days</code> or the period you send</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Read the figures for another period</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboard-kpis/get-the-kpi-selection" style="{{style:a}}">Get the KPI selection</a> with <code style="{{style:code}}">duration</code> set to a value such as <code style="{{style:code}}">last_7_days</code>, or with <code style="{{style:code}}">start_date</code> and <code style="{{style:code}}">end_date</code> as <code style="{{style:code}}">YYYY-MM-DD</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Choose the tiles</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboard-kpis/update-the-kpi-selection" style="{{style:a}}">Update the KPI selection</a> with <code style="{{style:code}}">{"metrics": ["total_sales", "total_orders", "aov"]}</code>, the full list of 2 to 5 metric keys in tile order. It returns the same fields as the read, with the tiles in the order you sent</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="{{style:h2}}">All endpoints</h2>
+
+<p style="{{style:p}}">These three endpoints list the metrics, read the KPI tiles and choose the tiles, at paths that start with <code style="{{style:code}}">/api/v4/admin/dashboard</code>.</p>
+
+{{endpoints:dashboard_kpis}}
+
+<h2 style="{{style:h2}}">Good to know</h2>
+
+<p style="{{style:p}}"><strong>Updating the KPI selection changes the tiles on the dashboard of every admin.</strong> It writes the KPI tiles of the store's default dashboard layout, so the change shows at once for everyone, and the layout's <code style="{{style:code}}">updated_at</code> moves. Before you call <a href="{{MINTLIFY}}/api-reference/dashboard-kpis/update-the-kpi-selection" style="{{style:a}}">Update the KPI selection</a>, read the keys in <code style="{{style:code}}">selected</code> from <a href="{{MINTLIFY}}/api-reference/dashboard-kpis/list-kpi-options" style="{{style:a}}">List KPI options</a>, so you can send them back to restore the tiles.</p>
+
+<p style="{{style:p}}"><strong>Select metrics by <code style="{{style:code}}">key</code>, not by <code style="{{style:code}}">code</code>.</strong> For most metrics the two are the same. For some they differ, such as <code style="{{style:code}}">key</code> <code style="{{style:code}}">aov</code> with <code style="{{style:code}}">code</code> <code style="{{style:code}}">average_order_value</code>. The update takes the <code style="{{style:code}}">key</code>.</p>
+
+<ul style="{{style:ul}}">
+
+  <li style="{{style:li}}"><strong>The dashboard shows 2 to 5 tiles.</strong> <code style="{{style:code}}">min</code> and <code style="{{style:code}}">max</code> in <a href="{{MINTLIFY}}/api-reference/dashboard-kpis/list-kpi-options" style="{{style:a}}">List KPI options</a> give the limits. A list of fewer than 2 or more than 5 keys is rejected with <code style="{{style:code}}">400</code> and the reason <code style="{{style:code}}">invalid_count</code>, a repeated key with <code style="{{style:code}}">duplicate_value</code>, an unknown key with <code style="{{style:code}}">invalid_enum</code>, and a missing <code style="{{style:code}}">metrics</code> with <code style="{{style:code}}">required</code>.</li>
+
+  <li style="{{style:li}}"><strong>The figures follow the period you send.</strong> The read and the update take <code style="{{style:code}}">duration</code> (the default is <code style="{{style:code}}">last_30_days</code>) or <code style="{{style:code}}">start_date</code> with <code style="{{style:code}}">end_date</code>. A bad value, or one date without the other, is rejected with <code style="{{style:code}}">400</code>. <code style="{{style:code}}">change_percent</code> is <code style="{{style:code}}">null</code> when <code style="{{style:code}}">previous_value</code> is <code style="{{style:code}}">0</code>, and <code style="{{style:code}}">value</code> is always a decimal, such as <code style="{{style:code}}">19.0</code>.</li>
+
+  <li style="{{style:li}}"><strong>The update ignores fields other than <code style="{{style:code}}">metrics</code>.</strong> A body with other fields still returns <code style="{{style:code}}">200</code>.</li>
+
+</ul>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
+
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+
+</ul>

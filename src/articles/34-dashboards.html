@@ -1,0 +1,84 @@
+<p style="{{style:lead}}">The Dashboards API lets your software work with the dashboard layouts of a store's admin. A layout chooses which sections the dashboard shows, in what order, and which KPI tiles it starts with. You can list, create, retrieve, update and delete layouts. Each layout has a <code style="{{style:code}}">name</code>, a <code style="{{style:code}}">default</code> flag, <code style="{{style:code}}">standard_sections</code>, <code style="{{style:code}}">customisable_sections</code> and <code style="{{style:code}}">kpis</code>. All five endpoints are available in all seven WebCommander SDKs.</p>
+
+<p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/dashboards" style="{{style:a}}">Open the Dashboards reference</a></strong></p>
+
+<h2 style="{{style:h2}}">Common tasks</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">You want to</th>
+      <th style="{{style:th}}">Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}">See which layouts the store has</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboards/list-dashboard-layouts" style="{{style:a}}">List dashboard layouts</a>. It returns every layout under <code style="{{style:code}}">dashboards</code> with its <code style="{{style:code}}">id</code>, <code style="{{style:code}}">name</code> and <code style="{{style:code}}">default</code>, with no paging. Exactly one layout has <code style="{{style:code}}">default</code> set to <code style="{{style:code}}">true</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Read a layout's sections and KPI tiles</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboards/retrieve-a-dashboard-layout" style="{{style:a}}">Retrieve a dashboard layout</a> with the layout's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">dashboard_id</code>. It returns <code style="{{style:code}}">standard_sections</code>, <code style="{{style:code}}">customisable_sections</code> and <code style="{{style:code}}">kpis</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Add a layout</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboards/create-a-dashboard-layout" style="{{style:a}}">Create a dashboard layout</a> with <code style="{{style:code}}">{"name": "Weekly"}</code>. The new layout is a copy of the default layout, or of the layout whose <code style="{{style:code}}">id</code> you send as <code style="{{style:code}}">copy_from</code>. Send <code style="{{style:code}}">kpis</code> and <code style="{{style:code}}">customisable_sections</code> to change the copy. It returns <code style="{{style:code}}">201</code> and the whole layout</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Hide a section</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboards/update-a-dashboard-layout" style="{{style:a}}">Update a dashboard layout</a> with <code style="{{style:code}}">{"standard_sections": [{"key": "announcement", "visible": false}]}</code>. Every section you leave out stays as it is. It returns the whole layout</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Reorder the sections or the tabs</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboards/update-a-dashboard-layout" style="{{style:a}}">Update a dashboard layout</a> with a <code style="{{style:code}}">position</code> on a customisable section, or on a tab inside <code style="{{style:code}}">section_tabs</code>. The others move to fit</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Change a layout's KPI tiles</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboards/update-a-dashboard-layout" style="{{style:a}}">Update a dashboard layout</a> with <code style="{{style:code}}">kpis</code>, the full list of 2 to 5 metric keys in tile order, such as <code style="{{style:code}}">["total_sales", "total_orders"]</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Make a layout the default</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboards/update-a-dashboard-layout" style="{{style:a}}">Update a dashboard layout</a> with <code style="{{style:code}}">{"default": true}</code>. This changes the dashboard for every admin, so read Good to know first</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Remove a layout</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/dashboards/delete-a-dashboard-layout" style="{{style:a}}">Delete a dashboard layout</a> with the layout's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">dashboard_id</code>. It returns <code style="{{style:code}}">204</code> with no body</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="{{style:h2}}">All endpoints</h2>
+
+<p style="{{style:p}}">These five endpoints list, create, retrieve, update and delete dashboard layouts, at paths that start with <code style="{{style:code}}">/api/v4/admin/dashboards</code>.</p>
+
+{{endpoints:dashboards}}
+
+<h2 style="{{style:h2}}">Good to know</h2>
+
+<p style="{{style:p}}"><strong>Creating a layout changes the store, and making a layout the default changes the dashboard for every admin.</strong> A layout you create is saved to the store and stays there until you delete it. Sending <code style="{{style:code}}">"default": true</code> moves the store's default layout to the layout you name, and every admin then sees that layout. Before you do, note which row of <a href="{{MINTLIFY}}/api-reference/dashboards/list-dashboard-layouts" style="{{style:a}}">List dashboard layouts</a> has <code style="{{style:code}}">default</code> set to <code style="{{style:code}}">true</code>, so you can set it back.</p>
+
+<p style="{{style:p}}"><strong>Send the fields as they are, with no wrapper.</strong> Create and update take the layout's fields at the top level of the body, such as <code style="{{style:code}}">{"name": "Weekly"}</code>, and the responses return the layout the same way. A body with no fields is rejected with <code style="{{style:code}}">400</code>, and a field the layout does not have is ignored.</p>
+
+<p style="{{style:p}}"><strong>A new layout is a copy of the default layout.</strong> <a href="{{MINTLIFY}}/api-reference/dashboards/create-a-dashboard-layout" style="{{style:a}}">Create a dashboard layout</a> copies the default layout's sections and KPI tiles, or those of the layout you name in <code style="{{style:code}}">copy_from</code>, and then applies the <code style="{{style:code}}">customisable_sections</code> and <code style="{{style:code}}">kpis</code> you send. A new layout is not the default unless you send <code style="{{style:code}}">default</code> set to <code style="{{style:code}}">true</code>.</p>
+
+<ul style="{{style:ul}}">
+
+  <li style="{{style:li}}"><strong>An update changes only what you send, and sections are matched by <code style="{{style:code}}">key</code>.</strong> The four standard sections (<code style="{{style:code}}">announcement</code>, <code style="{{style:code}}">performance</code>, <code style="{{style:code}}">activity</code> and <code style="{{style:code}}">contact</code>) take only <code style="{{style:code}}">visible</code>, and <code style="{{style:code}}">contact</code> cannot be hidden. The customisable sections (<code style="{{style:code}}">setup_guide</code>, <code style="{{style:code}}">section_tabs</code> and <code style="{{style:code}}">seo</code>) also take a <code style="{{style:code}}">position</code>. Send the tabs of <code style="{{style:code}}">section_tabs</code> as <code style="{{style:code}}">tabs</code> and the parts of <code style="{{style:code}}">seo</code> as <code style="{{style:code}}">parts</code>, each with its <code style="{{style:code}}">key</code>.</li>
+
+  <li style="{{style:li}}"><strong><code style="{{style:code}}">kpis</code> is the full list of the layout's tiles.</strong> It holds 2 to 5 distinct metric keys in tile order, and it replaces the tiles the layout has. A list of 1 or of more than 5 keys is rejected with <code style="{{style:code}}">400</code> and the reason <code style="{{style:code}}">invalid_count</code>.</li>
+
+  <li style="{{style:li}}"><strong>A layout name is unique and at most 60 characters.</strong> A <code style="{{style:code}}">name</code> that another layout already has is rejected with <code style="{{style:code}}">409</code>, the reason <code style="{{style:code}}">conflict</code> and the detail code <code style="{{style:code}}">name_taken</code>. A blank <code style="{{style:code}}">name</code> or one longer than 60 characters is rejected with <code style="{{style:code}}">400</code>. Sending <code style="{{style:code}}">"default": false</code> for the default layout is rejected with <code style="{{style:code}}">409</code>; make another layout the default instead.</li>
+
+  <li style="{{style:li}}"><strong>Pass the layout's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">dashboard_id</code>.</strong> The <code style="{{style:code}}">id</code> is a UUID. An <code style="{{style:code}}">id</code> that matches no layout is rejected with <code style="{{style:code}}">404</code>, the reason <code style="{{style:code}}">not_found</code> and the detail on the field <code style="{{style:code}}">dashboard_id</code>.</li>
+
+</ul>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
+
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+
+</ul>
