@@ -1,4 +1,4 @@
-<p style="{{style:lead}}">The Trash API lets your software work with a store's trash. A category, customer, blog post or page that you delete through its own resource stays in the trash until you restore it or delete it permanently. With this API you list the items in the trash and the types it holds, and you restore items or delete them permanently, one at a time or up to 100 per call. All eight endpoints are available in all seven WebCommander SDKs.</p>
+<p style="{{style:lead}}">The Trash API lets your software work with a store's trash. A category, customer, blog post or page that you delete through its own resource stays in the trash until you restore it or delete it permanently. With this API you list the items in the trash and the types it holds, list the external links of an item, and you restore items or delete them permanently, one at a time or up to 100 per call. All nine endpoints are available in all seven WebCommander SDKs.</p>
 
 <p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/trash" style="{{style:a}}">Open the Trash reference</a></strong></p>
 
@@ -37,6 +37,10 @@
       <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/trash/delete-an-item-permanently" style="{{style:a}}">Delete an item permanently</a> with the item's type as <code style="{{style:code}}">trash_type</code> and the id the item has in its own resource as <code style="{{style:code}}">trash_item_id</code>. It returns <code style="{{style:code}}">204</code> with no body. You cannot restore the item afterwards</td>
     </tr>
     <tr>
+      <td style="{{style:td}}">Check what a permanent delete would break</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/trash/list-the-external-links-of-an-item-in-the-trash" style="{{style:a}}">List the external links of an item in the trash</a> with the item's type as <code style="{{style:code}}">trash_type</code> and its id as <code style="{{style:code}}">trash_item_id</code>, before you delete it. It returns the item's <code style="{{style:code}}">type</code> and <code style="{{style:code}}">id</code> and <code style="{{style:code}}">links</code>, the links outside the store that a permanent delete would break. <code style="{{style:code}}">links</code> is empty when nothing outside the store depends on the item. An item that is not in the trash returns <code style="{{style:code}}">404</code></td>
+    </tr>
+    <tr>
       <td style="{{style:td}}">Restore or delete many items in one call</td>
       <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/trash/restore-items-in-bulk" style="{{style:a}}">Restore items in bulk</a> or <a href="{{MINTLIFY}}/api-reference/trash/delete-items-permanently-in-bulk" style="{{style:a}}">Delete items permanently in bulk</a> with 1 to 100 items, such as <code style="{{style:code}}">{"items": [{"type": "category", "id": 1234}, {"type": "blog_post", "id": 99}]}</code>. It returns <code style="{{style:code}}">200</code> when every item succeeds, and <code style="{{style:code}}">207</code> with the same body when any item fails. The body lists the items restored in <code style="{{style:code}}">restored</code>, or deleted in <code style="{{style:code}}">deleted</code>, and each item that failed in <code style="{{style:code}}">failed</code>, with its <code style="{{style:code}}">type</code>, <code style="{{style:code}}">id</code>, <code style="{{style:code}}">code</code> and <code style="{{style:code}}">message</code></td>
     </tr>
@@ -45,7 +49,7 @@
 
 <h2 style="{{style:h2}}">All endpoints</h2>
 
-<p style="{{style:p}}">These eight endpoints list the items in the trash and the types it holds, return the headers of each list, and restore items or delete them permanently, one at a time or in bulk, at paths that start with <code style="{{style:code}}">/api/v4/admin/trash</code>.</p>
+<p style="{{style:p}}">These nine endpoints list the items in the trash and the types it holds, return the headers of each list, list the external links of an item in the trash, and restore items or delete them permanently, one at a time or in bulk, at paths that start with <code style="{{style:code}}">/api/v4/admin/trash</code>.</p>
 
 {{endpoints:trash}}
 

@@ -1,4 +1,4 @@
-<p style="{{style:lead}}">The Variations API lets your software work with a store's variation types, such as Size, and with the variants of each product. You can list, create, retrieve, replace, update and delete variation types, delete a single option from a type, list a product's variants, import variants into a product, retrieve or delete one variant, and set the availability, prices, stock and order quantities of several variants at once. Each variation type has a <code style="{{style:code}}">name</code>, a <code style="{{style:code}}">standard</code> of <code style="{{style:code}}">text</code>, <code style="{{style:code}}">color</code> or <code style="{{style:code}}">image</code>, and a list of <code style="{{style:code}}">options</code>. All fourteen endpoints are available in all seven WebCommander SDKs.</p>
+<p style="{{style:lead}}">The Variations API lets your software work with a store's variation types, such as Size, and with the variants of each product. You can list, create, retrieve, replace, update and delete variation types, delete a single option from a type, list a product's variants, import variants into a product, retrieve, update or delete one variant, delete every variant of a product at once, and set the availability, prices, stock and order quantities of several variants at once. Each variation type has a <code style="{{style:code}}">name</code>, a <code style="{{style:code}}">standard</code> of <code style="{{style:code}}">text</code>, <code style="{{style:code}}">color</code> or <code style="{{style:code}}">image</code>, and a list of <code style="{{style:code}}">options</code>. All sixteen endpoints are available in all seven WebCommander SDKs.</p>
 
 <p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/variations" style="{{style:a}}">Open the Variations reference</a></strong></p>
 
@@ -52,12 +52,20 @@
       <td style="{{style:td}}">Delete one variant of a product</td>
       <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/variations/delete-a-products-variant" style="{{style:a}}">Delete a product's variant</a> with the product's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">product_id</code> and the variant's <code style="{{style:code}}">variation_id</code>. It deletes the variant permanently and returns <code style="{{style:code}}">204</code> with no body. Deleting it again returns <code style="{{style:code}}">404</code></td>
     </tr>
+    <tr>
+      <td style="{{style:td}}">Change one variant of a product</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/variations/update-a-products-variant" style="{{style:a}}">Update a product's variant</a> with the product's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">product_id</code> and the variant's <code style="{{style:code}}">variation_id</code>, and the fields to change at the top level of the body with no wrapper, such as <code style="{{style:code}}">{"available": false}</code>. Only the fields you send change. It returns <code style="{{style:code}}">status</code>, <code style="{{style:code}}">message</code> and the variant's ids and codes, not its prices or stock: read those with <a href="{{MINTLIFY}}/api-reference/variations/retrieve-a-products-variant" style="{{style:a}}">Retrieve a product's variant</a></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Delete every variant of a product</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/variations/delete-all-of-a-products-variants" style="{{style:a}}">Delete all of a product's variants</a> with the product's <code style="{{style:code}}">id</code> as <code style="{{style:code}}">product_id</code>. It returns <code style="{{style:code}}">204</code> with no body, also when the product has no variants. <a href="{{MINTLIFY}}/api-reference/variations/list-a-products-variants" style="{{style:a}}">List a product's variants</a> then returns <code style="{{style:code}}">{"variations": []}</code></td>
+    </tr>
   </tbody>
 </table>
 
 <h2 style="{{style:h2}}">All endpoints</h2>
 
-<p style="{{style:p}}">These fourteen endpoints list, check, create, retrieve, replace, update and delete variation types and their options at paths that start with <code style="{{style:code}}">/api/v4/admin/variations</code>, and list, import, retrieve, update and delete a product's variants at paths that start with <code style="{{style:code}}">/api/v4/admin/products/{product_id}/variations</code>.</p>
+<p style="{{style:p}}">These sixteen endpoints list, check, create, retrieve, replace, update and delete variation types and their options at paths that start with <code style="{{style:code}}">/api/v4/admin/variations</code>, and list, import, retrieve, update and delete a product's variants, one at a time or all at once, at paths that start with <code style="{{style:code}}">/api/v4/admin/products/{product_id}/variations</code>.</p>
 
 {{endpoints:variations}}
 
