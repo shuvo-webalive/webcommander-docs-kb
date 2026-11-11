@@ -125,6 +125,23 @@
 
 {{endpoints:products}}
 
+<h2 style="{{style:h2}}">Before you sync stock</h2>
+
+<p style="{{style:p}}">A product only keeps a stock figure when its stock tracking is on. While tracking is off, the product reads <code style="{{style:code}}">available_stock: 0</code>, a new figure is refused, and shipping an order does not lower its stock. Follow these steps:</p>
+
+<ol style="{{style:ol}}">
+  <li style="{{style:li}}"><strong>Check the product.</strong> Call <a href="{{MINTLIFY}}/api-reference/products/retrieve-a-products-stock" style="{{style:a}}">Retrieve a product's stock</a> and look at <code style="{{style:code}}">track_inventory</code>.</li>
+  <li style="{{style:li}}"><strong>If tracking is on</strong> (<code style="{{style:code}}">true</code>), set the figure with <a href="{{MINTLIFY}}/api-reference/products/change-a-products-stock" style="{{style:a}}">Change a product's stock</a>: <code style="{{style:code}}">{"tracking": {"available_stock": 25}}</code>.</li>
+  <li style="{{style:li}}"><strong>If tracking is off</strong> (<code style="{{style:code}}">false</code>), turn it on and set the figure in the same call: <code style="{{style:code}}">{"tracking": {"enabled": true, "available_stock": 25}}</code>.</li>
+</ol>
+
+<table style="{{style:table}}"><thead><tr><th style="{{style:th}}">If you get</th><th style="{{style:th}}">It means</th><th style="{{style:th}}">Do this</th></tr></thead><tbody>
+<tr><td style="{{style:td}}"><code style="{{style:code}}">409</code> with the reason <code style="{{style:code}}">tracking_disabled</code></td><td style="{{style:td}}">You sent a stock figure while the product's tracking is off.</td><td style="{{style:td}}">Send the same call again with <code style="{{style:code}}">"enabled": true</code> inside <code style="{{style:code}}">tracking</code>.</td></tr>
+<tr><td style="{{style:td}}"><code style="{{style:code}}">400</code> with the message <code style="{{style:code}}">locations is required</code></td><td style="{{style:td}}">You used <a href="{{MINTLIFY}}/api-reference/products/set-a-products-stock" style="{{style:a}}">Set a product's stock</a> on a store that keeps stock without inventory locations (<code style="{{style:code}}">locations: []</code>).</td><td style="{{style:td}}">Use <a href="{{MINTLIFY}}/api-reference/products/change-a-products-stock" style="{{style:a}}">Change a product's stock</a> with <code style="{{style:code}}">tracking</code> instead.</td></tr>
+</tbody></table>
+
+<p style="{{style:p}}">To turn tracking off, send <code style="{{style:code}}">{"tracking": {"enabled": false}}</code> on its own. A call that also sends a stock figure is refused with the same <code style="{{style:code}}">409</code>, so set the figure first and turn tracking off in a second call. Creating an order does not lower stock; <a href="{{MINTLIFY}}/api-reference/orders/create-a-shipment" style="{{style:a}}">creating a shipment</a> does, for products that track it.</p>
+
 <h2 style="{{style:h2}}">Good to know</h2>
 
 <p style="{{style:p}}"><strong>Setting a product's stock unassigns every location you leave out, even one that still holds stock.</strong> <a href="{{MINTLIFY}}/api-reference/products/set-a-products-stock" style="{{style:a}}">Set a product's stock</a> replaces the product's whole set of locations with the rows you send in <code style="{{style:code}}">locations</code>. Read the rows first with <a href="{{MINTLIFY}}/api-reference/products/retrieve-a-products-stock" style="{{style:a}}">Retrieve a product's stock</a>, send every row you want to keep, and change only the values you mean to change. You can send the rows back as you read them: <code style="{{style:code}}">warehouse_name</code> is ignored.</p>
