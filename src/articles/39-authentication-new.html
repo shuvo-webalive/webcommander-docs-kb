@@ -19,8 +19,8 @@
       <td style="{{style:td}}">Your store's address, including https://. Every API call goes here.</td>
     </tr>
     <tr>
-      <td style="{{style:td}}"><strong>Auth base URL</strong></td>
-      <td style="{{style:td}}">The address that issues access tokens: <code style="{{style:code}}">https://manage-hykmah-api.exsited.com</code>. Only the token request goes here.</td>
+      <td style="{{style:td}}"><strong>Hykmah base URL</strong></td>
+      <td style="{{style:td}}">The address that issues access tokens. Only the token request goes here.</td>
     </tr>
     <tr>
       <td style="{{style:td}}"><strong>Client ID</strong></td>
@@ -33,19 +33,19 @@
   </tbody>
 </table>
 
-<p style="{{style:p}}">You get the client ID and client secret when you create an API application in the WebCommander admin. There is no redirect URI and no auth string to configure. The steps are in the <a href="{{MINTLIFY}}/api-credentials" style="{{style:a}}">Create API credentials</a> guide.</p>
+<p style="{{style:p}}">You get the client ID and client secret when you create an API application in the WebCommander admin. There is no redirect URI and no auth string to configure. The steps are in the <a href="{{MINTLIFY}}/api-application" style="{{style:a}}">Create API Application</a> guide.</p>
 
 <p style="{{style:p}}"><strong>Keep your client secret private.</strong> It gives access to your store's data through the API. Keep it in an environment variable or a secrets manager, never in source code or a shared document.</p>
 
 <h2 style="{{style:h2}}">Set up an SDK</h2>
 
-<p style="{{style:p}}">Register your credentials once, when your app starts. The only new setting is the auth base URL. Its name depends on the language:</p>
+<p style="{{style:p}}">Register your credentials once, when your app starts. The only new setting is the Hykmah base URL. Its name depends on the language:</p>
 
 <table style="{{style:table}}">
   <thead>
     <tr>
       <th style="{{style:th}}">Language</th>
-      <th style="{{style:th}}">Auth base URL option</th>
+      <th style="{{style:th}}">Hykmah base URL option</th>
     </tr>
   </thead>
   <tbody>
@@ -73,7 +73,7 @@
 <h2 style="{{style:h2}}">What the SDKs handle</h2>
 
 <ul style="{{style:ul}}">
-  <li style="{{style:li}}"><strong>Getting the token.</strong> On the first call, the SDK sends your client ID and client secret to the auth base URL and gets an access token.</li>
+  <li style="{{style:li}}"><strong>Getting the token.</strong> On the first call, the SDK sends your client ID and client secret to your Hykmah base URL and gets an access token.</li>
   <li style="{{style:li}}"><strong>Caching and renewal.</strong> The SDK keeps the token and renews it before it expires, using the refresh token.</li>
   <li style="{{style:li}}"><strong>An expired token.</strong> If a call returns 401 because the token has expired, the SDK renews the token once and sends the call again.</li>
   <li style="{{style:li}}"><strong>A real refusal.</strong> Any other 401 is returned to you and not retried, so a write is never sent twice.</li>
@@ -81,7 +81,7 @@
 
 <h2 style="{{style:h2}}">Requesting a token yourself</h2>
 
-<p style="{{style:p}}">With cURL or any HTTP client, send a POST request to <code style="{{style:code}}">/api/v1/oauth/token</code> on the auth base URL. The body must be form data with the header <code style="{{style:code}}">Content-Type: application/x-www-form-urlencoded</code>. A JSON body is rejected with a 400 error.</p>
+<p style="{{style:p}}">With cURL or any HTTP client, send a POST request to <code style="{{style:code}}">/api/v1/oauth/token</code> on your Hykmah base URL. The body must be form data with the header <code style="{{style:code}}">Content-Type: application/x-www-form-urlencoded</code>. A JSON body is rejected with a 400 error.</p>
 
 <table style="{{style:table}}">
   <thead>
@@ -139,13 +139,13 @@
   </tbody>
 </table>
 
-<p style="{{style:p}}">Send the access token in an <code style="{{style:code}}">Authorization: Bearer</code> header on every API call. API calls go to your store's base URL, not to the auth base URL.</p>
+<p style="{{style:p}}">Send the access token in an <code style="{{style:code}}">Authorization: Bearer</code> header on every API call. API calls go to your store's base URL, not to your Hykmah base URL.</p>
 
 <p style="{{style:p}}">To renew a token, send a form to the same address with <code style="{{style:code}}">grant_type</code> set to <code style="{{style:code}}">refresh_token</code>, your <code style="{{style:code}}">refresh_token</code>, your client ID and your client secret. The response has the same fields.</p>
 
 <h2 style="{{style:h2}}">Using both sign-ins in one app</h2>
 
-<p style="{{style:p}}">One app can call a store that uses the new sign-in and a store that still uses the legacy one. Register one configuration for each and give each a client name. The configuration with an auth base URL signs in the new way. The one without it signs in with its redirect URI and auth string. Build a client by name to choose the store. With no name, you get the first one registered. The <a href="{{MINTLIFY}}/authentication" style="{{style:a}}">developer documentation</a> shows this in every language.</p>
+<p style="{{style:p}}">One app can call a store that uses the new sign-in and a store that still uses the legacy one. Register one configuration for each and give each a client name. The configuration with a Hykmah base URL signs in the new way. The one without it signs in with its redirect URI and auth string. Build a client by name to choose the store. With no name, you get the first one registered. The <a href="{{MINTLIFY}}/authentication" style="{{style:a}}">developer documentation</a> shows this in every language.</p>
 
 <h2 style="{{style:h2}}">Try it in the documentation</h2>
 

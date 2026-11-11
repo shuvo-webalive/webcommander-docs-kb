@@ -233,10 +233,10 @@
       "summary": "Common dashboard section tasks, the endpoint, and what to watch for."
     },
     {
-      "file": "41-create-api-credentials.html",
-      "title": "Creating API credentials",
+      "file": "41-create-api-application.html",
+      "title": "Create API Application",
       "subtitle": "Create an API application in the WebCommander admin to get a client ID and client secret",
-      "summary": "Step-by-step, with screenshots: sign in to Hykmah, open the WebCommander admin and create an API application."
+      "summary": "Step-by-step, with screenshots: open the WebCommander admin from Hykmah and create an API application."
     },
     {
       "file": "39-authentication-new.html",
