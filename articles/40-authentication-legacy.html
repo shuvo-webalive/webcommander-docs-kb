@@ -1,0 +1,129 @@
+<p style="margin: 0 0 16px;">Every call to the WebCommander API needs an access token. With the legacy sign-in, the token comes from your store, using a client ID, a client secret, a redirect URI and an auth string. The SDKs get the token, keep it and renew it for you. This article explains the credentials, how the SDKs handle the token, and how to request a token yourself.</p>
+
+<p style="margin: 0 0 16px;"><strong><a href="https://newlify.mintlify.app/authentication-legacy">See Authentication (Legacy) in the developer documentation</a></strong></p>
+
+<p style="margin: 0 0 16px;">New API applications use <a href="https://newlify.mintlify.app/authentication">Authentication (New)</a>, which needs only a client ID and a client secret.</p>
+
+<p style="margin: 0 0 16px;"><strong>Moving to the new sign-in?</strong> Only how you get the token changes: it comes from your Hykmah base URL instead of your store. Your base URL stays your store's address, and every API call, path and response stays the same. See <a href="https://newlify.mintlify.app/authentication">Authentication (New)</a>.</p>
+
+<h2 style="margin: 32px 0 12px;">Your credentials</h2>
+
+<table style="width: 100%; border-collapse: collapse; margin: 0 0 20px; border: 1px solid #dfe3eb;">
+  <thead>
+    <tr>
+      <th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Credential</th>
+      <th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">What it is</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Base URL</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Your store's address, including https://.</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Client ID</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Identifies your integration.</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Client secret</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">The secret paired with the client ID.</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Redirect URI</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Sent with the token request.</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Auth string</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Decides which user the token acts as.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="margin: 0 0 16px;"><strong>Keep your credentials private.</strong> The client secret and auth string give access to your store's data. Keep them in environment variables or a secrets manager, never in source code or a shared document.</p>
+
+<h2 style="margin: 32px 0 12px;">Set up an SDK</h2>
+
+<p style="margin: 0 0 16px;">Register your store's credentials once, when your app starts, then build a client wherever you make calls. The <a href="https://newlify.mintlify.app/authentication-legacy#set-up-a-client">developer documentation</a> has a complete registration sample for each language and for cURL. The registration turns on the raise-on-error option, so a failed call raises an error instead of going unnoticed. A 200 response whose body contains <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">"isSuccess": false</code> also counts as a failure.</p>
+
+<h2 style="margin: 32px 0 12px;">What the SDKs handle</h2>
+
+<ul style="margin: 0 0 16px; padding-left: 24px;">
+  <li style="margin: 0 0 6px;"><strong>Getting the token.</strong> On the first call, the SDK exchanges your credentials for an access token.</li>
+  <li style="margin: 0 0 6px;"><strong>Caching and renewal.</strong> The SDK keeps the token and renews it before it expires, trying the refresh token first.</li>
+  <li style="margin: 0 0 6px;"><strong>An expired token.</strong> If a call returns 401 because the token has expired, the SDK renews the token once and sends the call again.</li>
+  <li style="margin: 0 0 6px;"><strong>A real refusal.</strong> Any other 401, such as a wrong old password when you change a password, is returned to you and not retried, so a write is never sent twice.</li>
+</ul>
+
+<h2 style="margin: 32px 0 12px;">Requesting a token yourself</h2>
+
+<p style="margin: 0 0 16px;">With cURL or any HTTP client, send a POST request to <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">/api/v4/oauth2/token</code> on your store's base URL. The body is JSON with these fields:</p>
+
+<table style="width: 100%; border-collapse: collapse; margin: 0 0 20px; border: 1px solid #dfe3eb;">
+  <thead>
+    <tr>
+      <th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Field</th>
+      <th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">grant_type</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">client_credentials</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">client_id</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Your client ID.</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">client_secret</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Your client secret.</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">redirect_uri</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Your redirect URI.</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">auth_string</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Your auth string.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="margin: 0 0 16px;">A successful request returns 201 Created with these fields:</p>
+
+<table style="width: 100%; border-collapse: collapse; margin: 0 0 20px; border: 1px solid #dfe3eb;">
+  <thead>
+    <tr>
+      <th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Field</th>
+      <th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">access_token</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">The token to send with each call.</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">expires_in</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Seconds until the token expires.</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">refresh_token</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Exchanged for a new access token when this one expires.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="margin: 0 0 16px;">Send the access token in an <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">Authorization: Bearer</code> header on every API call.</p>
+
+<h2 style="margin: 32px 0 12px;">Try it in the documentation</h2>
+
+<p style="margin: 0 0 16px;">Request a token from your store's base URL as shown in <a href="https://newlify.mintlify.app/authentication-legacy">Authentication (Legacy)</a>, and copy the access token from the response. Then open any endpoint in the API reference, click Try it, set the store to your store's host name, paste the token into Authorization and send. These calls run against your real store, so use test data.</p>
+
+<h2 style="margin: 32px 0 12px;">Related articles</h2>
+
+<ul style="margin: 0 0 16px; padding-left: 24px;">
+  <li style="margin: 0 0 6px;">Authentication (New)</li>
+  <li style="margin: 0 0 6px;">Installing the WebCommander SDKs</li>
+  <li style="margin: 0 0 6px;">Getting started with the WebCommander API</li>
+</ul>

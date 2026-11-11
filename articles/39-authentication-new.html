@@ -1,0 +1,210 @@
+<p style="margin: 0 0 16px;">Every call to the WebCommander API needs an access token. With the new sign-in, you create an API application in the WebCommander admin and use its client ID and client secret to get the token. The SDKs get the token, keep it and renew it for you. This article explains the credentials, how to set up an SDK, and how to request a token yourself.</p>
+
+<p style="margin: 0 0 16px;"><strong><a href="https://newlify.mintlify.app/authentication">See Authentication (New) in the developer documentation</a></strong></p>
+
+<p style="margin: 0 0 16px;">If your store still signs in with a redirect URI and an auth string, read <a href="https://newlify.mintlify.app/authentication-legacy">Authentication (Legacy)</a> instead.</p>
+
+<p style="margin: 0 0 16px;"><strong>Only the token request changes.</strong> Every API call still goes to your WebCommander store's base URL, with the same paths, parameters and responses as before. Your Hykmah base URL is used for nothing but getting and renewing the access token.</p>
+
+<h2 style="margin: 32px 0 12px;">Which address each request uses</h2>
+
+<p style="margin: 0 0 16px;">Your integration works with two addresses. Keep them apart:</p>
+
+<ul style="margin: 0 0 16px; padding-left: 24px;">
+  <li style="margin: 0 0 6px;"><strong>Base URL</strong> is your WebCommander store's own address, for example <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">https://your-store.example.com</code>. It is the same address you use today, and every API call goes to it: customers, orders, products, settings and every other endpoint.</li>
+  <li style="margin: 0 0 6px;"><strong>Hykmah base URL</strong> is the address that issues access tokens. Your integration sends exactly one kind of request there: getting or renewing a token. It never receives an API call.</li>
+</ul>
+
+<h3 style="margin: 24px 0 8px;">Example</h3>
+
+<p style="margin: 0 0 16px;">Say your store is at <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">https://your-store.example.com</code>. With the new sign-in, your integration makes these requests:</p>
+
+<table style="width: 100%; border-collapse: collapse; margin: 0 0 20px; border: 1px solid #dfe3eb;"><thead><tr><th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Step</th><th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Request</th><th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Sent to</th></tr></thead><tbody>
+<tr><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">1. Get a token</td><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">POST /api/v1/oauth/token</code> with the client ID and client secret as form data</td><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Your Hykmah base URL</td></tr>
+<tr><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">2. Call the API</td><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">GET https://your-store.example.com/api/v4/admin/customers</code> with <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">Authorization: Bearer ACCESS_TOKEN</code></td><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Your store's base URL, as before</td></tr>
+<tr><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">3. More calls</td><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Orders, products, settings and every other endpoint, with the same token</td><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Your store's base URL, as before</td></tr>
+<tr><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">4. Renew the token</td><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">POST /api/v1/oauth/token</code> with <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">grant_type</code> set to <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">refresh_token</code></td><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Your Hykmah base URL</td></tr>
+</tbody></table>
+
+<p style="margin: 0 0 16px;">With an SDK you never write these requests yourself. Give the client your store's base URL and your Hykmah base URL once; it sends the token request to the Hykmah base URL and every API call to your store's base URL.</p>
+
+<h3 style="margin: 24px 0 8px;">What changes from the legacy sign-in</h3>
+
+<p style="margin: 0 0 16px;">The two screenshots show the same task in each sign-in: get a token, then list customers. The marked addresses are the only difference. In the legacy sign-in both requests go to your store's base URL (1, 2). In the new sign-in only the token request moves to your Hykmah base URL (1); the API call stays on your store's base URL (2).</p>
+
+<p style="margin: 0 0 16px;"><img src="https://newlify.mintlify.app/images/authentication/flow-legacy.png" alt="Legacy sign-in: the token request and the API call both go to your store's base URL" width="960" style="max-width: 100%; height: auto; border: 1px solid #e5e7eb; border-radius: 6px;"></p>
+
+<p style="margin: 0 0 16px;"><img src="https://newlify.mintlify.app/images/authentication/flow-new.png" alt="New sign-in: only the token request goes to your Hykmah base URL; the API call is unchanged" width="960" style="max-width: 100%; height: auto; border: 1px solid #e5e7eb; border-radius: 6px;"></p>
+
+
+<table style="width: 100%; border-collapse: collapse; margin: 0 0 20px; border: 1px solid #dfe3eb;"><thead><tr><th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;"></th><th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Legacy</th><th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">New</th></tr></thead><tbody>
+<tr><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Where the token request goes</strong></td><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Your store's base URL, <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">POST /api/v4/oauth2/token</code></td><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Your Hykmah base URL, <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">POST /api/v1/oauth/token</code></td></tr>
+<tr><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Token request body</strong></td><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">JSON with the client ID, client secret, redirect URI and auth string</td><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Form data with the client ID and client secret</td></tr>
+<tr><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Where API calls go</strong></td><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Your store's base URL</td><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Your store's base URL (unchanged)</td></tr>
+<tr><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>API paths, parameters and responses</strong></td><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">/api/v4/...</code></td><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Same (unchanged)</td></tr>
+<tr><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>How the token is sent</strong></td><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">Authorization: Bearer ACCESS_TOKEN</code></td><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Same (unchanged)</td></tr>
+</tbody></table>
+
+<h3 style="margin: 24px 0 8px;">Common mistakes</h3>
+
+<ul style="margin: 0 0 16px; padding-left: 24px;">
+  <li style="margin: 0 0 6px;"><strong>Sending API calls to the Hykmah base URL.</strong> It only issues tokens; send every API call to your store's base URL.</li>
+  <li style="margin: 0 0 6px;"><strong>Replacing the base URL with the Hykmah base URL.</strong> Keep the base URL set to your store's address. The Hykmah base URL is an additional setting, not a replacement.</li>
+  <li style="margin: 0 0 6px;"><strong>Requesting the token from the store.</strong> The store's <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">/api/v4/oauth2/token</code> is the legacy token request. With the new sign-in, request the token from your Hykmah base URL.</li>
+  <li style="margin: 0 0 6px;"><strong>Sending the token request as JSON.</strong> The Hykmah token request accepts form data only; JSON is rejected.</li>
+</ul>
+
+<h2 style="margin: 32px 0 12px;">Your credentials</h2>
+
+<table style="width: 100%; border-collapse: collapse; margin: 0 0 20px; border: 1px solid #dfe3eb;">
+  <thead>
+    <tr>
+      <th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Credential</th>
+      <th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">What it is</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Base URL</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Your store's address, including https://. Every API call goes here.</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Hykmah base URL</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">The address that issues access tokens. Only the token request goes here.</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Client ID</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Identifies your API application.</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Client secret</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">The secret paired with the client ID.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="margin: 0 0 16px;">You get the client ID and client secret when you create an API application in the WebCommander admin. There is no redirect URI and no auth string to configure. The steps are in the <a href="https://newlify.mintlify.app/api-application">Create API Application</a> guide.</p>
+
+<p style="margin: 0 0 16px;"><strong>Keep your client secret private.</strong> It gives access to your store's data through the API. Keep it in an environment variable or a secrets manager, never in source code or a shared document.</p>
+
+<h2 style="margin: 32px 0 12px;">Set up an SDK</h2>
+
+<p style="margin: 0 0 16px;">Register your credentials once, when your app starts. The only new setting is the Hykmah base URL. Its name depends on the language:</p>
+
+<table style="width: 100%; border-collapse: collapse; margin: 0 0 20px; border: 1px solid #dfe3eb;">
+  <thead>
+    <tr>
+      <th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Language</th>
+      <th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Hykmah base URL option</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Python</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">auth_base_url</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>JavaScript, PHP, Java, Dart</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">authBaseUrl</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>.NET</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">authBaseUrl</code> argument, <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">AuthBaseUrl</code> property</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Go</strong></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">AuthBaseURL</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="margin: 0 0 16px;">The <a href="https://newlify.mintlify.app/authentication#set-up-a-client">developer documentation</a> has a complete registration sample for each language and for cURL. Use SDK version 4.0.2 or later.</p>
+
+<h2 style="margin: 32px 0 12px;">What the SDKs handle</h2>
+
+<ul style="margin: 0 0 16px; padding-left: 24px;">
+  <li style="margin: 0 0 6px;"><strong>Getting the token.</strong> On the first call, the SDK sends your client ID and client secret to your Hykmah base URL and gets an access token.</li>
+  <li style="margin: 0 0 6px;"><strong>Caching and renewal.</strong> The SDK keeps the token and renews it before it expires, using the refresh token.</li>
+  <li style="margin: 0 0 6px;"><strong>An expired token.</strong> If a call returns 401 because the token has expired, the SDK renews the token once and sends the call again.</li>
+  <li style="margin: 0 0 6px;"><strong>A real refusal.</strong> Any other 401 is returned to you and not retried, so a write is never sent twice.</li>
+</ul>
+
+<h2 style="margin: 32px 0 12px;">Requesting a token yourself</h2>
+
+<p style="margin: 0 0 16px;">With cURL or any HTTP client, send a POST request to <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">/api/v1/oauth/token</code> on your Hykmah base URL. The body must be form data with the header <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">Content-Type: application/x-www-form-urlencoded</code>. A JSON body is rejected with a 400 error.</p>
+
+<table style="width: 100%; border-collapse: collapse; margin: 0 0 20px; border: 1px solid #dfe3eb;">
+  <thead>
+    <tr>
+      <th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Form field</th>
+      <th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">grant_type</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">client_credentials</code></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">client_id</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Your client ID.</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">client_secret</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Your client secret.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="margin: 0 0 16px;">A successful request returns 200 with these fields:</p>
+
+<table style="width: 100%; border-collapse: collapse; margin: 0 0 20px; border: 1px solid #dfe3eb;">
+  <thead>
+    <tr>
+      <th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Field</th>
+      <th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">access_token</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">The token to send with each call.</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">token_type</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Always Bearer.</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">expires_in</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Seconds until the token expires. Currently 3600.</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">refresh_token</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Exchanged for a new access token when this one expires.</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">scope</code></td>
+      <td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">The access the token grants.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="margin: 0 0 16px;">Send the access token in an <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">Authorization: Bearer</code> header on every API call. API calls go to your store's base URL, not to your Hykmah base URL.</p>
+
+<p style="margin: 0 0 16px;">To renew a token, send a form to the same address with <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">grant_type</code> set to <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">refresh_token</code>, your <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">refresh_token</code>, your client ID and your client secret. The response has the same fields.</p>
+
+<h2 style="margin: 32px 0 12px;">Using both sign-ins in one app</h2>
+
+<p style="margin: 0 0 16px;">One app can call a store that uses the new sign-in and a store that still uses the legacy one. Register one configuration for each and give each a client name. The configuration with a Hykmah base URL signs in the new way. The one without it signs in with its redirect URI and auth string. Build a client by name to choose the store. With no name, you get the first one registered. The <a href="https://newlify.mintlify.app/authentication">developer documentation</a> shows this in every language.</p>
+
+<h2 style="margin: 32px 0 12px;">Try it in the documentation</h2>
+
+<p style="margin: 0 0 16px;">Request a token from your Hykmah base URL as shown in <a href="https://newlify.mintlify.app/authentication">Authentication (New)</a>, and copy the access token from the response. Then open any endpoint in the API reference, click Try it, set the store to your store's host name, paste the token into Authorization and send. These calls run against your real store, so use test data.</p>
+
+<h2 style="margin: 32px 0 12px;">Related articles</h2>
+
+<ul style="margin: 0 0 16px; padding-left: 24px;">
+  <li style="margin: 0 0 6px;">Authentication (Legacy)</li>
+  <li style="margin: 0 0 6px;">Installing the WebCommander SDKs</li>
+  <li style="margin: 0 0 6px;">Getting started with the WebCommander API</li>
+</ul>
