@@ -231,6 +231,18 @@
       "title": "Working with dashboard sections through the API",
       "subtitle": "Read what each tab of the store's admin dashboard shows: ecommerce, content, bookings, courses and blog",
       "summary": "Common dashboard section tasks, the endpoint, and what to watch for."
+    },
+    {
+      "file": "39-authentication-new.html",
+      "title": "Authentication with the WebCommander API (New)",
+      "subtitle": "Sign in with an API application's client ID and client secret, in an SDK or with direct requests",
+      "summary": "The credentials, SDK setup, token requests and renewal for the new sign-in."
+    },
+    {
+      "file": "40-authentication-legacy.html",
+      "title": "Authentication with the WebCommander API (Legacy)",
+      "subtitle": "Sign in with a client ID, client secret, redirect URI and auth string",
+      "summary": "The credentials, SDK setup and token requests for stores that use the legacy sign-in."
     }
   ]
 }

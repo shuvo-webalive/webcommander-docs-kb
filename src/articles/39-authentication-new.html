@@ -1,0 +1,160 @@
+<p style="{{style:lead}}">Every call to the WebCommander API needs an access token. With the new sign-in, you create an API application in the WebCommander admin and use its client ID and client secret to get the token. The SDKs get the token, keep it and renew it for you. This article explains the credentials, how to set up an SDK, and how to request a token yourself.</p>
+
+<p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/authentication">See Authentication (New) in the developer documentation</a></strong></p>
+
+<p style="{{style:p}}">If your store still signs in with a redirect URI and an auth string, read <a href="{{MINTLIFY}}/authentication-legacy" style="{{style:a}}">Authentication (Legacy)</a> instead.</p>
+
+<h2 style="{{style:h2}}">Your credentials</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">Credential</th>
+      <th style="{{style:th}}">What it is</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}"><strong>Base URL</strong></td>
+      <td style="{{style:td}}">Your store's address, including https://. Every API call goes here.</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><strong>Auth base URL</strong></td>
+      <td style="{{style:td}}">The address that issues access tokens: <code style="{{style:code}}">https://manage-hykmah-api.exsited.com</code>. Only the token request goes here.</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><strong>Client ID</strong></td>
+      <td style="{{style:td}}">Identifies your API application.</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><strong>Client secret</strong></td>
+      <td style="{{style:td}}">The secret paired with the client ID.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="{{style:p}}">You get the client ID and client secret when you create an API application in the WebCommander admin. There is no redirect URI and no auth string to configure. The steps are in the <a href="{{MINTLIFY}}/api-credentials" style="{{style:a}}">Create API credentials</a> guide.</p>
+
+<p style="{{style:p}}"><strong>Keep your client secret private.</strong> It gives access to your store's data through the API. Keep it in an environment variable or a secrets manager, never in source code or a shared document.</p>
+
+<h2 style="{{style:h2}}">Set up an SDK</h2>
+
+<p style="{{style:p}}">Register your credentials once, when your app starts. The only new setting is the auth base URL. Its name depends on the language:</p>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">Language</th>
+      <th style="{{style:th}}">Auth base URL option</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}"><strong>Python</strong></td>
+      <td style="{{style:td}}"><code style="{{style:code}}">auth_base_url</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><strong>JavaScript, PHP, Java, Dart</strong></td>
+      <td style="{{style:td}}"><code style="{{style:code}}">authBaseUrl</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><strong>.NET</strong></td>
+      <td style="{{style:td}}"><code style="{{style:code}}">authBaseUrl</code> argument, <code style="{{style:code}}">AuthBaseUrl</code> property</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><strong>Go</strong></td>
+      <td style="{{style:td}}"><code style="{{style:code}}">AuthBaseURL</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="{{style:p}}">The <a href="{{MINTLIFY}}/authentication#set-up-a-client" style="{{style:a}}">developer documentation</a> has a complete registration sample for each language and for cURL. Use SDK version 4.0.2 or later.</p>
+
+<h2 style="{{style:h2}}">What the SDKs handle</h2>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}"><strong>Getting the token.</strong> On the first call, the SDK sends your client ID and client secret to the auth base URL and gets an access token.</li>
+  <li style="{{style:li}}"><strong>Caching and renewal.</strong> The SDK keeps the token and renews it before it expires, using the refresh token.</li>
+  <li style="{{style:li}}"><strong>An expired token.</strong> If a call returns 401 because the token has expired, the SDK renews the token once and sends the call again.</li>
+  <li style="{{style:li}}"><strong>A real refusal.</strong> Any other 401 is returned to you and not retried, so a write is never sent twice.</li>
+</ul>
+
+<h2 style="{{style:h2}}">Requesting a token yourself</h2>
+
+<p style="{{style:p}}">With cURL or any HTTP client, send a POST request to <code style="{{style:code}}">/api/v1/oauth/token</code> on the auth base URL. The body must be form data with the header <code style="{{style:code}}">Content-Type: application/x-www-form-urlencoded</code>. A JSON body is rejected with a 400 error.</p>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">Form field</th>
+      <th style="{{style:th}}">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}"><code style="{{style:code}}">grant_type</code></td>
+      <td style="{{style:td}}"><code style="{{style:code}}">client_credentials</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><code style="{{style:code}}">client_id</code></td>
+      <td style="{{style:td}}">Your client ID.</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><code style="{{style:code}}">client_secret</code></td>
+      <td style="{{style:td}}">Your client secret.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="{{style:p}}">A successful request returns 200 with these fields:</p>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">Field</th>
+      <th style="{{style:th}}">Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}"><code style="{{style:code}}">access_token</code></td>
+      <td style="{{style:td}}">The token to send with each call.</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><code style="{{style:code}}">token_type</code></td>
+      <td style="{{style:td}}">Always Bearer.</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><code style="{{style:code}}">expires_in</code></td>
+      <td style="{{style:td}}">Seconds until the token expires. Currently 3600.</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><code style="{{style:code}}">refresh_token</code></td>
+      <td style="{{style:td}}">Exchanged for a new access token when this one expires.</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}"><code style="{{style:code}}">scope</code></td>
+      <td style="{{style:td}}">The access the token grants.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="{{style:p}}">Send the access token in an <code style="{{style:code}}">Authorization: Bearer</code> header on every API call. API calls go to your store's base URL, not to the auth base URL.</p>
+
+<p style="{{style:p}}">To renew a token, send a form to the same address with <code style="{{style:code}}">grant_type</code> set to <code style="{{style:code}}">refresh_token</code>, your <code style="{{style:code}}">refresh_token</code>, your client ID and your client secret. The response has the same fields.</p>
+
+<h2 style="{{style:h2}}">Using both sign-ins in one app</h2>
+
+<p style="{{style:p}}">One app can call a store that uses the new sign-in and a store that still uses the legacy one. Register one configuration for each and give each a client name. The configuration with an auth base URL signs in the new way. The one without it signs in with its redirect URI and auth string. Build a client by name to choose the store. With no name, you get the first one registered. The <a href="{{MINTLIFY}}/authentication" style="{{style:a}}">developer documentation</a> shows this in every language.</p>
+
+<h2 style="{{style:h2}}">Try it in the documentation</h2>
+
+<p style="{{style:p}}">Open <a href="{{MINTLIFY}}/api-reference/authentication/get-an-access-token-new" style="{{style:a}}">Get an access token (New)</a>, click Try it, enter your client ID and client secret, and send the request. Copy the access token from the response. Then open any endpoint, set the store to your store's host name, paste the token into Authorization and send. These calls run against your real store, so use test data.</p>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}">Authentication (Legacy)</li>
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
+</ul>
