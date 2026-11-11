@@ -30,6 +30,13 @@
 
 <h3 style="margin: 24px 0 8px;">What changes from the legacy sign-in</h3>
 
+<p style="margin: 0 0 16px;">The two screenshots show the same task in each sign-in: get a token, then list customers. The marked addresses are the only difference. In the legacy sign-in both requests go to your store's base URL (1, 2). In the new sign-in only the token request moves to your Hykmah base URL (1); the API call stays on your store's base URL (2).</p>
+
+<p style="margin: 0 0 16px;"><img src="https://newlify.mintlify.app/images/authentication/flow-legacy.png" alt="Legacy sign-in: the token request and the API call both go to your store's base URL" width="960" style="max-width: 100%; height: auto; border: 1px solid #e5e7eb; border-radius: 6px;"></p>
+
+<p style="margin: 0 0 16px;"><img src="https://newlify.mintlify.app/images/authentication/flow-new.png" alt="New sign-in: only the token request goes to your Hykmah base URL; the API call is unchanged" width="960" style="max-width: 100%; height: auto; border: 1px solid #e5e7eb; border-radius: 6px;"></p>
+
+
 <table style="width: 100%; border-collapse: collapse; margin: 0 0 20px; border: 1px solid #dfe3eb;"><thead><tr><th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;"></th><th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">Legacy</th><th style="text-align: left; font-weight: 700; padding: 8px 12px; background-color: #f5f8fa; border-bottom: 1px solid #dfe3eb;">New</th></tr></thead><tbody>
 <tr><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Where the token request goes</strong></td><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Your store's base URL, <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">POST /api/v4/oauth2/token</code></td><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Your Hykmah base URL, <code style="font-family: Consolas, Menlo, Monaco, monospace; font-size: 0.9em; background-color: #f5f8fa; border: 1px solid #dfe3eb; border-radius: 3px; padding: 1px 4px;">POST /api/v1/oauth/token</code></td></tr>
 <tr><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;"><strong>Token request body</strong></td><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">JSON with the client ID, client secret, redirect URI and auth string</td><td style="padding: 8px 12px; border-bottom: 1px solid #dfe3eb; vertical-align: top;">Form data with the client ID and client secret</td></tr>
@@ -192,7 +199,7 @@
 
 <h2 style="margin: 32px 0 12px;">Try it in the documentation</h2>
 
-<p style="margin: 0 0 16px;">Open <a href="https://newlify.mintlify.app/api-reference/authentication/get-an-access-token-new">Get an access token (New)</a>, click Try it, enter your client ID and client secret, and send the request. Copy the access token from the response. Then open any endpoint, set the store to your store's host name, paste the token into Authorization and send. These calls run against your real store, so use test data.</p>
+<p style="margin: 0 0 16px;">Request a token from your Hykmah base URL as shown in <a href="https://newlify.mintlify.app/authentication">Authentication (New)</a>, and copy the access token from the response. Then open any endpoint in the API reference, click Try it, set the store to your store's host name, paste the token into Authorization and send. These calls run against your real store, so use test data.</p>
 
 <h2 style="margin: 32px 0 12px;">Related articles</h2>
 

@@ -30,6 +30,13 @@
 
 <h3 style="{{style:h3}}">What changes from the legacy sign-in</h3>
 
+<p style="{{style:p}}">The two screenshots show the same task in each sign-in: get a token, then list customers. The marked addresses are the only difference. In the legacy sign-in both requests go to your store's base URL (1, 2). In the new sign-in only the token request moves to your Hykmah base URL (1); the API call stays on your store's base URL (2).</p>
+
+<p style="{{style:p}}"><img src="https://newlify.mintlify.app/images/authentication/flow-legacy.png" alt="Legacy sign-in: the token request and the API call both go to your store's base URL" width="960" style="max-width: 100%; height: auto; border: 1px solid #e5e7eb; border-radius: 6px;"></p>
+
+<p style="{{style:p}}"><img src="https://newlify.mintlify.app/images/authentication/flow-new.png" alt="New sign-in: only the token request goes to your Hykmah base URL; the API call is unchanged" width="960" style="max-width: 100%; height: auto; border: 1px solid #e5e7eb; border-radius: 6px;"></p>
+
+
 <table style="{{style:table}}"><thead><tr><th style="{{style:th}}"></th><th style="{{style:th}}">Legacy</th><th style="{{style:th}}">New</th></tr></thead><tbody>
 <tr><td style="{{style:td}}"><strong>Where the token request goes</strong></td><td style="{{style:td}}">Your store's base URL, <code style="{{style:code}}">POST /api/v4/oauth2/token</code></td><td style="{{style:td}}">Your Hykmah base URL, <code style="{{style:code}}">POST /api/v1/oauth/token</code></td></tr>
 <tr><td style="{{style:td}}"><strong>Token request body</strong></td><td style="{{style:td}}">JSON with the client ID, client secret, redirect URI and auth string</td><td style="{{style:td}}">Form data with the client ID and client secret</td></tr>
@@ -192,7 +199,7 @@
 
 <h2 style="{{style:h2}}">Try it in the documentation</h2>
 
-<p style="{{style:p}}">Open <a href="{{MINTLIFY}}/api-reference/authentication/get-an-access-token-new" style="{{style:a}}">Get an access token (New)</a>, click Try it, enter your client ID and client secret, and send the request. Copy the access token from the response. Then open any endpoint, set the store to your store's host name, paste the token into Authorization and send. These calls run against your real store, so use test data.</p>
+<p style="{{style:p}}">Request a token from your Hykmah base URL as shown in <a href="{{MINTLIFY}}/authentication" style="{{style:a}}">Authentication (New)</a>, and copy the access token from the response. Then open any endpoint in the API reference, click Try it, set the store to your store's host name, paste the token into Authorization and send. These calls run against your real store, so use test data.</p>
 
 <h2 style="{{style:h2}}">Related articles</h2>
 
