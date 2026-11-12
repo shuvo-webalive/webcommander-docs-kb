@@ -41,7 +41,7 @@
 
 <h2 style="{{style:h2}}">Good to know</h2>
 
-<p style="{{style:p}}"><strong>Use customer_id, not internal_id.</strong> Every customer has two ids: <code style="{{style:code}}">customer_id</code> and <code style="{{style:code}}">internal_id</code>. Endpoints take <code style="{{style:code}}">customer_id</code>. If you send an <code style="{{style:code}}">internal_id</code> by mistake, you can get a different customer back instead of an error, so check that the customer you get back is the one you asked for.</p>
+<p style="{{style:p}}"><strong>Use customer_id.</strong> Paths and fields take the customer's <code style="{{style:code}}">customer_id</code>. Responses also return an <code style="{{style:code}}">internal_id</code>: keep it for reference, but do not send it.</p>
 
 <p style="{{style:p}}"><strong>New customers cannot sign in until they are active.</strong> A customer created without <code style="{{style:code}}">status: "active"</code> is created as <code style="{{style:code}}">awaiting_verification</code> and has no usable login, even with a password. To create a customer who can sign in straight away, send <code style="{{style:code}}">status: "active"</code> with a <code style="{{style:code}}">password</code>.</p>
 
