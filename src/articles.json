@@ -249,6 +249,12 @@
       "title": "Authentication with the WebCommander API (Legacy)",
       "subtitle": "Sign in with a client ID, client secret, redirect URI and auth string",
       "summary": "The credentials, SDK setup and token requests for stores that use the legacy sign-in."
+    },
+    {
+      "file": "42-prepare-a-new-store.html",
+      "title": "Prepare a new store for the API",
+      "subtitle": "What a brand-new store needs before orders, invoices, stock and customer logins work through the API",
+      "summary": "The checks, the errors you get without them, and the calls that fix them: shipping, email, stock and customers."
     }
   ]
 }
