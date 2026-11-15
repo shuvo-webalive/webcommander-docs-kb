@@ -173,10 +173,10 @@
       "summary": "Common email tasks, the one endpoint, and what to watch for."
     },
     {
-      "file": "29-order-previews.html",
-      "title": "Working with order previews through the API",
-      "subtitle": "Price an order before you place it, apply a coupon or a gift card, and place the order from the preview",
-      "summary": "Common order previews tasks, all seven endpoints, and what to watch for."
+      "file": "29-admin-cart-and-checkout.html",
+      "title": "Working with the admin cart and checkout through the API",
+      "subtitle": "Create a cart for a customer, set its delivery and addresses, apply a coupon, a gift card and a delivery date, and place the order",
+      "summary": "Common admin cart and checkout tasks, all nineteen endpoints, and what to watch for."
     },
     {
       "file": "30-gift-cards.html",

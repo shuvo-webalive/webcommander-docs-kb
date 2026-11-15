@@ -1,0 +1,92 @@
+<p style="{{style:lead}}">The Admin cart and checkout API lets your software place an order for a customer in steps. You create a cart for the customer with the products to buy, change its lines, set the delivery type and the addresses on its checkout, apply a coupon, a gift card and a delivery date, and then place the order. The cart and its checkout are one session, which every call reaches by its <code style="{{style:code}}">session_id</code>. All nineteen endpoints are available in all seven WebCommander SDKs, under <code style="{{style:code}}">/api/v4/admin/orders/carts</code> and <code style="{{style:code}}">/api/v4/admin/orders/checkout</code>.</p>
+
+<p style="{{style:p}}"><strong><a href="{{MINTLIFY}}/admin-cart-and-checkout" style="{{style:a}}">Open the Admin cart and checkout reference</a></strong></p>
+
+<h2 style="{{style:h2}}">Common tasks</h2>
+
+<table style="{{style:table}}">
+  <thead>
+    <tr>
+      <th style="{{style:th}}">You want to</th>
+      <th style="{{style:th}}">Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="{{style:td}}">Start a cart for a customer</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/admin-cart-and-checkout/create-an-admin-cart" style="{{style:a}}">Create an admin cart</a> with the customer's <code style="{{style:code}}">customer_id</code> and <code style="{{style:code}}">products</code>, each with a <code style="{{style:code}}">product_id</code> and a <code style="{{style:code}}">quantity</code>, such as <code style="{{style:code}}">{"customer_id": 512, "products": [{"product_id": 101, "quantity": 2}]}</code>. It returns <code style="{{style:code}}">201</code> with the priced cart under <code style="{{style:code}}">cart</code>. Keep <code style="{{style:code}}">cart.session.session_id</code>: every other call takes it as <code style="{{style:code}}">session_id</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Read the cart again</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/admin-cart-and-checkout/retrieve-an-admin-cart" style="{{style:a}}">Retrieve an admin cart</a> with the <code style="{{style:code}}">session_id</code>. It returns the lines and totals</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Change the products on the cart</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/admin-cart-and-checkout/add-products-to-an-admin-cart" style="{{style:a}}">Add products to an admin cart</a>, <a href="{{MINTLIFY}}/api-reference/admin-cart-and-checkout/change-the-quantity-of-a-cart-line" style="{{style:a}}">Change the quantity of a cart line</a> or <a href="{{MINTLIFY}}/api-reference/admin-cart-and-checkout/remove-a-cart-line" style="{{style:a}}">Remove a cart line</a>, with the line's <code style="{{style:code}}">cart_item_id</code>. <a href="{{MINTLIFY}}/api-reference/admin-cart-and-checkout/remove-every-line-from-an-admin-cart" style="{{style:a}}">Remove every line from an admin cart</a> empties it, and <a href="{{MINTLIFY}}/api-reference/admin-cart-and-checkout/replace-an-admin-cart" style="{{style:a}}">Replace an admin cart</a> puts a new set of lines on it. Each of these returns the whole cart</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Move the cart to another customer</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/admin-cart-and-checkout/change-an-admin-carts-customer" style="{{style:a}}">Change an admin cart's customer</a> with only <code style="{{style:code}}">customer_id</code>. Sending <code style="{{style:code}}">products</code> there is rejected with <code style="{{style:code}}">400</code></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">See what blocks the order</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/admin-cart-and-checkout/retrieve-a-checkout" style="{{style:a}}">Retrieve a checkout</a>. <code style="{{style:code}}">issues</code> lists what is missing, such as <code style="{{style:code}}">delivery_type</code> <code style="{{style:code}}">required</code>, and is empty when the order can be placed</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Set the delivery type and addresses</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/admin-cart-and-checkout/update-a-checkout" style="{{style:a}}">Update a checkout</a> with <code style="{{style:code}}">delivery_type</code> set to <code style="{{style:code}}">shipping</code>, <code style="{{style:code}}">delivery</code>, <code style="{{style:code}}">others_shipping</code> or <code style="{{style:code}}">store_pickup</code>, and a <code style="{{style:code}}">billing_address</code> and <code style="{{style:code}}">shipping_address</code>. It returns the priced checkout, with the shipping and handling cost</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Give the customer a coupon</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/admin-cart-and-checkout/apply-a-coupon-to-a-checkout" style="{{style:a}}">Apply a coupon to a checkout</a> with <code style="{{style:code}}">{"code": "SAVE10"}</code>. It returns <code style="{{style:code}}">discounts.coupon.applied_amount</code>, the amount taken off, and the new <code style="{{style:code}}">totals</code>. <a href="{{MINTLIFY}}/api-reference/admin-cart-and-checkout/remove-the-coupon-from-a-checkout" style="{{style:a}}">Remove the coupon from a checkout</a> takes it off again</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Pay part of an order with a gift card</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/admin-cart-and-checkout/apply-a-gift-card-to-a-checkout" style="{{style:a}}">Apply a gift card to a checkout</a> with <code style="{{style:code}}">{"code": "GIFT-0001"}</code>. <code style="{{style:code}}">totals.gift_card_applied</code> shows what the card pays and <code style="{{style:code}}">totals.due</code> what is left. <a href="{{MINTLIFY}}/api-reference/admin-cart-and-checkout/remove-the-gift-card-from-a-checkout" style="{{style:a}}">Remove the gift card from a checkout</a> takes it off again</td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Choose a delivery date</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/admin-cart-and-checkout/set-a-checkouts-delivery-schedule" style="{{style:a}}">Set a checkout's delivery schedule</a> with the schedule's <code style="{{style:code}}">id</code> and a <code style="{{style:code}}">date</code>. Read it with <a href="{{MINTLIFY}}/api-reference/admin-cart-and-checkout/retrieve-a-checkouts-delivery-schedule" style="{{style:a}}">Retrieve a checkout's delivery schedule</a>, and remove it with <a href="{{MINTLIFY}}/api-reference/admin-cart-and-checkout/clear-a-checkouts-delivery-schedule" style="{{style:a}}">Clear a checkout's delivery schedule</a></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Place the order</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/admin-cart-and-checkout/place-the-order-from-a-checkout" style="{{style:a}}">Place the order from a checkout</a>. With no body the order is <code style="{{style:code}}">unpaid</code>. Send <code style="{{style:code}}">payment</code>, with an <code style="{{style:code}}">amount</code> and a <code style="{{style:code}}">payment_method</code>, to record a payment. It returns <code style="{{style:code}}">201</code> with the new order, in the same shape as <a href="{{MINTLIFY}}/api-reference/orders/create-an-order" style="{{style:a}}">Create an order</a></td>
+    </tr>
+    <tr>
+      <td style="{{style:td}}">Drop a cart you no longer need</td>
+      <td style="{{style:td}}"><a href="{{MINTLIFY}}/api-reference/admin-cart-and-checkout/delete-an-admin-cart" style="{{style:a}}">Delete an admin cart</a>. It returns <code style="{{style:code}}">204</code> with no body</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 style="{{style:h2}}">All endpoints</h2>
+
+<p style="{{style:p}}">Each endpoint is listed with its method and path, and links to its page in the reference.</p>
+
+{{endpoints:admin_carts}}
+
+<h2 style="{{style:h2}}">Good to know</h2>
+
+<p style="{{style:p}}"><strong>Placing the order creates a real order.</strong> <a href="{{MINTLIFY}}/api-reference/admin-cart-and-checkout/place-the-order-from-a-checkout" style="{{style:a}}">Place the order from a checkout</a> closes the session. Every later call on the cart or the checkout, including a second confirm, is rejected with <code style="{{style:code}}">410</code> and the code <code style="{{style:code}}">session_confirmed</code>. A deleted cart is rejected the same way with <code style="{{style:code}}">session_deleted</code>, a second delete included.</p>
+
+<p style="{{style:p}}"><strong>Every call takes the cart's <code style="{{style:code}}">session_id</code>.</strong> Create the cart and read <code style="{{style:code}}">cart.session.session_id</code>, a value such as <code style="{{style:code}}">PRV-3f2a9c41b7d80e65</code>. The two line calls also take the line's <code style="{{style:code}}">cart_item_id</code>. A session is held for 30 minutes from its last write.</p>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}"><strong>Bodies are bare, and <code style="{{style:code}}">customer_id</code> is the customer's own <code style="{{style:code}}">customer_id</code>.</strong> Send the fields at the top level, with no wrapper. A field a call does not accept is rejected with <code style="{{style:code}}">400</code> and the code <code style="{{style:code}}">unknown_field</code>.</li>
+  <li style="{{style:li}}"><strong>Every cart call returns the whole cart, except the delete.</strong> The line deletes and removing every line return the cart too. Replacing the cart puts the lines on again, so each gets a new <code style="{{style:code}}">cart_item_id</code>. Adding a product that is already on the cart raises that line's quantity.</li>
+  <li style="{{style:li}}"><strong>The order cannot be placed while <code style="{{style:code}}">issues</code> is not empty.</strong> Placing it is rejected with <code style="{{style:code}}">422</code> and the code <code style="{{style:code}}">checkout_incomplete</code>. A new checkout lists <code style="{{style:code}}">delivery_type</code> as <code style="{{style:code}}">required</code> until you set one.</li>
+  <li style="{{style:li}}"><strong>An address you send replaces the whole address.</strong> A field you leave out reads <code style="{{style:code}}">""</code>. Shipping and handling follow the shipping address, so send it with <code style="{{style:code}}">delivery_type</code>. A <code style="{{style:code}}">store_pickup</code> has no shipping cost.</li>
+  <li style="{{style:li}}"><strong>A <code style="{{style:code}}">shipping</code> or <code style="{{style:code}}">delivery</code> checkout needs a default shipping profile.</strong> A new store has none. Create a shipping profile, then make it the store's <code style="{{style:code}}">default_shipping_profile</code> with <a href="{{MINTLIFY}}/api-reference/shipping-settings/update-shipping-settings" style="{{style:a}}">Update shipping settings</a>: creating the profile alone is not enough.</li>
+  <li style="{{style:li}}"><strong>A checkout takes one coupon and one gift card.</strong> A second coupon, or a second gift card, is rejected with <code style="{{style:code}}">409</code>. A code the store does not accept, or a coupon or gift card that is not active, is rejected with <code style="{{style:code}}">422</code>, with the code <code style="{{style:code}}">invalid_coupon</code> or <code style="{{style:code}}">invalid_gift_card</code>. Removing a coupon or gift card that is not applied returns <code style="{{style:code}}">404</code>.</li>
+  <li style="{{style:li}}"><strong>A coupon lowers the grand total, and a gift card lowers only the amount due.</strong> A coupon lowers <code style="{{style:code}}">totals.total_discount</code> and <code style="{{style:code}}">totals.grand_total</code>. A gift card leaves <code style="{{style:code}}">grand_total</code> as it was, sets <code style="{{style:code}}">totals.gift_card_applied</code> and lowers <code style="{{style:code}}">totals.due</code>. It pays only for the cart's own customer, and nothing is spent from it until the order is placed.</li>
+  <li style="{{style:li}}"><strong>A delivery date needs <code style="{{style:code}}">delivery_type</code> <code style="{{style:code}}">delivery</code>.</strong> With another delivery type, setting a schedule is rejected with <code style="{{style:code}}">422</code> and the code <code style="{{style:code}}">delivery_type_not_supported</code>. A schedule that does not apply to the order is rejected with <code style="{{style:code}}">422</code> and the code <code style="{{style:code}}">schedule_not_applicable</code>. Clearing a schedule returns <code style="{{style:code}}">204</code>, also when none was set.</li>
+  <li style="{{style:li}}"><strong>The transaction number can go in the body or in a header.</strong> Send <code style="{{style:code}}">transaction_no</code> in the confirm body, or as the <code style="{{style:code}}">X-Transaction-No</code> header, which the SDKs send for you. When both are present and differ, placing the order is rejected with <code style="{{style:code}}">400</code> and the code <code style="{{style:code}}">header_body_mismatch</code>.</li>
+</ul>
+
+<h2 style="{{style:h2}}">Related articles</h2>
+
+<ul style="{{style:ul}}">
+  <li style="{{style:li}}">Getting started with the WebCommander API</li>
+  <li style="{{style:li}}">Installing the WebCommander SDKs</li>
+  <li style="{{style:li}}">Working with gift cards through the API</li>
+</ul>
